@@ -3,12 +3,38 @@ using UnityEngine;
 
 public class GridSystem : MonoBehaviour
 {
-    [SerializeField] GameObject GridPlane;
+    private GameObject _gridPlane;
     [SerializeField] Vector2 GridDimensions;
     public static GridSystem Instance;
-    [HideInInspector] public Dictionary<Vector2,Tile> AllTiles = new();
-    
+    [HideInInspector] public Dictionary<Vector2, Tile> AllTiles = new();
 
+    public Tile CurrentTile
+    {
+        get
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity))
+            {
+                if (hit.collider.gameObject == _gridPlane)
+                {
+                    return GetTileByWorldPosition(hit.point);
+                }
+            }
+            return null;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CurrentTile != null)
+                Debug.Log($"Tile: <b>{CurrentTile.x}, {CurrentTile.z}</b>");
+            else
+                Debug.Log($"Tile: <b>NULL</b>");
+
+        }
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -27,19 +53,29 @@ public class GridSystem : MonoBehaviour
         {
             for (int j = 0; j < GridDimensions.y; j++)
             {
-                AllTiles.Add(new Vector2(i,j),new Tile(i,j));
+                AllTiles.Add(new Vector2(i, j), new Tile(i, j));
             }
         }
+        _gridPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        _gridPlane.transform.SetParent(transform, false);
+        _gridPlane.transform.localScale = new(GridDimensions.x / 10f, 1, GridDimensions.y / 10f);
+        _gridPlane.transform.position += new Vector3(_gridPlane.transform.localScale.x,0, _gridPlane.transform.localScale.z)*(4.5f);
     }
 
     public static Tile GetTileByWorldPosition(Vector3 WorldPosition)
     {
-        return Instance.AllTiles[new Vector2(Mathf.Ceil(WorldPosition.x), Mathf.Ceil(WorldPosition.z))];
+        //return Instance?.AllTiles[new Vector2(Mathf.Ceil(WorldPosition.x), Mathf.Ceil(WorldPosition.z))]
+        return GetTileByCoordinates(Mathf.CeilToInt(WorldPosition.x), Mathf.CeilToInt(WorldPosition.z));
     }
 
-    public static Tile GetTileByCoordinates(int X_Coordinate,int Z_Coordinate)
+    public static Tile GetTileByCoordinates(int X_Coordinate, int Z_Coordinate)
     {
+        if(Instance == null || Instance.AllTiles==null || !Instance.AllTiles.ContainsKey(new Vector2(X_Coordinate, Z_Coordinate)))
+        {
+            return null;
+        }
         return Instance.AllTiles[new Vector2(X_Coordinate, Z_Coordinate)];
+
     }
 
     #region Debug - Refactor Later
@@ -87,7 +123,7 @@ public class Tile
 
     public Tile(int x, int z)
     {
-        this.x=x;
-        this.z=z;
+        this.x = x;
+        this.z = z;
     }
 }
