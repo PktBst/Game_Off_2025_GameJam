@@ -29,9 +29,15 @@ public class GridSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (CurrentTile != null)
+            {
                 Debug.Log($"Tile: <b>{CurrentTile.x}, {CurrentTile.z}</b>");
+                GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(CurrentTile,EPlaceableObjectType.FireArcherTower);
+            }
             else
+            {
                 Debug.Log($"Tile: <b>NULL</b>");
+            }
+                
 
         }
     }
@@ -120,6 +126,7 @@ public class Tile
     public GameObject OccupyingEntity;
 
     public bool isBlocked => OccupyingEntity != null;
+    public Vector3Int Pos => new Vector3Int(x, 0 ,z);
 
     public Tile(int x, int z)
     {
