@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public InputActionAsset InputActionAsset => _inputSystem;
     public ObjectPlacementSystem ObjectPlacementSystem => _objectPlacementSystem;
     private void Awake()
     {
