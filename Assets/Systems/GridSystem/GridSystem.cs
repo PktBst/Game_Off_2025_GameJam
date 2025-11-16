@@ -30,7 +30,7 @@ public class GridSystem : MonoBehaviour
         {
             if (CurrentTile != null)
             {
-                Debug.Log($"Tile: <b>{CurrentTile.x}, {CurrentTile.z}</b>");
+                Debug.Log($"Tile: <b>{CurrentTile._x}, {CurrentTile._z}</b>");
                 GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(CurrentTile,EPlaceableObjectType.FireArcherTower);
             }
             else
@@ -70,8 +70,13 @@ public class GridSystem : MonoBehaviour
 
     public static Tile GetTileByWorldPosition(Vector3 WorldPosition)
     {
-        //return Instance?.AllTiles[new Vector2(Mathf.Ceil(WorldPosition.x), Mathf.Ceil(WorldPosition.z))]
         return GetTileByCoordinates(Mathf.CeilToInt(WorldPosition.x), Mathf.CeilToInt(WorldPosition.z));
+    }
+
+    public static bool TryGetTileByWorldPosition(Vector3 WorldPosition,out Tile tile)
+    {
+        tile = GetTileByCoordinates(Mathf.CeilToInt(WorldPosition.x), Mathf.CeilToInt(WorldPosition.z));
+        return tile != null;
     }
 
     public static Tile GetTileByCoordinates(int X_Coordinate, int Z_Coordinate)
@@ -81,13 +86,12 @@ public class GridSystem : MonoBehaviour
             return null;
         }
         return Instance.AllTiles[new Vector2(X_Coordinate, Z_Coordinate)];
-
     }
 
     #region Debug - Refactor Later
-    int tileSize = 1;
-    int height = 1;
-    int width = 1;
+    readonly int tileSize = 1;
+    readonly int height = 1;
+    readonly int width = 1;
     void OnDrawGizmos()
     {
         if (AllTiles == null) return;
@@ -108,7 +112,6 @@ public class GridSystem : MonoBehaviour
         foreach (var tile in AllTiles)
         {
             Vector2 tilePosition = tile.Key;
-            Tile tileData = tile.Value;
 
             // Use the tile's position and color
             Gizmos.color = Color.red;
@@ -121,16 +124,53 @@ public class GridSystem : MonoBehaviour
 
 public class Tile
 {
-    public int x;
-    public int z;
+    public int _x;
+    public int _z;
+
+    public int X => _x;
+    public int Z => _z;
+
+    public float G_Cost = 0f;
+    public float H_Cost = 0f;
+    public float F_Cost => G_Cost+H_Cost;
+
     public GameObject OccupyingEntity;
+    public GameObject OccupyingUnit;
 
-    public bool isBlocked => OccupyingEntity != null;
-    public Vector3Int Pos => new Vector3Int(x, 0 ,z);
+    public bool IsBlocked => OccupyingEntity != null;
 
+    public Vector3Int Pos => new (_x, 0 ,_z);
+
+    public bool TryOccupyTileUnit(GameObject unit)
+    {
+        if(OccupyingEntity != null)
+        {
+            return false;
+        }
+        if(OccupyingUnit!=null &&  OccupyingUnit == unit)
+        {
+            return true;
+        }
+        if(OccupyingUnit != null)
+        {
+            return false;
+        }
+
+        OccupyingUnit = unit;
+        return true;
+    }
+    public bool TryOccupyTileEntity(GameObject entity)
+    {
+        if (OccupyingEntity != null || OccupyingUnit != null)
+        {
+            return false;
+        }
+        OccupyingEntity = entity;
+        return true;
+    }
     public Tile(int x, int z)
     {
-        this.x = x;
-        this.z = z;
+        this._x = x;
+        this._z = z;
     }
 }

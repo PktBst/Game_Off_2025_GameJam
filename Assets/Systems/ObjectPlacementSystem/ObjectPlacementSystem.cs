@@ -6,7 +6,7 @@ public class ObjectPlacementSystem : MonoBehaviour
 
     public void SpawnPlaceableObjectAtTile(Tile tile, EPlaceableObjectType type)
     {
-        if (tile.isBlocked) return;
+        if (tile.IsBlocked) return;
         PlaceableObj placeableObj = placeableObjectDB.GetPlaceableObjectByType(type);
         tile.OccupyingEntity = Instantiate(placeableObj.GameModel, tile.Pos, Quaternion.identity);
     }
