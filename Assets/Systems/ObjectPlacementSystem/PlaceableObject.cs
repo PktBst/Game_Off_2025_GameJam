@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class PlaceableObject : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+[System.Serializable]
+public class PlaceableObject
+{
+    [SerializeField] public EPlaceableObjectType Type;
+    [SerializeField] public float BaseLifeTime;
+    [SerializeField] public GameObject GameModel;
+}
+
+
+[System.Serializable]
+public enum EPlaceableObjectType
+{
+    //Attack
+    FireArcherTower,
 }
