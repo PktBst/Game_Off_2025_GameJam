@@ -5,11 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlaceableObjectDB_SO", menuName = "Scriptable Objects/PlaceableObjectDB_SO")]
 public class PlaceableObjectDB_SO : ScriptableObject
 {
-    [SerializeField] public List<PlaceableObj> AllPlaceableObject;
+    [SerializeField] public List<PlaceableObject_SO> AllPlaceableObjectSOs;
 
     public PlaceableObj GetPlaceableObjectByType(EPlaceableObjectType type)
     {
-        return AllPlaceableObject.Where(t => t.Type == type).FirstOrDefault();
+        return AllPlaceableObjectSOs.Where(t => t.PlaceableObjData.Type == type).FirstOrDefault().PlaceableObjData;
     }
 }
 

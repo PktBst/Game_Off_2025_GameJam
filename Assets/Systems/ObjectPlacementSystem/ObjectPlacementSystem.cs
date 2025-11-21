@@ -9,6 +9,7 @@ public class ObjectPlacementSystem : MonoBehaviour
         if (tile.IsBlocked) return;
         PlaceableObj placeableObj = placeableObjectDB.GetPlaceableObjectByType(type);
         tile.OccupyingEntity = Instantiate(placeableObj.GameModel, tile.Pos, Quaternion.identity);
+        tile.OccupyingEntity.GetComponent<HealthComponent>().Init(placeableObj.BaseLifeTime,Faction.GoodGuys);
     }
 }
 
@@ -22,6 +23,7 @@ public enum EPlaceableObjectType
 [System.Serializable]
 public class PlaceableObj
 {
-    [SerializeField] public GameObject GameModel;
     [SerializeField] public EPlaceableObjectType Type;
+    [SerializeField] public float BaseLifeTime;
+    [SerializeField] public GameObject GameModel;
 }

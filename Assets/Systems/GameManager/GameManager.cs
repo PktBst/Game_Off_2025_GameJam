@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] InputActionAsset _inputSystem;
+    [SerializeField] TickSystem _tickSystem;
     [SerializeField] GridSystem _gridSystem;
     [SerializeField] ObjectPlacementSystem _objectPlacementSystem;
 
     public static GameManager Instance;
 
+    public TickSystem TickSystem => _tickSystem;
     public InputActionAsset InputActionAsset => _inputSystem;
     public ObjectPlacementSystem ObjectPlacementSystem => _objectPlacementSystem;
     private void Awake()
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     //Initializes All Other Managers 
     void Init()
     {
+        _tickSystem.Init();
         InitInputSystem();
         _gridSystem.Init();
     }
