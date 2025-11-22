@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cf5714d1cd6fc45aa18e96e4c7b0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeableObjectDB: {fileID: 0}
+  placeableObjectDB: {fileID: 11400000, guid: 01d8e44cb6c5d1548adda9d9bc0535cd, type: 2}

@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GridSystem : MonoBehaviour
 {
     private GameObject _gridPlane;
     [SerializeField] Vector2 GridDimensions;
+    [SerializeField] bool showDebugInfo;
+    [SerializeField] TextMeshProUGUI DebugCurrentTileText;
     public static GridSystem Instance;
     [HideInInspector] public Dictionary<Vector2, Tile> AllTiles = new();
 
@@ -12,6 +17,7 @@ public class GridSystem : MonoBehaviour
     {
         get
         {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())  return null;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity))
             {
@@ -26,12 +32,12 @@ public class GridSystem : MonoBehaviour
 
     private void Update()
     {
+        if (showDebugInfo) updateDebugInfo();
         if (Input.GetMouseButtonDown(0))
         {
             if (CurrentTile != null)
             {
                 Debug.Log($"Tile: <b>{CurrentTile._x}, {CurrentTile._z}</b>");
-                GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(CurrentTile,EPlaceableObjectType.FireArcherTower);
             }
             else
             {
@@ -118,6 +124,25 @@ public class GridSystem : MonoBehaviour
             Gizmos.DrawCube(new Vector3(tilePosition.x, 0.1f, tilePosition.y), new Vector3(tileSize, 0.1f, tileSize));
         }
     }
+
+    void updateDebugInfo()
+    {
+        if (CurrentTile == null)
+        {
+            DebugCurrentTileText.text = "Position: NULL";
+            return;
+        }
+
+        string entityName = CurrentTile.OccupyingEntity != null ? CurrentTile.OccupyingEntity.name : "NULL";
+        string unitName = CurrentTile.OccupyingUnit != null ? CurrentTile.OccupyingUnit.name : "NULL";
+
+        DebugCurrentTileText.text =
+            $"Position : ({CurrentTile.X},{CurrentTile.Z})  \n " +
+            $"IsBlocked : {CurrentTile.IsBlocked}\n" +
+            $"OccupyingEntity : {entityName} \n" +
+            $"OccupyingUnit : {unitName} \n".ToString();
+    }
+
     #endregion
 }
 

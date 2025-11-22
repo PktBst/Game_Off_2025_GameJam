@@ -11,6 +11,6 @@ public class BillBoard : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.rotation = Quaternion.LookRotation(cam.position - transform.position);
+        transform.rotation = cam.rotation;
     }
 }

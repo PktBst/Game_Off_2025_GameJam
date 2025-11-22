@@ -393,6 +393,6 @@ MonoBehaviour:
   maxZoomDistance: 20
   zoomSmoothTime: 0.12
   zoomKeySpeed: 4
-  minFOV: 50
-  maxFOV: 70
+  minFOV: 30
+  maxFOV: 50
   fovSmoothTime: 0.1

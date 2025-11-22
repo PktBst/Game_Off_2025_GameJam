@@ -14,5 +14,10 @@ public class PlaceableObject
 public enum EPlaceableObjectType
 {
     //Attack
-    FireArcherTower,
+    ArcherTower,
+    WitchTower,
+    PoisonTower,
+    BallistaTower,
+    CanonTower,
+    
 }

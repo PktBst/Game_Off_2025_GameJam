@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf12f9beef1297541a78b77fa866cb59, type: 3}
-  m_Name: FireArcherTower
+  m_Name: CanonTower
   m_EditorClassIdentifier: 
   PlaceableObjData:
-    Type: 0
-    BaseLifeTime: 15
-    GameModel: {fileID: 2655211997919980244, guid: 2bf431de10e5e6245bab916fc054c6e7, type: 3}
+    Type: 4
+    BaseLifeTime: 45
+    GameModel: {fileID: 2655211997919980244, guid: d5c3a8dc354a70843b23964bbb0061e1, type: 3}
