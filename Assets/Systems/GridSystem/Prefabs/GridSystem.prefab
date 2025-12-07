@@ -286,6 +286,7 @@ MonoBehaviour:
   GridDimensions: {x: 10, y: 10}
   showDebugInfo: 1
   DebugCurrentTileText: {fileID: 3387219109138443689}
+  _tileHighlighterPrefab: {fileID: 1037606674898128251, guid: 0bea40164e671b54ea802795a3cad399, type: 3}
 --- !u!1 &4909521267185438435
 GameObject:
   m_ObjectHideFlags: 0

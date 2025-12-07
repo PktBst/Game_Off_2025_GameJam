@@ -7,12 +7,13 @@ using UnityEngine.EventSystems;
 public class GridSystem : MonoBehaviour
 {
     private GameObject _gridPlane;
-    [SerializeField] Vector2 GridDimensions;
+    [SerializeField] Vector2Int GridDimensions;
     [SerializeField] bool showDebugInfo;
     [SerializeField] TextMeshProUGUI DebugCurrentTileText;
     public static GridSystem Instance;
     [HideInInspector] public Dictionary<Vector2, Tile> AllTiles = new();
-
+    [SerializeField] GameObject _tileHighlighterPrefab;
+    private GameObject _tileHighlighter;
     public Tile CurrentTile
     {
         get
@@ -46,6 +47,18 @@ public class GridSystem : MonoBehaviour
                 
 
         }
+        if (CurrentTile != null)
+        {
+            if (_tileHighlighter.transform.position != CurrentTile.Pos) 
+            {
+                _tileHighlighter.transform.position = CurrentTile.Pos;
+            }
+            _tileHighlighter.SetActive(true);
+        }
+        else
+        {
+            _tileHighlighter.SetActive(false);
+        }
     }
     private void Awake()
     {
@@ -57,13 +70,14 @@ public class GridSystem : MonoBehaviour
         {
             Destroy(this);
         }
+        _tileHighlighter = Instantiate(_tileHighlighterPrefab, transform);
     }
 
     public void Init()
     {
-        for (int i = 0; i < GridDimensions.x; i++)
+        for (int i = -GridDimensions.x/2; i < GridDimensions.x/2; i++)
         {
-            for (int j = 0; j < GridDimensions.y; j++)
+            for (int j = -GridDimensions.y/2; j < GridDimensions.y/2; j++)
             {
                 AllTiles.Add(new Vector2(i, j), new Tile(i, j));
             }
@@ -71,17 +85,18 @@ public class GridSystem : MonoBehaviour
         _gridPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         _gridPlane.transform.SetParent(transform, false);
         _gridPlane.transform.localScale = new(GridDimensions.x / 10f, 1, GridDimensions.y / 10f);
-        _gridPlane.transform.position += new Vector3(_gridPlane.transform.localScale.x,0, _gridPlane.transform.localScale.z)*(4.5f);
+        _gridPlane.transform.localPosition = new Vector3(-0.5f, 0, -0.5f);
+        //_gridPlane.transform.position += new Vector3(_gridPlane.transform.localScale.x,0, _gridPlane.transform.localScale.z);
     }
 
     public static Tile GetTileByWorldPosition(Vector3 WorldPosition)
     {
-        return GetTileByCoordinates(Mathf.CeilToInt(WorldPosition.x), Mathf.CeilToInt(WorldPosition.z));
+        return GetTileByCoordinates(Mathf.RoundToInt(WorldPosition.x), Mathf.RoundToInt(WorldPosition.z));
     }
 
     public static bool TryGetTileByWorldPosition(Vector3 WorldPosition,out Tile tile)
     {
-        tile = GetTileByCoordinates(Mathf.CeilToInt(WorldPosition.x), Mathf.CeilToInt(WorldPosition.z));
+        tile = GetTileByCoordinates(Mathf.RoundToInt(WorldPosition.x), Mathf.RoundToInt(WorldPosition.z));
         return tile != null;
     }
 
@@ -144,59 +159,4 @@ public class GridSystem : MonoBehaviour
     }
 
     #endregion
-}
-
-
-public class Tile
-{
-    public int _x;
-    public int _z;
-
-    public int X => _x;
-    public int Z => _z;
-
-    public float G_Cost = 0f;
-    public float H_Cost = 0f;
-    public float F_Cost => G_Cost+H_Cost;
-
-    public GameObject OccupyingEntity;
-    public GameObject OccupyingUnit;
-    public List<Objective> Objectives;
-
-    public bool IsBlocked => OccupyingEntity != null;
-
-    public Vector3Int Pos => new (_x, 0 ,_z);
-
-    public bool TryOccupyTileUnit(GameObject unit)
-    {
-        if(OccupyingEntity != null)
-        {
-            return false;
-        }
-        if(OccupyingUnit!=null &&  OccupyingUnit == unit)
-        {
-            return true;
-        }
-        if(OccupyingUnit != null)
-        {
-            return false;
-        }
-
-        OccupyingUnit = unit;
-        return true;
-    }
-    public bool TryOccupyTileEntity(GameObject entity)
-    {
-        if (OccupyingEntity != null || OccupyingUnit != null)
-        {
-            return false;
-        }
-        OccupyingEntity = entity;
-        return true;
-    }
-    public Tile(int x, int z)
-    {
-        this._x = x;
-        this._z = z;
-    }
 }

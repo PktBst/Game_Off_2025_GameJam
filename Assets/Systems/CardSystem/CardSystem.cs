@@ -63,10 +63,13 @@ public class CardSystem : MonoBehaviour
         if (currentlySelectedCard == null) return;
         if (GameManager.Instance.GridSystem.CurrentTile == null) return;
 
-        GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(
+       if( !GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(
             GameManager.Instance.GridSystem.CurrentTile,
             currentlySelectedCard.PlaceableObjectData.Type
-            );
+            ))
+        {
+            return;
+        }
 
         CardScript cardToRemove = currentlySelectedCard;
         int oldIndex = cardToRemove.transform.GetSiblingIndex(); 

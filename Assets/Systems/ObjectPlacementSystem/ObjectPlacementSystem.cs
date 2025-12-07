@@ -11,12 +11,13 @@ public class ObjectPlacementSystem : MonoBehaviour
     {
         enumValues = (EPlaceableObjectType[])Enum.GetValues(typeof(EPlaceableObjectType));
     }
-    public void SpawnPlaceableObjectAtTile(Tile tile, EPlaceableObjectType type)
+    public bool SpawnPlaceableObjectAtTile(Tile tile, EPlaceableObjectType type)
     {
-        if (tile.IsBlocked) return;
+        if (tile.IsBlocked) return false;
         PlaceableObject placeableObj = placeableObjectDB.GetPlaceableObjectByType(type);
         tile.OccupyingEntity = Instantiate(placeableObj.GameModel, tile.Pos, Quaternion.identity);
         tile.OccupyingEntity.GetComponent<HealthComponent>().Init(placeableObj.BaseLifeTime,Faction.GoodGuys);
+        return true;
     }
 
     public PlaceableObject GetRandomPlaceableObject()
