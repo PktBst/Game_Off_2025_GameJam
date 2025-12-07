@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static AYellowpaper.SerializedCollections.SerializedDictionarySample;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +20,10 @@ public class GameManager : MonoBehaviour
     public InputActionAsset InputActionAsset => _inputSystem;
     public ObjectPlacementSystem ObjectPlacementSystem => _objectPlacementSystem;
     public CardSystem CardSystem => _cardSystem;
+
+    [SerializedDictionary("Game Mode Type", "Game Mode Script")]
+    public SerializedDictionary<GameModeType,GameMode> GameModesList;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,11 +47,15 @@ public class GameManager : MonoBehaviour
         InitInputSystem();
         _gridSystem.Init();
         _cardSystem.Init();
+        GameModesList[GameModeType.InfiniteWaves].Init();
     }
 
     void InitInputSystem()
     {
 
     }
+
 }
+
+
 

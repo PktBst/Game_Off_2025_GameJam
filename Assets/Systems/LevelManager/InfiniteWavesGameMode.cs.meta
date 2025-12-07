@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 8a1cefe868b56b2498e681b752f4b1f2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - TownHallPrefab: {fileID: 157641320810771396, guid: 44501673a357d3745a4de73bef2b9612, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
