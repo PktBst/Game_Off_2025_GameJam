@@ -161,6 +161,7 @@ public class Tile
 
     public GameObject OccupyingEntity;
     public GameObject OccupyingUnit;
+    public List<Objective> Objectives;
 
     public bool IsBlocked => OccupyingEntity != null;
 
