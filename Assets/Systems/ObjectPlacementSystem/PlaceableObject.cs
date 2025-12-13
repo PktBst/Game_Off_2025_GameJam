@@ -1,15 +1,5 @@
 using UnityEngine;
 
-
-[System.Serializable]
-public class PlaceableObject
-{
-    [SerializeField] public EPlaceableObjectType Type;
-    [SerializeField] public float BaseLifeTime;
-    [SerializeField] public GameObject GameModel;
-}
-
-
 [System.Serializable]
 public enum EPlaceableObjectType
 {
@@ -21,3 +11,12 @@ public enum EPlaceableObjectType
     CanonTower,
     
 }
+
+[System.Serializable]
+public class PlaceableObject
+{
+    [SerializeField] public EPlaceableObjectType Type;
+    [SerializeField] public float BaseLifeTime;
+    [SerializeField] public GameObject GameModel;
+}
+

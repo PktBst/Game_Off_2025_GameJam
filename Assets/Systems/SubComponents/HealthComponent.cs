@@ -3,18 +3,18 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    Faction Faction;
+    public StatsComponent Stats;
     float MaxHealth;
     float CurrentHealth;
 
     [SerializeField] Image FillImage;
 
-    public void Init(float MaxHealth, Faction AssignedFaction)
+    public void Init(float MaxHealth)
     {
-        Faction = AssignedFaction;
         CurrentHealth = MaxHealth;
         this.MaxHealth = MaxHealth;
         GameManager.Instance.TickSystem.Subscribe(updateUI);
+        Stats = GetComponent<StatsComponent>();
     }
 
     void updateUI()

@@ -16,7 +16,7 @@ public class ObjectPlacementSystem : MonoBehaviour
         if (tile.IsBlocked) return false;
         PlaceableObject placeableObj = placeableObjectDB.GetPlaceableObjectByType(type);
         tile.OccupyingEntity = Instantiate(placeableObj.GameModel, tile.Pos, Quaternion.identity);
-        tile.OccupyingEntity.GetComponent<HealthComponent>().Init(placeableObj.BaseLifeTime,Faction.GoodGuys);
+        tile.OccupyingEntity.GetComponent<HealthComponent>().Init(placeableObj.BaseLifeTime);
         return true;
     }
 
