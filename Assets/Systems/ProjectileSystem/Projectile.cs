@@ -20,33 +20,23 @@ public class Projectile : MonoBehaviour
         this.duration = Mathf.Max(duration,1);
         this.elapsed = 0f;
         this.height = height;
+        this.damage = damage;
         Activate();
     }
     private void Update()
     {
         elapsed += Time.deltaTime/duration;
         elapsed = Mathf.Clamp01(elapsed);
-        float heightOffset = height * 4 * elapsed * (1 - elapsed);
+        float heightOffset = height * elapsed * (1 - elapsed);
         Vector3 position = Vector3.Lerp(startPosition, targetPosition, elapsed);
         position.y += heightOffset;
         transform.position = position;
-        transform.up = CalTagent(elapsed).normalized;
-        if(elapsed >= 1f)
+        transform.up = (targetPosition - startPosition).normalized;
+        if (elapsed >= 1f)
         {
             Deactivate();
         }
     }
-
-    Vector3 CalTagent(float t)
-    {
-        float dxdt = 1f;
-        float dydt = height * 4 * (1 -2*elapsed);
-        float dzdt = 0;
-
-        Vector3 tangent = new Vector3 (dxdt, dydt, dzdt);
-        return tangent;
-    }
-
     public void Activate()
     {
         gameObject.SetActive(true);
@@ -57,6 +47,7 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("attacked");
         if(!other.TryGetComponent<HealthComponent>(out var targetHealth))
         {
             return;
