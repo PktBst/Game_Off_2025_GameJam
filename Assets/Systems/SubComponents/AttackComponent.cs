@@ -10,6 +10,12 @@ public class AttackComponent : MonoBehaviour
 
     public Coroutine animationCoroutine;
 
+    public Transform projectileSpawnPoint;
+    public bool IsRanged;
+    const float duration = 5;
+    float elapsed = duration;
+
+    public bool hasTarget => targetHealth != null;
     public StatsComponent Stats
     {
         get
@@ -32,9 +38,28 @@ public class AttackComponent : MonoBehaviour
 
     private void UpdateTarget()
     {
+       
         if(ScanForTarget(out targetHealth))
         {
-            animationCoroutine ??= StartCoroutine(playAttackAnimation());   
+            if (IsRanged)
+            {
+                if (elapsed < duration)
+                {
+                    elapsed += Time.deltaTime;
+                    return;
+                }
+                elapsed = 0;
+                if (ProjectilePool.Instance != null)
+                {
+                    var projectile = ProjectilePool.Instance.GetProjectile();
+                    projectile.Init(Stats.FactionType,projectileSpawnPoint.transform.position,targetHealth.transform.position, Stats.BaseAttackPoints, Stats.BaseAttackSpeed);
+                    projectile.Activate();
+                }
+            }
+            else
+            {
+                animationCoroutine ??= StartCoroutine(playAttackAnimation());   
+            }
         }
     }
     IEnumerator playAttackAnimation()
@@ -47,7 +72,8 @@ public class AttackComponent : MonoBehaviour
     }
     public bool ScanForTarget(out HealthComponent targetHealth)
     {
-        var hits = Physics.OverlapSphere(transform.position, 1f);
+        float scanRadius = IsRanged ? 5f : 1f;
+        var hits = Physics.OverlapSphere(transform.position, scanRadius);
 
         foreach (var hit in hits)
         {

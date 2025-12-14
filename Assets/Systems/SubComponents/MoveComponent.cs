@@ -63,10 +63,29 @@ public class MoveComponent : MonoBehaviour
         return nearestTarget != null;
     }
 
+    public void Stop()
+    {
+        Agent.isStopped = true;
+    }
+
+    public void Resume()
+    {
+        Agent.isStopped = false;
+    }
+
 
     void UpdateTarget()
     {
-
+        if (TryGetComponent<AttackComponent>(out var attack))
+        {
+            if (attack.hasTarget)
+            {
+                Stop();
+                transform.LookAt(attack.targetHealth.transform.position);
+                return;
+            }
+        }
+        Resume();
         //Vector3 dir = (TargetPosition - transform.position).normalized;
         transform.LookAt(TargetPosition);
         if (ScanForTarget(out var targetHealth))

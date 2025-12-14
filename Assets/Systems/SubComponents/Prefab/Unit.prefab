@@ -136,6 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 7611622342117740622}
   animator: {fileID: 3626262034780429639}
+  projectileSpawnPoint: {fileID: 1246329226410072550}
+  IsRanged: 0
   targetHealth: {fileID: 0}
 --- !u!95 &3626262034780429639
 Animator:
