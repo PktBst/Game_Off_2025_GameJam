@@ -34,16 +34,14 @@ public class AttackComponent : MonoBehaviour
     {
         if(ScanForTarget(out targetHealth))
         {
-            Debug.Log("Scanned target");
-            animationCoroutine ??= StartCoroutine(playAttackAnimation());
-            
+            animationCoroutine ??= StartCoroutine(playAttackAnimation());   
         }
     }
     IEnumerator playAttackAnimation()
     {
         animator.SetBool("IsAttacking",true);
         yield return new WaitForSeconds(stats.BaseAttackSpeed);
-        targetHealth.DeductHealth(Stats.BaseAttackPoints);
+        targetHealth?.DeductHealth(Stats.BaseAttackPoints);
         animator.SetBool("IsAttacking", false);
         animationCoroutine = null;
     }
