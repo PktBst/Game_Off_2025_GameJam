@@ -683,18 +683,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1795533657974507048, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: GameModesList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795533657974507048, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: GameModesList._serializedList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795533657974507048, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: GameModesList._serializedList.Array.data[0].Value
-      value: 
-      objectReference: {fileID: 3826679239237500858, guid: d3205efaca88f1c4d8762566a0168e13, type: 3}
     - target: {fileID: 2439926394442381059, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -738,14 +726,6 @@ PrefabInstance:
     - target: {fileID: 3547052958310297175, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9130047898664437976, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: GridDimensions.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9130047898664437976, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: GridDimensions.y
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

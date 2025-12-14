@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlaceableObjData:
     Type: 2
-    BaseLifeTime: 30
+    BaseLifeTime: 200
     GameModel: {fileID: 2655211997919980244, guid: b889852ab402dcf47833f115e4e2e423, type: 3}

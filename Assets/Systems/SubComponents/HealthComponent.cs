@@ -1,35 +1,55 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(StatsComponent))]
 public class HealthComponent : MonoBehaviour
 {
-    public StatsComponent Stats;
-    float MaxHealth;
-    float CurrentHealth;
+    private StatsComponent stats;
+    public StatsComponent Stats
+    {
+        get
+        {
+            stats??= GetComponent<StatsComponent>();
+            return stats;
+        }
+    }
+    public float MaxHealth;
+    public float CurrentHealth;
 
     [SerializeField] Image FillImage;
+
+    private void Start()
+    {
+        Init(MaxHealth);
+    }
 
     public void Init(float MaxHealth)
     {
         CurrentHealth = MaxHealth;
         this.MaxHealth = MaxHealth;
         GameManager.Instance.TickSystem.Subscribe(updateUI);
-        Stats = GetComponent<StatsComponent>();
     }
 
     void updateUI()
     {
-        CurrentHealth -=Time.deltaTime;
+        //CurrentHealth -=Time.deltaTime;
         FillImage.fillAmount = CurrentHealth/MaxHealth;
         if (CurrentHealth<=0)
         {
+            GameManager.Instance.TickSystem.Unsubscribe(updateUI);
             Destroy(gameObject);
         }
     }
 
+    public void DeductHealth(float amount)
+    {
+        amount = Mathf.Clamp(amount,0,CurrentHealth);
+        if(amount>0)
+            CurrentHealth -= amount;
+    }
     private void OnDestroy()
     {
-        GameManager.Instance.TickSystem.Unsubscribe(updateUI);
+       
     }
 }
 

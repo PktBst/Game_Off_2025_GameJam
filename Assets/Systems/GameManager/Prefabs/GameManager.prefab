@@ -53,6 +53,10 @@ MonoBehaviour:
   _gridSystem: {fileID: 9130047898664437976}
   _objectPlacementSystem: {fileID: 2703056643758751297}
   _cardSystem: {fileID: 8628205936291478956}
+  GameModesList:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 3826679239237500858, guid: d3205efaca88f1c4d8762566a0168e13, type: 3}
 --- !u!1001 &924237946097957476
 PrefabInstance:
   m_ObjectHideFlags: 0
