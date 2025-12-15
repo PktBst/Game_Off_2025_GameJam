@@ -112,13 +112,13 @@ public class AttackComponent : MonoBehaviour
 
     IEnumerator playAttackAnimation()
     {
-        animator.SetBool("IsAttacking",true);
+        animator?.SetBool("IsAttacking",true);
         while (elapsed < duration && targetHealth !=null)
         {
             targetHealth?.DeductHealth(Stats.BaseAttackPoints);
             yield return new WaitForSeconds(1f);
         }
-        animator.SetBool("IsAttacking", false);
+        animator?.SetBool("IsAttacking", false);
         animationCoroutine = null;
     }
     public void ResumeScanning()
