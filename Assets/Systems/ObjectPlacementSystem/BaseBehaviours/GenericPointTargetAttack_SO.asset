@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf12f9beef1297541a78b77fa866cb59, type: 3}
-  m_Name: ArcherTower
+  m_Script: {fileID: 11500000, guid: 22a9c033e6164094db9bf23295f501a5, type: 3}
+  m_Name: GenericPointTargetAttack_SO
   m_EditorClassIdentifier: 
-  PlaceableObjData:
-    Type: 0
-    BaseLifeTime: 200
-    GameModel: {fileID: 2655211997919980244, guid: 2bf431de10e5e6245bab916fc054c6e7, type: 3}
+  name: PointTargetAttack
+  Projectile: {fileID: 4632027706404754854, guid: 043b4e7f38515244aa2c1c5d14ebc852, type: 3}
+  ParticleEffect: {fileID: 0}
+  BaseDamage: 1

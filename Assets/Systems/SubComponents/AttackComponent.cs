@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class AttackComponent : MonoBehaviour
     public bool hasTarget => targetHealth != null;
 
     private bool stopScanning= false;
+    private Action<Transform,Transform> AttackCallbackFromSO = null;
 
     public StatsComponent Stats
     {
@@ -54,6 +56,10 @@ public class AttackComponent : MonoBehaviour
         GameManager.Instance.TickSystem.Unsubscribe(UpdateTarget);
     }
 
+    public void Init(Action<Transform,Transform> action)
+    {
+        AttackCallbackFromSO = action;
+    }
     private void UpdateTarget()
     {
         if(ScanForNearestTarget(out targetHealth))
@@ -87,10 +93,12 @@ public class AttackComponent : MonoBehaviour
         elapsed = 0;
         if (IsRanged)
         {
-            animationCoroutine ??= StartCoroutine(PlayRangedAttack());
+            AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
+            //animationCoroutine ??= StartCoroutine(PlayRangedAttack());
         }
         else
         {
+            AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
             animationCoroutine ??= StartCoroutine(playAttackAnimation());
         }
     }

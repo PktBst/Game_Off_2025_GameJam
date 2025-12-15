@@ -47,7 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 2907053777103439013, guid: 5812e2549c793ae48b4b9dad1466ee99, type: 3}
   cardHolder: {fileID: 310791616443886109}
-  numberOfCards: 5
+  DeckLocation: {fileID: 0}
+  PopDistance: 800
+  SwipeVariance: 300
+  SpawnRotationVariance: 45
+  startingCardCount: 5
   CardVisibility: 0.906
   MaxCardRotation: 10
   ArchHeight: 40
@@ -186,7 +190,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2099867795761694548
 MonoBehaviour:

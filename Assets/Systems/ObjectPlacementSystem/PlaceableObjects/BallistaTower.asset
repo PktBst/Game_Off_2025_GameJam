@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf12f9beef1297541a78b77fa866cb59, type: 3}
   m_Name: BallistaTower
   m_EditorClassIdentifier: 
-  PlaceableObjData:
-    Type: 3
-    BaseLifeTime: 200
-    GameModel: {fileID: 2655211997919980244, guid: bbb21b765c89ebc4f99cb072bdc939eb, type: 3}
+  Type: 3
+  BaseHealth: 100
+  GameModel: {fileID: 2655211997919980244, guid: bbb21b765c89ebc4f99cb072bdc939eb, type: 3}
+  Behaviour: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
+  AttackRange: 5
+  Cooldown: 0.2

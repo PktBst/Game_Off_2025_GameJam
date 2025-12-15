@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf12f9beef1297541a78b77fa866cb59, type: 3}
-  m_Name: CanonTower
+  m_Name: PoisonTower
   m_EditorClassIdentifier: 
-  PlaceableObjData:
-    Type: 4
-    BaseLifeTime: 200
-    GameModel: {fileID: 2655211997919980244, guid: d5c3a8dc354a70843b23964bbb0061e1, type: 3}
+  Type: 2
+  BaseHealth: 100
+  GameModel: {fileID: 2655211997919980244, guid: b889852ab402dcf47833f115e4e2e423, type: 3}
+  Behaviour: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
+  AttackRange: 5
+  Cooldown: 0.2

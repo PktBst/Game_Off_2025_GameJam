@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllPlaceableObjectSOs:
   - {fileID: 11400000, guid: 138c69b2078c2704c9eb8a1981c2fab8, type: 2}
-  - {fileID: 11400000, guid: 4bbf901a7b20cf34ea9165f31bfff161, type: 2}
-  - {fileID: 11400000, guid: c73d1ee7bceb2a941af7c1f66f389fff, type: 2}
   - {fileID: 11400000, guid: 63182f4f0f862a242871b8126ec67cc7, type: 2}
   - {fileID: 11400000, guid: aafb58ce63528394b82a2b786dcb98a9, type: 2}
+  - {fileID: 11400000, guid: c73d1ee7bceb2a941af7c1f66f389fff, type: 2}
+  - {fileID: 11400000, guid: 4bbf901a7b20cf34ea9165f31bfff161, type: 2}

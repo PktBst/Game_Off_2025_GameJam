@@ -538,7 +538,7 @@ Transform:
   m_GameObject: {fileID: 1399613430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.141969, y: 2.8262835, z: 4.7811656}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2703056643758751297, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
+      propertyPath: placeableObjectSkeletonPrefab
+      value: 
+      objectReference: {fileID: 2655211997919980244, guid: 3bac02b6e7fbfa24891ae6a21519b7eb, type: 3}
     - target: {fileID: 3547052958310297175, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

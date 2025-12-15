@@ -7,9 +7,9 @@ public class PlaceableObjectDB_SO : ScriptableObject
 {
     [SerializeField] public List<PlaceableObject_SO> AllPlaceableObjectSOs;
 
-    public PlaceableObject GetPlaceableObjectByType(EPlaceableObjectType type)
+    public PlaceableObject_SO GetPlaceableObjectByType(EPlaceableObjectType type)
     {
-        return AllPlaceableObjectSOs.Where(t => t.PlaceableObjData.Type == type).FirstOrDefault().PlaceableObjData;
+        return AllPlaceableObjectSOs.Where(t => t.Type == type).FirstOrDefault();
     }
 }
 

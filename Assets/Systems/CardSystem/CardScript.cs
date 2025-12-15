@@ -16,7 +16,7 @@ public class CardScript : MonoBehaviour,
     [SerializeField] private float smoothTime = 0.1f;
 
     [Header("Data")]
-    public PlaceableObject PlaceableObjectData;
+    public PlaceableObject_SO PlaceableObjectData;
     public bool isSelected = false;
     private bool isHovering = false;
 
