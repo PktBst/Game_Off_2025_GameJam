@@ -7,7 +7,7 @@ public class MoveComponent : MonoBehaviour
     public float MoveSpeed;
     public Vector3 TargetPosition;
     public bool IsMoving => !Agent.isStopped;
-    public bool DestinationReached => Agent.remainingDistance < 0.5f;
+    public bool DestinationReached => Agent.remainingDistance <= 0.5f;
     private NavMeshAgent agent;
 
     public NavMeshAgent Agent

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [RequireComponent(typeof(StatsComponent))]
@@ -96,13 +97,12 @@ public class AttackComponent : MonoBehaviour
 
     IEnumerator PlayRangedAttack()
     {
-        for (int i = 0; i < duration; i++)
+        while(elapsed<duration && targetHealth != null)
         {
             if (ProjectilePool.Instance != null)
             {
                 var projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.Init(Stats.FactionType, projectileSpawnPoint.transform.position, targetHealth.transform.position, Stats.BaseAttackPoints, Stats.BaseAttackSpeed);
-                projectile.Activate();
+                projectile.Init(Stats.FactionType, projectileSpawnPoint.position, targetHealth.transform.position, Stats.BaseAttackPoints);
             }
             yield return new WaitForSeconds(1f);
         }
@@ -113,7 +113,7 @@ public class AttackComponent : MonoBehaviour
     IEnumerator playAttackAnimation()
     {
         animator.SetBool("IsAttacking",true);
-        for(int i = 0; i<duration; i++)
+        while (elapsed < duration && targetHealth !=null)
         {
             targetHealth?.DeductHealth(Stats.BaseAttackPoints);
             yield return new WaitForSeconds(1f);

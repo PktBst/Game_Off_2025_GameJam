@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FactionType: 1
   BaseAttackPoints: 0.1
-  BaseAttackSpeed: 0.2
+  BaseAttackSpeed: 1
   BaseAttackAccuracy: 5
   BaseAttackRange: 5
   BaseDefensePoints: 5

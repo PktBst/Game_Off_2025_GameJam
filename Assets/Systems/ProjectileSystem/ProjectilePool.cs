@@ -17,9 +17,7 @@ public class ProjectilePool : MonoBehaviour
         Instance = this;
         for(int i = 0; i < 25; i++)
         {
-            var newProjectile = Instantiate(projectilePrefab,transform);
-            newProjectile.Deactivate();
-            projectiles.Add(newProjectile);
+            SpawnNewProjectile();
         }
     }
 
@@ -32,10 +30,15 @@ public class ProjectilePool : MonoBehaviour
                 return projectile;
             }
         }
+        return SpawnNewProjectile();
+
+    }
+
+    Projectile SpawnNewProjectile()
+    {
         var newProjectile = Instantiate(projectilePrefab, transform);
         newProjectile.Deactivate();
         projectiles.Add(newProjectile);
         return newProjectile;
-
     }
 }
