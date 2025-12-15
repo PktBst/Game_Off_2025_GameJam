@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +13,9 @@ public class GridSystem : MonoBehaviour
     [HideInInspector] public Dictionary<Vector2, Tile> AllTiles = new();
     [SerializeField] GameObject _tileHighlighterPrefab;
     private GameObject _tileHighlighter;
+    [SerializeField] private GameObject _planePrefab;
+    [SerializeField] LayerMask _groundLayer;
+
     public Tile CurrentTile
     {
         get
@@ -82,11 +84,20 @@ public class GridSystem : MonoBehaviour
                 AllTiles.Add(new Vector2(i, j), new Tile(i, j));
             }
         }
-        _gridPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        _gridPlane.transform.SetParent(transform, false);
-        _gridPlane.transform.localScale = new(GridDimensions.x / 10f, 1, GridDimensions.y / 10f);
-        _gridPlane.transform.localPosition = new Vector3(-0.5f, 0, -0.5f);
-        //_gridPlane.transform.position += new Vector3(_gridPlane.transform.localScale.x,0, _gridPlane.transform.localScale.z);
+
+        _gridPlane = Instantiate(_planePrefab, transform);
+        _gridPlane.transform.localScale = new Vector3(
+            GridDimensions.x / 10f,
+            1f,
+            GridDimensions.y / 10f
+        );
+
+        _gridPlane.transform.localPosition = new Vector3(-0.5f, 0f, -0.5f);
+        //_gridPlane.layer = _groundLayer;
+        //_gridPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        //_gridPlane.transform.SetParent(transform, false);
+        //_gridPlane.transform.localScale = new(GridDimensions.x / 10f, 1, GridDimensions.y / 10f);
+        //_gridPlane.transform.localPosition = new Vector3(-0.5f, 0, -0.5f);
     }
 
     public static Tile GetTileByWorldPosition(Vector3 WorldPosition)

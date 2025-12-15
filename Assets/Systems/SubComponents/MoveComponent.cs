@@ -7,7 +7,7 @@ public class MoveComponent : MonoBehaviour
     public float MoveSpeed;
     public Vector3 TargetPosition;
     public bool IsMoving => !Agent.isStopped;
-
+    public bool DestinationReached => Agent.remainingDistance < 0.5f;
     private NavMeshAgent agent;
 
     public NavMeshAgent Agent
@@ -18,51 +18,21 @@ public class MoveComponent : MonoBehaviour
             return agent;
         }
     }
-
+    private StatsComponent stats;
+    public StatsComponent Stats
+    {
+        get
+        {
+            stats ??= GetComponent<StatsComponent>();
+            return stats;
+        }
+    }
     public void MoveTo(Vector3 targetPosition)
     {
         TargetPosition = targetPosition;
         Agent.SetDestination(targetPosition);
         Agent.speed = MoveSpeed;
     }
-    bool ScanForTarget(out HealthComponent targetHealth)
-    {
-        targetHealth = null;
-
-        if (!TryGetComponent<StatsComponent>(out var myStats))
-            return false;
-
-        Collider[] hits = Physics.OverlapSphere(transform.position, 15f);
-
-        float closestDistanceSqr = float.MaxValue;
-        HealthComponent nearestTarget = null;
-
-        Vector3 myPos = transform.position;
-
-        foreach (var hit in hits)
-        {
-            if (!hit.TryGetComponent<HealthComponent>(out var health))
-                continue;
-
-            if (health.gameObject == gameObject)
-                continue;
-
-            if (health.Stats.FactionType == myStats.FactionType)
-                continue;
-
-            float distSqr = (health.transform.position - myPos).sqrMagnitude;
-
-            if (distSqr < closestDistanceSqr)
-            {
-                closestDistanceSqr = distSqr;
-                nearestTarget = health;
-            }
-        }
-
-        targetHealth = nearestTarget;
-        return nearestTarget != null;
-    }
-
     public void Stop()
     {
         Agent.isStopped = true;
@@ -80,18 +50,22 @@ public class MoveComponent : MonoBehaviour
         {
             if (attack.hasTarget)
             {
-                Stop();
-                transform.LookAt(attack.targetHealth.transform.position);
+                LookAtFlat(attack.targetHealth.transform.position);
                 return;
             }
         }
         Resume();
-        //Vector3 dir = (TargetPosition - transform.position).normalized;
-        transform.LookAt(TargetPosition);
-        if (ScanForTarget(out var targetHealth))
-        {
-            MoveTo(targetHealth.transform.position);
-        }
+        LookAtFlat(TargetPosition);
+    }
+    void LookAtFlat(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
+        direction.y = 0f; // prevent tilt
+
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void Start()

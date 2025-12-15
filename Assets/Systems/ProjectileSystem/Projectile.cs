@@ -47,7 +47,6 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("attacked");
         if(!other.TryGetComponent<HealthComponent>(out var targetHealth))
         {
             return;
