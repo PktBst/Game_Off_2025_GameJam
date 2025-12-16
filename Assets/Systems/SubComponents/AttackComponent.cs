@@ -93,8 +93,14 @@ public class AttackComponent : MonoBehaviour
         elapsed = 0;
         if (IsRanged)
         {
-            AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
-            //animationCoroutine ??= StartCoroutine(PlayRangedAttack());
+            if(TryGetComponent(out MoveComponent _))
+            {
+                animationCoroutine ??= StartCoroutine(PlayRangedAttack());
+            }
+            else
+            {
+                AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
+            }
         }
         else
         {
