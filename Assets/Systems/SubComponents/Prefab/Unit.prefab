@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463569644563902689}
+  - component: {fileID: 7611622342117740622}
   - component: {fileID: 6814271863612025501}
   - component: {fileID: 7038784395694329358}
   - component: {fileID: 7855361047956000103}
   - component: {fileID: 2920349620749863631}
-  - component: {fileID: 7611622342117740622}
   - component: {fileID: 736239310372160661}
   - component: {fileID: 8057833162897327950}
   - component: {fileID: 3626262034780429639}
@@ -44,6 +44,24 @@ Transform:
   - {fileID: 1246329226410072550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7611622342117740622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896989089456540107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7755d39be07c0aa4586316224628ef01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FactionType: 1
+  BaseAttackPoints: 0.1
+  BaseAttackCooldown: 0
+  BaseAttackAccuracy: 5
+  BaseAttackRange: 5
+  BaseDefensePoints: 5
 --- !u!195 &6814271863612025501
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -118,24 +136,6 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   FillImage: {fileID: 6557745881261635219}
---- !u!114 &7611622342117740622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2896989089456540107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7755d39be07c0aa4586316224628ef01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FactionType: 1
-  BaseAttackPoints: 0.1
-  BaseAttackCooldown: 0
-  BaseAttackAccuracy: 5
-  BaseAttackRange: 5
-  BaseDefensePoints: 5
 --- !u!114 &736239310372160661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 7611622342117740622}
+  ParticleEffect: {fileID: 8702272895336507748}
   animator: {fileID: 3626262034780429639}
   projectileSpawnPoint: {fileID: 1246329226410072550}
-  ParticleEffect: {fileID: 8702272895336507748}
   IsRanged: 0
   targetHealth: {fileID: 0}
 --- !u!95 &3626262034780429639
