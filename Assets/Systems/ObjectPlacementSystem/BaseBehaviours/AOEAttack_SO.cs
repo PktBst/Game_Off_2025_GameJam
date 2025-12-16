@@ -10,7 +10,7 @@ public class AOEAttack_SO : AttackBehaviour_SO
         if (ProjectilePool.Instance != null)
         {
             var projectile = ProjectilePool.Instance.GetProjectile();
-            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: 50f, lerpFunc: ProjectileBehaviorScript.LerpFunc, onTriggerEnterCallBack: OnTriggerEnterCall);
+            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: BaseDamage, lerpFunc: ProjectileBehaviorScript.LerpFunc, onTriggerEnterCallBack: OnTriggerEnterCall);
             Debug.Log(name + "<color=purple> Executed Point Attack Behaviour !</color>");
         }
     }
