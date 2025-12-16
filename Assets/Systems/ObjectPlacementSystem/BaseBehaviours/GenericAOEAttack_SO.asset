@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GenericAOEAttack_SO
   m_EditorClassIdentifier: 
   name: GenericAOEAttack
-  Projectile: {fileID: 0}
-  ParticleEffect: {fileID: 0}
-  BaseDamage: 0
-  AttackCooldown: 0
+  ProjectilePrefab: {fileID: 0}
+  HitParticleEffect: {fileID: 0}
+  BaseDamage: 2
+  AttackCooldown: 1
+  ProjectileBehaviorScript: {fileID: 1596535215229150001, guid: 4500d62fe39a5854288b0208b150a2e8, type: 3}

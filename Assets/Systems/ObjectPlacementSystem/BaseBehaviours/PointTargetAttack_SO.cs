@@ -10,8 +10,21 @@ public class PointTargetAttack_SO : AttackBehaviour_SO
         if (ProjectilePool.Instance != null)
         {
             var projectile = ProjectilePool.Instance.GetProjectile();
-            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: 1f);
+            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: 1f, lerpFunc: ProjectileBehaviorScript.LerpFunc,onTriggerEnterCallBack:OnTriggerEnterCall);
             Debug.Log(name + "<color=purple> Executed Point Attack Behaviour !</color>");
+        }
+    }
+    public virtual void OnTriggerEnterCall(Collider other, Projectile projectile)
+    {
+        if (!other.TryGetComponent<HealthComponent>(out var targetHealth))
+        {
+            return;
+        }
+
+        if (targetHealth.Stats.FactionType != projectile.FactionType)
+        {
+            targetHealth.DeductHealth(projectile.Damage);
+            projectile.Deactivate();
         }
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22a9c033e6164094db9bf23295f501a5, type: 3}
-  m_Name: GenericPointTargetAttack_SO
+  m_Name: GenericPointTargetAttack_SO 1
   m_EditorClassIdentifier: 
   name: PointTargetAttack
   ProjectilePrefab: {fileID: 0}
   HitParticleEffect: {fileID: 0}
   BaseDamage: 1
   AttackCooldown: 0
-  ProjectileBehaviorScript: {fileID: -168133151177807982, guid: a0a1deb88e6fb454291c5375f0f06ce5, type: 3}
+  ProjectileBehaviorScript: {fileID: -7230496868547519802, guid: 28b1d550cc5e1874994d3e5d411a2e04, type: 3}

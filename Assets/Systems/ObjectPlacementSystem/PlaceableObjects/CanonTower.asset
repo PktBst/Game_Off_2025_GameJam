@@ -15,6 +15,7 @@ MonoBehaviour:
   Type: 4
   BaseHealth: 100
   GameModel: {fileID: 2655211997919980244, guid: d5c3a8dc354a70843b23964bbb0061e1, type: 3}
-  Behaviour: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
+  Behaviour: {fileID: 11400000, guid: 2ba72ad733ff45b409061a662262a6f0, type: 2}
+  AttackDamage: 0
   AttackRange: 5
   Cooldown: 0.2

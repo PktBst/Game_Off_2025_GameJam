@@ -17,12 +17,12 @@ public class AttackComponent : MonoBehaviour
     float elapsed = duration;
     float detectionRadius => IsRanged ? 3f : 0.5f;
 
-    float scanRadius => Stats?.FactionType == Faction.GoodGuys? 5 :15;
+    float scanRadius => Stats?.FactionType == Faction.GoodGuys ? 5 : 15;
 
     public bool hasTarget => targetHealth != null;
 
-    private bool stopScanning= false;
-    private Action<Transform,Transform> AttackCallbackFromSO = null;
+    private bool stopScanning = false;
+    private Action<Transform, Transform> AttackCallbackFromSO = null;
 
     public StatsComponent Stats
     {
@@ -56,17 +56,17 @@ public class AttackComponent : MonoBehaviour
         GameManager.Instance.TickSystem.Unsubscribe(UpdateTarget);
     }
 
-    public void Init(Action<Transform,Transform> action)
+    public void Init(Action<Transform, Transform> action)
     {
         AttackCallbackFromSO = action;
     }
     private void UpdateTarget()
     {
-        if(ScanForNearestTarget(out targetHealth))
+        if (ScanForNearestTarget(out targetHealth))
         {
-            if ((targetHealth.transform.position-transform.position).sqrMagnitude <= detectionRadius * detectionRadius)
+            if ((targetHealth.transform.position - transform.position).sqrMagnitude <= detectionRadius * detectionRadius)
             {
-                if(!wasStopped)
+                if (!wasStopped)
                 {
                     Move?.Stop();
                     Move?.MoveTo(transform.position);
@@ -78,7 +78,7 @@ public class AttackComponent : MonoBehaviour
             else
             {
                 wasStopped = false;
-                Move?.MoveTo(targetHealth.transform.position); 
+                Move?.MoveTo(targetHealth.transform.position);
             }
         }
 
@@ -93,7 +93,7 @@ public class AttackComponent : MonoBehaviour
         elapsed = 0;
         if (IsRanged)
         {
-            if(TryGetComponent(out MoveComponent _))
+            if (TryGetComponent(out MoveComponent _))
             {
                 animationCoroutine ??= StartCoroutine(PlayRangedAttack());
             }
@@ -111,23 +111,41 @@ public class AttackComponent : MonoBehaviour
 
     IEnumerator PlayRangedAttack()
     {
-        while(elapsed<duration && targetHealth != null)
+        while (elapsed < duration && targetHealth != null)
         {
             if (ProjectilePool.Instance != null)
             {
                 var projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.Init(Stats.FactionType, projectileSpawnPoint.position, targetHealth.transform.position, Stats.BaseAttackPoints);
+                projectile.Init(
+                   faction: Stats.FactionType,
+                  startPosition: projectileSpawnPoint.position,
+                  targetPosition: targetHealth.transform.position,
+                 damage: Stats.BaseAttackPoints,
+                lerpFunc: Vector3.Lerp,
+               onTriggerEnterCallBack: DummyOnTriggerEnterCall);
             }
             yield return new WaitForSeconds(1f);
         }
         animationCoroutine = null;
     }
+    public virtual void DummyOnTriggerEnterCall(Collider other, Projectile projectile)
+    {
+        if (!other.TryGetComponent<HealthComponent>(out var targetHealth))
+        {
+            return;
+        }
 
+        if (targetHealth.Stats.FactionType != projectile.FactionType)
+        {
+            targetHealth.DeductHealth(projectile.Damage);
+            projectile.Deactivate();
+        }
+    }
 
     IEnumerator playAttackAnimation()
     {
-        animator?.SetBool("IsAttacking",true);
-        while (elapsed < duration && targetHealth !=null)
+        animator?.SetBool("IsAttacking", true);
+        while (elapsed < duration && targetHealth != null)
         {
             targetHealth?.DeductHealth(Stats.BaseAttackPoints);
             yield return new WaitForSeconds(1f);
@@ -147,7 +165,7 @@ public class AttackComponent : MonoBehaviour
     {
         targetHealth = null;
 
-        if (Move!=null && Move.DestinationReached)
+        if (Move != null && Move.DestinationReached)
         {
             ResumeScanning();
         }

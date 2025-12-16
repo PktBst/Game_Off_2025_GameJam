@@ -6,6 +6,7 @@ public class AttackBehaviour_SO : BaseBehaviour_SO
     public GameObject HitParticleEffect;
     public float BaseDamage;
     public float AttackCooldown;
+    public ProjectileBehavior ProjectileBehaviorScript;
 
     override public void ExecuteBehaviour(Transform AttackPoint, Transform Target)
     {
