@@ -1,7 +1,8 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ProjectileBehavior : MonoBehaviour
+
+public class ProjectileBehavior : ScriptableObject
 {
     public virtual Vector3 LerpFunc(Vector3 start, Vector3 end, float t)
     {
