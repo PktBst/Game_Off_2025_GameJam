@@ -10,5 +10,6 @@ public class GameMode : MonoBehaviour
 public enum GameModeType
 {
     InfiniteWaves,
-    DefensiveStrategy
+    DefensiveStrategy,
+    TurnBased
 }
