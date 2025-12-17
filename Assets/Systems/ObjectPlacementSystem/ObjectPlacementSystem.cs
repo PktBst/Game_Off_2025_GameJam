@@ -15,6 +15,26 @@ public class ObjectPlacementSystem : MonoBehaviour
     public bool SpawnPlaceableObjectAtTile(Tile tile, EPlaceableObjectType type)
     {
         if (tile.IsBlocked) return false;
+
+        Collider[] colliders = Physics.OverlapBox(tile.Pos, Vector3.one*0.5f);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject.TryGetComponent<MoveComponent>(out var move))
+            {
+                Vector3 moveDir = (move.transform.position - (Vector3)tile.Pos).normalized;
+                Vector3 moveTo = move.transform.position;
+                while (GridSystem.GetTileByWorldPosition(moveTo) == tile)
+                {
+                    moveTo += moveDir;
+                }
+                while (GridSystem.GetTileByWorldPosition(moveTo).IsBlocked)
+                {
+                    moveTo += moveDir;
+                }
+                move.MoveTo(moveTo);
+            }
+        }
+
         PlaceableObject_SO obj = placeableObjectDB.GetPlaceableObjectByType(type);
 
         tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);

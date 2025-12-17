@@ -18,26 +18,7 @@ public class Tile
     public GameObject OccupyingUnit;
     public List<Objective> Objectives;
 
-    public bool IsBlocked
-    {
-        get
-        {
-            if (OccupyingEntity != null)
-            {
-                return true;
-            }
-            Collider[] colliders = Physics.OverlapBox(Pos, Vector3.one * 0.5f);
-
-            foreach (Collider collider in colliders)
-            {
-                if (collider.gameObject.GetComponent<MoveComponent>() != null)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
+    public bool IsBlocked => OccupyingEntity != null;
 
     public Vector3Int Pos => new(_x, 0, _z);
 
