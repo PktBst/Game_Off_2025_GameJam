@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -94,6 +95,7 @@ public class GridSystem : MonoBehaviour
         );
 
         _gridPlane.transform.localPosition = new Vector3(-0.5f, 0f, -0.5f);
+        _gridPlane.GetComponent<NavMeshSurface>().BuildNavMesh();
         //_gridPlane.layer = _groundLayer;
         //_gridPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         //_gridPlane.transform.SetParent(transform, false);

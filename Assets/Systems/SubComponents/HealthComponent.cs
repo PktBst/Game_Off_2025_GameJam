@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(StatsComponent))]
 public class HealthComponent : MonoBehaviour
 {
+    public event Action OnDeath;
     private StatsComponent stats;
     public StatsComponent Stats
     {
@@ -37,6 +39,7 @@ public class HealthComponent : MonoBehaviour
         if (CurrentHealth<=0)
         {
             GameManager.Instance.TickSystem.Unsubscribe(updateUI);
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
     }

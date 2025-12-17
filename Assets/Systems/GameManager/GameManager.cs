@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public InputActionAsset InputActionAsset => _inputSystem;
     public ObjectPlacementSystem ObjectPlacementSystem => _objectPlacementSystem;
     public CardSystem CardSystem => _cardSystem;
+    public GameMode CurrentGameMode;
 
     [SerializedDictionary("Game Mode Type", "Game Mode Script")]
     public SerializedDictionary<GameModeType,GameMode> GameModesList;
@@ -45,7 +46,10 @@ public class GameManager : MonoBehaviour
         InitInputSystem();
         _gridSystem.Init();
         _cardSystem.Init();
-        GameModesList[PlayThisGameMode].Init();
+
+        //stuff
+        CurrentGameMode = Instantiate(GameModesList[PlayThisGameMode].gameObject,transform).GetComponent<GameMode>();
+        CurrentGameMode.Init();
     }
 
     void InitInputSystem()
