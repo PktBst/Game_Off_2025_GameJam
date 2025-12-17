@@ -57,6 +57,8 @@ public class CardSystem : MonoBehaviour
 
         ReorganizeHand();
     }
+
+    [Button]
     public void openLootMenu()
     {
         LootSelectorCanvas.gameObject.SetActive(true);
@@ -97,6 +99,7 @@ public class CardSystem : MonoBehaviour
         if(DebugMode)AddCard(oldIndex);
     }
 
+    [Button]
     public void GenerateLoot(int AmountOfCards = 3)
     {
         while (AmountOfCards-- >= 1)
