@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7633559508248798490}
+  - component: {fileID: -1586944382970836300}
   m_Layer: 0
   m_Name: DefensiveStrategyGameModePrefab
   m_TagString: Untagged
@@ -31,3 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1586944382970836300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2815668694581557850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78034785f35f0240a5d0d14e901bdb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TownHallPrefab: {fileID: 157641320810771396, guid: 44501673a357d3745a4de73bef2b9612, type: 3}
+  ProjectileBehaviorScript: {fileID: 11400000, guid: 223dbdb37bf6fc041bbc87c16da793c4, type: 2}

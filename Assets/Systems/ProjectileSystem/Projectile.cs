@@ -16,6 +16,15 @@ public class Projectile : MonoBehaviour
     Vector3 startPosition;
 
     Vector3 lastPosition;
+    float Duration
+    {
+        get
+        {
+            float distance = Vector3.Distance(startPosition, targetPosition);
+            float duration = (distance==0 || speed == 0)?1: distance/speed;
+            return duration;
+        }
+    }
     //float minHeight = 0.5f;
     //float maxHeight = 10f;
 
@@ -47,16 +56,18 @@ public class Projectile : MonoBehaviour
     }
     private void Update()
     {
-        elapsed += Time.deltaTime * speed;
-        elapsed = Mathf.Clamp01(elapsed);
+        elapsed += Time.deltaTime;
+
+        float t = Mathf.Clamp01(elapsed / Duration);
+
         //float heightOffset = height * elapsed * (1 - elapsed);
-        Vector3 position = lerpFunction(startPosition, targetPosition, elapsed);
+        Vector3 position = lerpFunction(startPosition, targetPosition, t);
         //position.y += heightOffset;
         Vector3 direction = (position - lastPosition).normalized;
         transform.up = direction;
         transform.position = position;
         lastPosition = position;
-        if (elapsed >= 1f)
+        if (elapsed >= Duration)
         {
             Deactivate();
         }
