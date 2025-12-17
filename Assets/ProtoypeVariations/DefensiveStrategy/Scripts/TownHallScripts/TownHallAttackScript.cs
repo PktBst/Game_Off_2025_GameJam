@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-
 public class TownHallAttackScript : MonoBehaviour
 {
     Func<Vector3, Vector3, float, Vector3> lerpFunction;
@@ -19,15 +18,24 @@ public class TownHallAttackScript : MonoBehaviour
     }
     public void TickUpdate()
     {
-        var pos = GridSystem.Instance.CurrentTile;
-        if (pos == null) return;
+        if (GridSystem.Instance == null)
+        {
+            return;
+        }
+        Vector3? worldPos = null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out var hit, Mathf.Infinity, GridSystem.Instance.GroundLayer.value))
+        {
+            worldPos = hit.point;
+        }
+        if (!worldPos.HasValue) return;
         if (Input.GetMouseButtonUp(1))
         {
             var projectile = ProjectilePool.Instance?.GetProjectile();
             projectile.Init(
                 faction: Faction.GoodGuys,
                 startPosition: transform.position,
-                targetPosition: pos.Pos,
+                targetPosition: worldPos.Value,
                 damage: 3f,
                 lerpFunc: lerpFunction,
                 onTriggerEnterCallBack: OnTriggerEnterCall

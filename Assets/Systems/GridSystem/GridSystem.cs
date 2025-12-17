@@ -15,6 +15,7 @@ public class GridSystem : MonoBehaviour
     private GameObject _tileHighlighter;
     [SerializeField] private GameObject _planePrefab;
     [SerializeField] LayerMask _groundLayer;
+    public LayerMask GroundLayer=>_groundLayer;
 
     public Tile CurrentTile
     {

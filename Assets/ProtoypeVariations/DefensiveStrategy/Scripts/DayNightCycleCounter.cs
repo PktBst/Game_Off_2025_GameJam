@@ -1,0 +1,126 @@
+using TMPro;
+using UnityEngine;
+
+public class DayNightCycleCounter : MonoBehaviour
+{
+    [SerializeField] bool automaticCycle;
+    int ticks = 0;
+    public int LengthOfDayInTicks = 12000;
+    private TimeOfDay CurrentTime;
+    public event System.Action<TimeOfDay> OnTimeOfDayChange;
+    [SerializeField] TextMeshProUGUI CycleOfTheDayTmp;
+    [SerializeField] Light DirectionalLight;
+
+    private Quaternion dayLightOrientation;
+    float FullCycleLength => LengthOfDayInTicks == 0 ? 12000 : 2 * LengthOfDayInTicks;
+    public static DayNightCycleCounter Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+        if (DirectionalLight != null)
+        {
+            dayLightOrientation = DirectionalLight.transform.rotation;
+        }
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.TickSystem.Subscribe(Tick);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.TickSystem.Unsubscribe(Tick);
+    }
+
+    private void Tick()
+    {
+        if (!automaticCycle)
+        { 
+            return; 
+        }
+
+        ticks++;
+
+        if (ticks >= FullCycleLength)
+        {
+            ticks = 0;
+        }
+
+        if (ticks == LengthOfDayInTicks)
+        {
+            SetTimeOfDay(TimeOfDay.Night);
+        }
+        else if (ticks == 0)
+        {
+            SetTimeOfDay(TimeOfDay.Day);
+        }
+
+        PhaseTheDayLight();
+    }
+
+    private void SetTimeOfDay(TimeOfDay newTime)
+    {
+        if (CurrentTime == newTime)
+        {
+            return;
+        }
+
+        CurrentTime = newTime;
+        OnTimeOfDayChange?.Invoke(CurrentTime);
+        UpdateTimeOfDayTMP();
+    }
+
+    public void SetDay()
+    {
+        SetTimeOfDay(TimeOfDay.Day);
+    }
+    public void SetNight()
+    {
+        SetTimeOfDay(TimeOfDay.Day);
+    }
+
+    private void UpdateTimeOfDayTMP()
+    {
+        if (CycleOfTheDayTmp != null)
+        {
+            CycleOfTheDayTmp.SetText(CurrentTime.ToString());
+        }
+    }
+
+    //private void PhaseTheDayLight()
+    //{
+    //    if (DirectionalLight == null)
+    //        return;
+
+    //    float t = ticks / FullCycleLength;
+    //    t = Mathf.Repeat(t, 1f);
+
+    //    float sunAngle = Mathf.Lerp(-90f, 270f, t);
+
+    //    DirectionalLight.transform.rotation =
+    //        Quaternion.Euler(sunAngle, dayLightOrientation.eulerAngles.y, 0f);
+    //}
+
+    private void PhaseTheDayLight()
+    {
+        if (DirectionalLight == null)
+            return;
+
+        float t = ticks / FullCycleLength;
+        t = Mathf.Repeat(t, 1f);
+
+        float sunAngle = t * 360f;
+
+        DirectionalLight.transform.rotation =
+            Quaternion.Euler(sunAngle, dayLightOrientation.eulerAngles.y, 0f);
+    }
+
+}
