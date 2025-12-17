@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static AYellowpaper.SerializedCollections.SerializedDictionarySample;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     [SerializedDictionary("Game Mode Type", "Game Mode Script")]
     public SerializedDictionary<GameModeType,GameMode> GameModesList;
+    [SerializeField] public GameModeType PlayThisGameMode;
 
     private void Awake()
     {
@@ -47,7 +45,7 @@ public class GameManager : MonoBehaviour
         InitInputSystem();
         _gridSystem.Init();
         _cardSystem.Init();
-        GameModesList[GameModeType.InfiniteWaves].Init();
+        GameModesList[PlayThisGameMode].Init();
     }
 
     void InitInputSystem()

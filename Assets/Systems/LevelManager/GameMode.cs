@@ -9,5 +9,6 @@ public class GameMode : MonoBehaviour
 [System.Serializable]
 public enum GameModeType
 {
-    InfiniteWaves
+    InfiniteWaves,
+    DefensiveStrategy
 }
