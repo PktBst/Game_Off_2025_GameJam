@@ -6,8 +6,11 @@ using UnityEngine.InputSystem;
 public class CardSystem : MonoBehaviour
 {
     [Header("References")]
+    public bool DebugMode;
+    public RectTransform LootCardHolder;
     public GameObject cardPrefab;
     public RectTransform cardHolder;
+    public Canvas LootSelectorCanvas;
     public Transform DeckLocation;
 
     [Header("Spawn Animation Settings")]
@@ -36,8 +39,8 @@ public class CardSystem : MonoBehaviour
 
     public void AddCard(int specificIndex = -1)
     {
-        GameObject newObj = Instantiate(cardPrefab, cardHolder);
-        CardScript card = newObj.GetComponent<CardScript>();
+        GameObject newObj = GenerateCanPopulateRandomCard();
+        newObj.transform.SetParent(cardHolder);
 
         float startY = -PopDistance;
         float startX = Random.Range(-SwipeVariance, SwipeVariance);
@@ -52,10 +55,22 @@ public class CardSystem : MonoBehaviour
             newObj.transform.SetSiblingIndex(specificIndex);
         }
 
+        ReorganizeHand();
+    }
+    public void openLootMenu()
+    {
+        LootSelectorCanvas.gameObject.SetActive(true);
+        GenerateLoot();
+
+    }
+    public GameObject GenerateCanPopulateRandomCard()
+    {
+        GameObject newObj = Instantiate(cardPrefab);
+        CardScript card = newObj.GetComponent<CardScript>();
         card.PlaceableObjectData = GameManager.Instance.ObjectPlacementSystem.GetRandomPlaceableObject();
         card.Init();
 
-        ReorganizeHand();
+        return newObj;
     }
 
     void UseSelectedCard(InputAction.CallbackContext ctx)
@@ -79,9 +94,18 @@ public class CardSystem : MonoBehaviour
         cardToRemove.transform.SetParent(null);
         Destroy(cardToRemove.gameObject);
 
-        AddCard(oldIndex);
+        if(DebugMode)AddCard(oldIndex);
     }
 
+    public void GenerateLoot(int AmountOfCards = 3)
+    {
+        while (AmountOfCards-- >= 1)
+        {
+            GameObject newObj = GenerateCanPopulateRandomCard();
+            newObj.transform.SetParent(LootCardHolder);
+        }
+
+    }
 
     //Arranges all cards in arch
     private void ReorganizeHand()

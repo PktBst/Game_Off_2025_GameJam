@@ -51,7 +51,7 @@ public class AttackComponent : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.TickSystem.Subscribe(UpdateTarget);
-        ParticleEffect?.Stop();
+        if(ParticleEffect!=null) ParticleEffect?.Stop();
     }
     private void OnDestroy()
     {
@@ -147,14 +147,14 @@ public class AttackComponent : MonoBehaviour
     IEnumerator playAttackAnimation()
     {
         animator?.SetBool("IsAttacking", true);
-        ParticleEffect?.Play();
+        if (ParticleEffect != null) ParticleEffect?.Play();
         while (elapsed < duration && targetHealth != null)
         {
             targetHealth?.DeductHealth(Stats.BaseAttackPoints);
             yield return new WaitForSeconds(1f);
         }
         animator?.SetBool("IsAttacking", false);
-        ParticleEffect?.Stop();
+        if (ParticleEffect != null) ParticleEffect?.Stop();
         animationCoroutine = null;
     }
     public void ResumeScanning()

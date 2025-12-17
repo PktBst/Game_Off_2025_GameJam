@@ -7,6 +7,9 @@ public class CardScript : MonoBehaviour,
     IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI References")]
+    [SerializeField] private bool IsLootSelectionCard;
+
+    [Header("UI References")]
     [SerializeField] private TextMeshProUGUI NameText;
     [SerializeField] private Image img;
 
