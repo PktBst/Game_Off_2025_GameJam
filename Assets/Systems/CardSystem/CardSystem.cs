@@ -37,9 +37,9 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-    public void AddCard(int specificIndex = -1)
+    public void AddCard(int specificIndex = -1, PlaceableObject_SO optionalObjData = null)
     {
-        GameObject newObj = GenerateCanPopulateRandomCard();
+        GameObject newObj = (optionalObjData)? AddCardByData(optionalObjData) : GenerateCanPopulateRandomCard();
         newObj.transform.SetParent(cardHolder);
 
         float startY = -PopDistance;
@@ -56,6 +56,15 @@ public class CardSystem : MonoBehaviour
         }
 
         ReorganizeHand();
+    }
+
+    public GameObject AddCardByData(PlaceableObject_SO objData)
+    {
+        GameObject newObj = Instantiate(cardPrefab,cardHolder);
+        CardScript card = newObj.GetComponent<CardScript>();
+        card.PlaceableObjectData = objData;
+        card.Init();
+        return newObj;
     }
 
     [Button]
@@ -95,17 +104,19 @@ public class CardSystem : MonoBehaviour
 
         cardToRemove.transform.SetParent(null);
         Destroy(cardToRemove.gameObject);
-
-        if(DebugMode)AddCard(oldIndex);
+        ReorganizeHand();
+        if (DebugMode)AddCard(cardHolder.transform.childCount);
     }
 
     [Button]
     public void GenerateLoot(int AmountOfCards = 3)
     {
+        foreach(Transform gm in LootCardHolder) Destroy(gm.gameObject);
         while (AmountOfCards-- >= 1)
         {
             GameObject newObj = GenerateCanPopulateRandomCard();
             newObj.transform.SetParent(LootCardHolder);
+            newObj.GetComponent<CardScript>().IsLootSelectionCard = true;
         }
 
     }

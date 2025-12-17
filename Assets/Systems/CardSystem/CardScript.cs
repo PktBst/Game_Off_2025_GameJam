@@ -7,7 +7,7 @@ public class CardScript : MonoBehaviour,
     IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI References")]
-    [SerializeField] private bool IsLootSelectionCard;
+    [SerializeField] public bool IsLootSelectionCard;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI NameText;
@@ -148,6 +148,12 @@ public class CardScript : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (IsLootSelectionCard)
+        {
+            var cs = GameManager.Instance.CardSystem;
+            cs.AddCard(cs.cardHolder.transform.childCount,PlaceableObjectData);
+            cs.LootCardHolder.parent.gameObject.SetActive(false);
+        }
         if (isSelected)
         {
             Deselect();
@@ -173,6 +179,7 @@ public class CardScript : MonoBehaviour,
 
     private void UpdateVisualState()
     {
+        if (IsLootSelectionCard) return;
         bool isActiveState = isHovering || isSelected;
 
         if (isActiveState)
