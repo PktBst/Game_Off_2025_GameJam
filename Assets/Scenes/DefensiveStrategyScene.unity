@@ -705,7 +705,7 @@ MonoBehaviour:
   CycleOfTheDayTmp: {fileID: 1609114287}
   DirectionalLight: {fileID: 1211317208}
   PayTaxesOnDay: 1
-  HideCardsAtNight: 0
+  HideCardsAtNight: 1
 --- !u!4 &1869129731
 Transform:
   m_ObjectHideFlags: 0
