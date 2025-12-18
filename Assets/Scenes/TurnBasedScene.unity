@@ -119,6 +119,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &277242091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 277242093}
+  - component: {fileID: 277242092}
+  m_Layer: 0
+  m_Name: DayNightCycleCounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &277242092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277242091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0b44072b1eb6e4d852131496b33aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  automaticCycle: 0
+  LengthOfDayInTicks: 200
+  CycleOfTheDayTmp: {fileID: 0}
+  DirectionalLight: {fileID: 1211317208}
+  PayTaxesOnDay: 0
+--- !u!4 &277242093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277242091}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 505653065}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &505653065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3547052958310297175, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
+  m_PrefabInstance: {fileID: 1829956535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &611364321
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +496,10 @@ PrefabInstance:
     - {fileID: 8069005394235491676, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
     - {fileID: 1500544041756733118, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
     - {fileID: 3929147017455399422, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3547052958310297175, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 277242093}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
 --- !u!224 &1918245416 stripped

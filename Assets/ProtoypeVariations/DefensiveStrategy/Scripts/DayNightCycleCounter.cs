@@ -8,7 +8,7 @@ public class DayNightCycleCounter : MonoBehaviour
     int ticks = 0;
 
     [SerializeField] int lengthOfDayInTicks = 12000;
-    public int LengthOfDayInTicks => automaticCycle? 100 : lengthOfDayInTicks;
+    public int LengthOfDayInTicks => automaticCycle? lengthOfDayInTicks : 100;
     private TimeOfDay CurrentTime;
     public event System.Action<TimeOfDay> OnTimeOfDayChange;
     [SerializeField] TextMeshProUGUI CycleOfTheDayTmp;

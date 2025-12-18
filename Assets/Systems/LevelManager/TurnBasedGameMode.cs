@@ -22,7 +22,16 @@ public class TurnBasedGameMode : GameMode
 
     public void EndCurrentTurn()
     {
-        CurrentTurn = (CurrentTurn == PlayTurn.Player)? PlayTurn.CPU : PlayTurn.Player;
+        CurrentTurn = (CurrentTurn == PlayTurn.Player)? PlayTurn.CPU: PlayTurn.Player;
+        if (CurrentTurn == PlayTurn.Player)
+        {
+            DayNightCycleCounter.Instance.SetDay();
+        }
+        else
+        {
+            DayNightCycleCounter.Instance.SetNight();
+        }
+
         BeginTurn();
     }
 
