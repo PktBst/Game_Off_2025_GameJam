@@ -29,7 +29,7 @@ public class CardSystem : MonoBehaviour
 
     private CardScript currentlySelectedCard;
 
-    public bool IsShopOpen => ShopCardHolder == null ? false : ShopCardHolder.gameObject.activeSelf;
+    public bool IsShopOpen => ShopCardHolder == null ? false : ShopCardHolder.gameObject.activeInHierarchy;
 
     public void Init()
     {
