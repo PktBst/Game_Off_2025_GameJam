@@ -1,4 +1,5 @@
 using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DayNightCycleCounter : MonoBehaviour
@@ -12,8 +13,13 @@ public class DayNightCycleCounter : MonoBehaviour
     [SerializeField] Light DirectionalLight;
 
     private Quaternion dayLightOrientation;
-    float FullCycleLength => LengthOfDayInTicks == 0 ? 12000 : 2 * LengthOfDayInTicks;
+    int FullCycleLength => LengthOfDayInTicks == 0 ? 12000 : 2 * LengthOfDayInTicks;
     public static DayNightCycleCounter Instance;
+
+   
+
+    public bool PayTaxesOnDay;
+
     private void Awake()
     {
         if (Instance == null)
@@ -56,11 +62,11 @@ public class DayNightCycleCounter : MonoBehaviour
 
         if (ticks == LengthOfDayInTicks)
         {
-            SetTimeOfDay(TimeOfDay.Night);
+            SetNight();
         }
         else if (ticks == 0)
         {
-            SetTimeOfDay(TimeOfDay.Day);
+            SetDay();
         }
 
         PhaseTheDayLight();
@@ -84,7 +90,7 @@ public class DayNightCycleCounter : MonoBehaviour
     }
     public void SetNight()
     {
-        SetTimeOfDay(TimeOfDay.Day);
+        SetTimeOfDay(TimeOfDay.Night);
     }
 
     private void UpdateTimeOfDayTMP()
@@ -114,7 +120,7 @@ public class DayNightCycleCounter : MonoBehaviour
         if (DirectionalLight == null)
             return;
 
-        float t = ticks / FullCycleLength;
+        float t = ((float)ticks) / ((float)FullCycleLength);
         t = Mathf.Repeat(t, 1f);
 
         float sunAngle = t * 360f;
@@ -122,5 +128,4 @@ public class DayNightCycleCounter : MonoBehaviour
         DirectionalLight.transform.rotation =
             Quaternion.Euler(sunAngle, dayLightOrientation.eulerAngles.y, 0f);
     }
-
 }

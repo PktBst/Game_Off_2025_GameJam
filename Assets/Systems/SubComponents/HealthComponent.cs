@@ -59,5 +59,5 @@ public class HealthComponent : MonoBehaviour
 public enum Faction
 {
     GoodGuys,
-    BadGuys
+    BadGuys,
 }

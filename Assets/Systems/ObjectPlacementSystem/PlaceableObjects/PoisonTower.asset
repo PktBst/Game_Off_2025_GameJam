@@ -16,5 +16,8 @@ MonoBehaviour:
   BaseHealth: 100
   GameModel: {fileID: 2655211997919980244, guid: b889852ab402dcf47833f115e4e2e423, type: 3}
   Behaviour: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
+  AttackDamage: 0
   AttackRange: 5
   Cooldown: 0.2
+  Cost: 6
+  BaseTaxAmount: 1

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,12 @@ public class CurrencySystem : MonoBehaviour
 
     private Coroutine notEnoughCashCoroutine;
 
+    [SerializeField] private Projectile coinPrefab;
+    private List<Projectile> coinPool = new();
+
+    [SerializeField] ProjectileBehavior CoinPath;
+
+    
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -28,10 +35,40 @@ public class CurrencySystem : MonoBehaviour
             prePos = notEnoughCashText.rectTransform.anchoredPosition;
             notEnoughCashText.gameObject.SetActive(false);
         }
+        populatePool();
     }
     private void Start()
     {
         TryAddAmount(500);
+    }
+
+    void populatePool()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            Projectile coin = Instantiate(coinPrefab,transform);
+            coin.gameObject.SetActive(false);
+            coinPool.Add(coin);
+        }
+    }
+    public static bool TryGetCoin(Vector3 startPosition,out Projectile coin)
+    {
+        coin = null;
+        if(Instance == null) return false;
+
+        foreach(Projectile existingCoin in Instance.coinPool)
+        {
+            if (!existingCoin.gameObject.activeSelf)
+            {
+                coin = existingCoin;
+                coin.Init(Faction.GoodGuys, startPosition, Vector3.zero, 0, Instance.CoinPath.LerpFunc, (other,pro) => { });
+                break;
+            }
+        }
+        coin ??= Instantiate(Instance.coinPrefab, Instance.transform);
+        Instance.coinPool.Add(coin);
+        coin.Init(Faction.GoodGuys, startPosition, Vector3.zero, 0, Instance.CoinPath.LerpFunc, (other,pro) => { });
+        return true;
     }
 
     [Button]

@@ -19,3 +19,5 @@ MonoBehaviour:
   AttackDamage: 0
   AttackRange: 5
   Cooldown: 0.2
+  Cost: 10
+  BaseTaxAmount: 1

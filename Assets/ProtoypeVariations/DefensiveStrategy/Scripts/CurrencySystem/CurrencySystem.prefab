@@ -362,6 +362,8 @@ MonoBehaviour:
   balance: 0
   balanceText: {fileID: 5517648622102350969}
   notEnoughCashText: {fileID: 4947336441492513487}
+  coinPrefab: {fileID: 5266821536234306786, guid: fc33c8412143e2345a9df017ed93ebee, type: 3}
+  CoinPath: {fileID: 11400000, guid: c1162ed297789344aa26ea484f2c8001, type: 2}
 --- !u!1 &9175918759809027973
 GameObject:
   m_ObjectHideFlags: 0

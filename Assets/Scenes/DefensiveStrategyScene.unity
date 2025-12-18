@@ -1276,9 +1276,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticCycle: 1
-  LengthOfDayInTicks: 12000
+  LengthOfDayInTicks: 200
   CycleOfTheDayTmp: {fileID: 1609114287}
   DirectionalLight: {fileID: 1211317208}
+  PayTaxesOnDay: 1
 --- !u!4 &1869129731
 Transform:
   m_ObjectHideFlags: 0

@@ -10,4 +10,7 @@ public class PlaceableObject_SO : ScriptableObject
     [SerializeField] public float AttackDamage;
     [SerializeField] public float AttackRange;
     [SerializeField] public float Cooldown;
+    [Header("Economic values")]
+    [SerializeField] public int Cost = 0;
+    [SerializeField] public int BaseTaxAmount;
 }

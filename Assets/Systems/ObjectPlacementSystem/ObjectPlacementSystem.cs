@@ -21,6 +21,7 @@ public class ObjectPlacementSystem : MonoBehaviour
         PlaceableObject_SO obj = placeableObjectDB.GetPlaceableObjectByType(type);
 
         tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
+        tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
         tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
         tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
 
