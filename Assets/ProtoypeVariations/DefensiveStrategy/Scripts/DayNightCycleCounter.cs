@@ -157,6 +157,7 @@ public class DayNightCycleCounter : MonoBehaviour
                 tickFrom = LengthOfDayInTicks/2;
                 break;
         }
+        ticks = tickFrom;
         PhaseTheDayLight();
         tickTill = tickFrom + LengthOfDayInTicks / 2;
 
