@@ -29,6 +29,8 @@ public class CardSystem : MonoBehaviour
 
     private CardScript currentlySelectedCard;
 
+    public bool IsShopOpen => ShopCardHolder == null ? false : ShopCardHolder.gameObject.activeSelf;
+
     public void Init()
     {
         if (GameManager.Instance.InputActionAsset.FindAction("Click") != null)
@@ -147,7 +149,8 @@ public class CardSystem : MonoBehaviour
 
     }
 
-    private bool isDeckUp = false; 
+    private bool isDeckUp = false;
+    public bool IsDeckUp=> isDeckUp;
     private float fixedOffset = 200; 
     public void ToggleAndMoveDeck()
     {

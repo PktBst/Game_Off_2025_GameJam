@@ -150,9 +150,21 @@ public class CardScript : MonoBehaviour,
     {
         if (IsLootSelectionCard)
         {
-            var cs = GameManager.Instance.CardSystem;
-            cs.AddCard(cs.cardHolder.transform.childCount,PlaceableObjectData);
-            cs.LootCardHolder.parent.gameObject.SetActive(false);
+            if (GameManager.Instance.CardSystem.IsShopOpen)
+            {
+                if (CurrencySystem.TryDeductAmount(PlaceableObjectData.Cost))
+                {
+                    var cs = GameManager.Instance.CardSystem;
+                    cs.AddCard(cs.cardHolder.transform.childCount, PlaceableObjectData);
+                    cs.LootCardHolder.parent.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                var cs = GameManager.Instance.CardSystem;
+                cs.AddCard(cs.cardHolder.transform.childCount,PlaceableObjectData);
+                cs.LootCardHolder.parent.gameObject.SetActive(false);
+            }
         }
         if (isSelected)
         {

@@ -6,7 +6,9 @@ public class DayNightCycleCounter : MonoBehaviour
 {
     [SerializeField] bool automaticCycle;
     int ticks = 0;
-    public int LengthOfDayInTicks = 12000;
+
+    [SerializeField] int lengthOfDayInTicks = 12000;
+    public int LengthOfDayInTicks => automaticCycle? 100 : lengthOfDayInTicks;
     private TimeOfDay CurrentTime;
     public event System.Action<TimeOfDay> OnTimeOfDayChange;
     [SerializeField] TextMeshProUGUI CycleOfTheDayTmp;
@@ -14,11 +16,13 @@ public class DayNightCycleCounter : MonoBehaviour
 
     private Quaternion dayLightOrientation;
     int FullCycleLength => LengthOfDayInTicks == 0 ? 12000 : 2 * LengthOfDayInTicks;
+
     public static DayNightCycleCounter Instance;
 
-   
 
+    private Coroutine phaseDayCoroutine;
     public bool PayTaxesOnDay;
+    public bool HideCardsAtNight;
 
     private void Awake()
     {
@@ -52,7 +56,11 @@ public class DayNightCycleCounter : MonoBehaviour
         { 
             return; 
         }
-
+        if(phaseDayCoroutine != null)
+        {
+            StopCoroutine(phaseDayCoroutine);
+            phaseDayCoroutine = null;
+        }
         ticks++;
 
         if (ticks >= FullCycleLength)
@@ -62,11 +70,11 @@ public class DayNightCycleCounter : MonoBehaviour
 
         if (ticks == LengthOfDayInTicks)
         {
-            SetNight();
+            SetDay();
         }
         else if (ticks == 0)
         {
-            SetDay();
+            SetNight();
         }
 
         PhaseTheDayLight();
@@ -78,20 +86,41 @@ public class DayNightCycleCounter : MonoBehaviour
         {
             return;
         }
-
         CurrentTime = newTime;
+        if(HideCardsAtNight && GameManager.Instance!=null)
+        {
+            if((GameManager.Instance.CardSystem.IsDeckUp && CurrentTime == TimeOfDay.Night) || (CurrentTime == TimeOfDay.Day && !GameManager.Instance.CardSystem.IsDeckUp))
+            {
+                GameManager.Instance.CardSystem.ToggleAndMoveDeck();
+            }
+        }
         OnTimeOfDayChange?.Invoke(CurrentTime);
         UpdateTimeOfDayTMP();
     }
 
     public void SetDay()
     {
-        SetTimeOfDay(TimeOfDay.Day);
+        if(automaticCycle)
+        {
+            SetTimeOfDay(TimeOfDay.Day);
+        }
+        else
+        {
+            PhaseDayTo(TimeOfDay.Day);
+        }
     }
     public void SetNight()
     {
-        SetTimeOfDay(TimeOfDay.Night);
+        if (automaticCycle)
+        {
+            SetTimeOfDay(TimeOfDay.Night);
+        }
+        else
+        {
+            PhaseDayTo(TimeOfDay.Night);
+        }
     }
+
 
     private void UpdateTimeOfDayTMP()
     {
@@ -99,6 +128,43 @@ public class DayNightCycleCounter : MonoBehaviour
         {
             CycleOfTheDayTmp.SetText(CurrentTime.ToString());
         }
+    }
+
+    private void PhaseDayTo(TimeOfDay cycleTo)
+    {
+        if(phaseDayCoroutine != null)
+        {
+            StopCoroutine(phaseDayCoroutine);
+        }
+        phaseDayCoroutine = StartCoroutine(PhaseDayIEnumerator(cycleTo));
+    }
+
+    System.Collections.IEnumerator PhaseDayIEnumerator(TimeOfDay cycleTo)
+    {
+        int tickFrom = ticks;
+        int tickTill = 0;
+        switch (cycleTo)
+        {
+            case TimeOfDay.Day:
+                SetTimeOfDay(TimeOfDay.Night);
+                tickFrom = 0;
+                break;
+            case TimeOfDay.Night:
+                SetTimeOfDay(TimeOfDay.Day);
+                tickFrom = lengthOfDayInTicks;
+                break;
+        }
+        tickTill = tickFrom + LengthOfDayInTicks / 2;
+
+        while (ticks < tickTill)
+        {
+            PhaseTheDayLight();
+            ticks++;
+            yield return null;
+        }
+        SetTimeOfDay(cycleTo);
+        phaseDayCoroutine = null;
+        yield break;
     }
 
     //private void PhaseTheDayLight()
