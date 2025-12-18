@@ -149,6 +149,12 @@ public class CardSystem : MonoBehaviour
 
     }
 
+    [Button]
+    public void closeShop()
+    {
+        ShopCardHolder.transform.parent.gameObject.SetActive(false);
+    }
+
     private bool isDeckUp = false;
     public bool IsDeckUp=> isDeckUp;
     private float fixedOffset = 200; 

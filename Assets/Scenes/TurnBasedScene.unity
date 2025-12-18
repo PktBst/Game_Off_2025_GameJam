@@ -149,10 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticCycle: 0
-  LengthOfDayInTicks: 200
+  lengthOfDayInTicks: 12000
   CycleOfTheDayTmp: {fileID: 0}
   DirectionalLight: {fileID: 1211317208}
   PayTaxesOnDay: 0
+  HideCardsAtNight: 0
 --- !u!4 &277242093
 Transform:
   m_ObjectHideFlags: 0
@@ -257,11 +258,6 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 2457332215590149730, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
   m_PrefabInstance: {fileID: 1829956535}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1160392688 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5859055879962772846, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-  m_PrefabInstance: {fileID: 1829956535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211317207
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,13 +349,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211317207}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.6830127, y: -0.18301266, z: 0.18301266, w: 0.6830127}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: -30, z: 0}
 --- !u!114 &1211317210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,31 +456,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: DebugMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: CostPrefab
-      value: 
-      objectReference: {fileID: 7919157892924951350, guid: 87e1b0858f5b1e447b1dbb3ddfa892a4, type: 3}
-    - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: LootCardHolder
-      value: 
-      objectReference: {fileID: 1918245416}
-    - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: ShopCardHolder
-      value: 
-      objectReference: {fileID: 1160392688}
-    - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
       propertyPath: LootSelectionMenu
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
       propertyPath: CardSelectorCanvas
-      value: 
-      objectReference: {fileID: 1005005813}
-    - target: {fileID: 8628205936291478956, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-      propertyPath: LootSelectorCanvas
       value: 
       objectReference: {fileID: 1005005813}
     m_RemovedComponents: []
@@ -502,11 +478,6 @@ PrefabInstance:
       addedObject: {fileID: 277242093}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
---- !u!224 &1918245416 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5612329299693927361, guid: 78b784a834a61344b8c97b4c251e844f, type: 3}
-  m_PrefabInstance: {fileID: 1829956535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1950675899
 PrefabInstance:
   m_ObjectHideFlags: 0
