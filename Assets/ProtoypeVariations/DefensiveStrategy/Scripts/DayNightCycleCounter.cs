@@ -98,6 +98,7 @@ public class DayNightCycleCounter : MonoBehaviour
         UpdateTimeOfDayTMP();
     }
 
+    [Button]
     public void SetDay()
     {
         if(automaticCycle)
@@ -109,6 +110,8 @@ public class DayNightCycleCounter : MonoBehaviour
             PhaseDayTo(TimeOfDay.Day);
         }
     }
+
+    [Button]
     public void SetNight()
     {
         if (automaticCycle)
@@ -151,9 +154,10 @@ public class DayNightCycleCounter : MonoBehaviour
                 break;
             case TimeOfDay.Night:
                 SetTimeOfDay(TimeOfDay.Day);
-                tickFrom = lengthOfDayInTicks;
+                tickFrom = LengthOfDayInTicks/2;
                 break;
         }
+        PhaseTheDayLight();
         tickTill = tickFrom + LengthOfDayInTicks / 2;
 
         while (ticks < tickTill)
