@@ -70,11 +70,11 @@ public class DayNightCycleCounter : MonoBehaviour
 
         if (ticks == LengthOfDayInTicks)
         {
-            SetDay();
+            SetNight();
         }
         else if (ticks == 0)
         {
-            SetNight();
+            SetDay();
         }
 
         PhaseTheDayLight();

@@ -55,10 +55,20 @@ public class StatsComponent : MonoBehaviour
 
         int taxAmount = Mathf.RoundToInt(TaxAmount * healthRatio);
 
-        if (taxAmount > 0 &&
-            CurrencySystem.TryGetCoin(transform.position, out var coin))
+        for(int i =0; i < taxAmount; i++)
         {
-            CurrencySystem.TryAddAmount(taxAmount);
+            StartCoroutine(SpawnCoins(taxAmount));
+        }
+    }
+    System.Collections.IEnumerator SpawnCoins(int amt)
+    {
+        for(int i = 0;i< amt;i++)
+        {
+            if (CurrencySystem.TryGetCoin(transform.position, out var coin))
+            {
+                CurrencySystem.TryAddAmount(amt);
+            }
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
