@@ -7,9 +7,13 @@ public class MoveComponent : MonoBehaviour
     public float MoveSpeed;
     public Vector3 TargetPosition;
     public bool IsMoving => !Agent.isStopped;
-    public bool DestinationReached => Agent.remainingDistance <= 0.5f;
+    public bool DestinationReached => getDistance();
     private NavMeshAgent agent;
 
+    bool getDistance() {
+        if (this == null || Agent == null || !Agent.isActiveAndEnabled) return false;
+        return Agent?.remainingDistance <= 0.5f;
+    }
     public NavMeshAgent Agent
     {
         get
@@ -29,8 +33,9 @@ public class MoveComponent : MonoBehaviour
     }
     public void MoveTo(Vector3 targetPosition)
     {
+        if(Agent == null) return;
         TargetPosition = targetPosition;
-        Agent.SetDestination(targetPosition);
+        Agent?.SetDestination(targetPosition);
         Agent.speed = MoveSpeed;
     }
     public void Stop()
@@ -46,6 +51,7 @@ public class MoveComponent : MonoBehaviour
 
     void UpdateTarget()
     {
+        if (this == null || Agent == null || !Agent.isActiveAndEnabled) return;
         if (TryGetComponent<AttackComponent>(out var attack))
         {
             if (attack.hasTarget)

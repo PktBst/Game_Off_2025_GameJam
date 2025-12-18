@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,8 @@ public class CardSystem : MonoBehaviour
     [Header("References")]
     public bool DebugMode;
     public RectTransform LootCardHolder;
+    public RectTransform ShopCardHolder;
+    public TextMeshProUGUI CostPrefab;
     public GameObject cardPrefab;
     public RectTransform cardHolder;
     public Canvas LootSelectorCanvas;
@@ -74,6 +77,13 @@ public class CardSystem : MonoBehaviour
         GenerateLoot();
 
     }
+
+    [Button]
+    public void openShopMenu()
+    {
+        ShopCardHolder.transform.parent.gameObject.SetActive(true);
+        GenerateShop();
+    }
     public GameObject GenerateCanPopulateRandomCard()
     {
         GameObject newObj = Instantiate(cardPrefab);
@@ -120,6 +130,67 @@ public class CardSystem : MonoBehaviour
         }
 
     }
+
+    [Button]
+    public void GenerateShop(int AmountOfCards = 6)
+    {
+        foreach (Transform gm in ShopCardHolder) Destroy(gm.gameObject);
+        while (AmountOfCards-- >= 1)
+        {
+            GameObject newObj = GenerateCanPopulateRandomCard();
+            newObj.transform.SetParent(ShopCardHolder);
+            newObj.GetComponent<CardScript>().IsLootSelectionCard = true;
+            TextMeshProUGUI temp = Instantiate(CostPrefab, newObj.GetComponent<RectTransform>().position + new Vector3(0, 200f, 0), Quaternion.identity);
+            temp.SetText(newObj.GetComponent<CardScript>().PlaceableObjectData.Cost.ToString());
+            temp.transform.SetParent(newObj.transform);
+        }
+
+    }
+
+    private bool isDeckUp = false; 
+    private float fixedOffset = 200; 
+    public void ToggleAndMoveDeck()
+    {
+        StopAllCoroutines();
+        StartCoroutine(ToggleHideUnhideAndMove(0.35f));
+    }
+
+    IEnumerator ToggleHideUnhideAndMove(float moveDuration)
+    {
+        RectTransform rect = cardHolder.GetComponent<RectTransform>();
+        Vector3 startPos = rect.position;
+        Vector3 targetPos;
+
+        if (!isDeckUp)
+        {
+            // Move Up: Current position + offset
+            targetPos = startPos + new Vector3(0, fixedOffset, 0);
+            cardHolder.gameObject.SetActive(true);
+        }
+        else
+        {
+            // Move Down: Current position - offset
+            targetPos = startPos - new Vector3(0, fixedOffset, 0);
+        }
+
+        float elapsedTime = 0f;
+        while (elapsedTime < moveDuration)
+        {
+            rect.position = Vector3.Lerp(startPos, targetPos, elapsedTime / moveDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        rect.position = targetPos;
+        isDeckUp = !isDeckUp; 
+
+        if (!isDeckUp)
+        {
+            cardHolder.gameObject.SetActive(false);
+        }
+    }
+
+
 
     //Arranges all cards in arch
     private void ReorganizeHand()

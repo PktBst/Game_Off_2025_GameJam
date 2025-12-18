@@ -28,13 +28,15 @@ public class TurnBasedGameMode : GameMode
 
     private void BeginTurn()
     {
+        GameManager.Instance.CardSystem.ToggleAndMoveDeck();
         Debug.Log($"Turn Begun: {CurrentTurn}");
         OnTurnBegun?.Invoke(CurrentTurn);
         if (CurrentTurn == PlayTurn.CPU)
         {
             int randomIndex = UnityEngine.Random.Range(0, SpawnableEnemyPrefabList.Count);
-            Vector3 pos = Vector3.one * -3;
+            Vector3 pos = Vector3.one * -5;
             pos.y = 0;
+            pos.x *= -1;
             GameObject gm = Instantiate(SpawnableEnemyPrefabList[randomIndex],pos,Quaternion.identity);
             EnemyList.Add(gm);
             gm.GetComponent<HealthComponent>().OnDeath += CheckOnEnemyUnitDeath;

@@ -80,7 +80,7 @@ public class AttackComponent : MonoBehaviour
             else
             {
                 wasStopped = false;
-                Move?.MoveTo(targetHealth.transform.position);
+                if(Move!=null && Move.Agent!=null)Move?.MoveTo(targetHealth.transform.position);
             }
         }
 

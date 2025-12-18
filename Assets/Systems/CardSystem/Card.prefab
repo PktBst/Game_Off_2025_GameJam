@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 132.39}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4255624701921037121
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -137,15 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b5e2b5ce44033438a8106659efdc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLootSelectionCard: 0
   NameText: {fileID: 1922705388713142661}
   img: {fileID: 0}
   hoverOffset: 37
   scaleOnHover: 1.1
   smoothTime: 0.1
-  PlaceableObjectData:
-    Type: 0
-    BaseLifeTime: 0
-    GameModel: {fileID: 0}
+  PlaceableObjectData: {fileID: 0}
   isSelected: 0
 --- !u!114 &288135914920154678
 MonoBehaviour:
@@ -194,9 +192,9 @@ MonoBehaviour:
     m_Right: 15
     m_Top: 15
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_Spacing: 5
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
@@ -253,7 +251,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 230, y: 26.8362}
+  m_SizeDelta: {x: 219.8144, y: 26.8362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7804956578699066414
 CanvasRenderer:

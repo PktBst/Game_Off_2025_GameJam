@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BadUnit Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2920349620749863631, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
+      propertyPath: MaxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7611622342117740622, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: FactionType
       value: 1
