@@ -157,6 +157,7 @@ public class CardScript : MonoBehaviour,
                     var cs = GameManager.Instance.CardSystem;
                     cs.AddCard(cs.cardHolder.transform.childCount, PlaceableObjectData);
                     cs.LootCardHolder.parent.gameObject.SetActive(false);
+                    Destroy(gameObject);
                 }
             }
             else

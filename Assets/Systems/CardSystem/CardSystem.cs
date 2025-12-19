@@ -155,49 +155,98 @@ public class CardSystem : MonoBehaviour
         ShopCardHolder.transform.parent.gameObject.SetActive(false);
     }
 
-    private bool isDeckUp = false;
+    private bool isDeckUp = true;
     public bool IsDeckUp=> isDeckUp;
-    private float fixedOffset = 200; 
-    public void ToggleAndMoveDeck()
+    private float fixedOffset = 200;
+
+
+    public void ShowDeck()
     {
+        if (isDeckUp) return;
         StopAllCoroutines();
-        StartCoroutine(ToggleHideUnhideAndMove(0.35f));
+        StartCoroutine(MoveDeck(true, 0.35f));
     }
 
-    IEnumerator ToggleHideUnhideAndMove(float moveDuration)
+    public void HideDeck()
+    {
+        if (!isDeckUp) return;
+        StopAllCoroutines();
+        StartCoroutine(MoveDeck(false, 0.35f));
+    }
+    public void ToggleAndMoveDeck()
+    {
+        if (isDeckUp)
+            HideDeck();
+        else
+            ShowDeck();
+    }
+    IEnumerator MoveDeck(bool show, float duration)
     {
         RectTransform rect = cardHolder.GetComponent<RectTransform>();
+
         Vector3 startPos = rect.position;
-        Vector3 targetPos;
+        Vector3 targetPos = show
+            ? startPos + new Vector3(0, fixedOffset, 0)
+            : startPos - new Vector3(0, fixedOffset, 0);
 
-        if (!isDeckUp)
-        {
-            // Move Up: Current position + offset
-            targetPos = startPos + new Vector3(0, fixedOffset, 0);
+        if (show)
             cardHolder.gameObject.SetActive(true);
-        }
-        else
-        {
-            // Move Down: Current position - offset
-            targetPos = startPos - new Vector3(0, fixedOffset, 0);
-        }
 
-        float elapsedTime = 0f;
-        while (elapsedTime < moveDuration)
+        float elapsed = 0f;
+        while (elapsed < duration)
         {
-            rect.position = Vector3.Lerp(startPos, targetPos, elapsedTime / moveDuration);
-            elapsedTime += Time.deltaTime;
+            rect.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
         rect.position = targetPos;
-        isDeckUp = !isDeckUp; 
+        isDeckUp = show;
 
-        if (!isDeckUp)
-        {
+        if (!show)
             cardHolder.gameObject.SetActive(false);
-        }
     }
+
+    //public void ToggleAndMoveDeck()
+    //{
+    //    StopAllCoroutines();
+    //    StartCoroutine(ToggleHideUnhideAndMove(0.35f));
+    //}
+
+    //IEnumerator ToggleHideUnhideAndMove(float moveDuration)
+    //{
+    //    RectTransform rect = cardHolder.GetComponent<RectTransform>();
+    //    Vector3 startPos = rect.position;
+    //    Vector3 targetPos;
+
+    //    if (!isDeckUp)
+    //    {
+    //        // Move Up: Current position + offset
+    //        targetPos = startPos + new Vector3(0, fixedOffset, 0);
+    //        cardHolder.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        // Move Down: Current position - offset
+    //        targetPos = startPos - new Vector3(0, fixedOffset, 0);
+    //    }
+
+    //    float elapsedTime = 0f;
+    //    while (elapsedTime < moveDuration)
+    //    {
+    //        rect.position = Vector3.Lerp(startPos, targetPos, elapsedTime / moveDuration);
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    rect.position = targetPos;
+    //    isDeckUp = !isDeckUp; 
+
+    //    if (!isDeckUp)
+    //    {
+    //        cardHolder.gameObject.SetActive(false);
+    //    }
+    //}
 
 
 

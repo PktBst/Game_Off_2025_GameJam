@@ -9,7 +9,8 @@ public class DayNightCycleCounter : MonoBehaviour
 
     [SerializeField] int lengthOfDayInTicks = 12000;
     public int LengthOfDayInTicks => automaticCycle? lengthOfDayInTicks : 100;
-    private TimeOfDay CurrentTime;
+    private TimeOfDay currentTime;
+    public TimeOfDay CurrentTime => currentTime;
     public event System.Action<TimeOfDay> OnTimeOfDayChange;
     [SerializeField] TextMeshProUGUI CycleOfTheDayTmp;
     [SerializeField] Light DirectionalLight;
@@ -24,6 +25,8 @@ public class DayNightCycleCounter : MonoBehaviour
     public bool PayTaxesOnDay;
     public bool HideCardsAtNight;
 
+
+    private bool pause;
     private void Awake()
     {
         if (Instance == null)
@@ -50,11 +53,24 @@ public class DayNightCycleCounter : MonoBehaviour
         GameManager.Instance.TickSystem.Unsubscribe(Tick);
     }
 
+    public void PausePhasing()
+    {
+        pause = true;
+    }
+    public void ResumePhasing()
+    {
+        pause = false;
+    }
     private void Tick()
     {
         if (!automaticCycle)
         { 
             return; 
+        }
+
+        if (pause)
+        {
+            return;
         }
         if(phaseDayCoroutine != null)
         {
@@ -82,26 +98,31 @@ public class DayNightCycleCounter : MonoBehaviour
 
     private void SetTimeOfDay(TimeOfDay newTime)
     {
-        if (CurrentTime == newTime)
+        if (currentTime == newTime)
         {
             return;
         }
-        CurrentTime = newTime;
-        if(HideCardsAtNight && GameManager.Instance!=null)
-        {
-            if((GameManager.Instance.CardSystem.IsDeckUp && CurrentTime == TimeOfDay.Night) || (CurrentTime == TimeOfDay.Day && !GameManager.Instance.CardSystem.IsDeckUp))
-            {
-                GameManager.Instance.CardSystem.ToggleAndMoveDeck();
-            }
-        }
-        OnTimeOfDayChange?.Invoke(CurrentTime);
+        currentTime = newTime;
+        OnTimeOfDayChange?.Invoke(currentTime);
+        Debug.Log($"Current Time: {currentTime}");
+        HandleTimeOfDayChanged(currentTime);
         UpdateTimeOfDayTMP();
+    }
+    private void HandleTimeOfDayChanged(TimeOfDay time)
+    {
+        var cards = GameManager.Instance.CardSystem;
+
+        if (time == TimeOfDay.Day)
+            cards.ShowDeck();
+        else
+            cards.HideDeck();
     }
 
     [Button]
     public void SetDay()
     {
-        if(automaticCycle)
+        if (currentTime == TimeOfDay.Day) return;
+        if (automaticCycle)
         {
             SetTimeOfDay(TimeOfDay.Day);
         }
@@ -114,6 +135,7 @@ public class DayNightCycleCounter : MonoBehaviour
     [Button]
     public void SetNight()
     {
+        if (currentTime == TimeOfDay.Night) return;
         if (automaticCycle)
         {
             SetTimeOfDay(TimeOfDay.Night);
@@ -129,7 +151,7 @@ public class DayNightCycleCounter : MonoBehaviour
     {
         if (CycleOfTheDayTmp != null)
         {
-            CycleOfTheDayTmp.SetText(CurrentTime.ToString());
+            CycleOfTheDayTmp.SetText(currentTime.ToString());
         }
     }
 
@@ -149,11 +171,11 @@ public class DayNightCycleCounter : MonoBehaviour
         switch (cycleTo)
         {
             case TimeOfDay.Day:
-                SetTimeOfDay(TimeOfDay.Night);
+                //SetTimeOfDay(TimeOfDay.Night);
                 tickFrom = 0;
                 break;
             case TimeOfDay.Night:
-                SetTimeOfDay(TimeOfDay.Day);
+                //SetTimeOfDay(TimeOfDay.Day);
                 tickFrom = LengthOfDayInTicks/2;
                 break;
         }

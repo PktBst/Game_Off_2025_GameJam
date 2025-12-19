@@ -23,6 +23,10 @@ public class TownHallAttackScript : MonoBehaviour
             return;
         }
         Vector3? worldPos = null;
+        if (DayNightCycleCounter.Instance != null && DayNightCycleCounter.Instance.CurrentTime == TimeOfDay.Day)
+        {
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, Mathf.Infinity, GridSystem.Instance.GroundLayer.value))
         {

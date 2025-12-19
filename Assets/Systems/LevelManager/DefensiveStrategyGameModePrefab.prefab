@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78034785f35f0240a5d0d14e901bdb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TownHallPrefab: {fileID: 157641320810771396, guid: 44501673a357d3745a4de73bef2b9612, type: 3}
+  EnemyList: []
+  TownHallPrefab: {fileID: 157641320810771396, guid: 9c4a9e414b5f6234bb25c3aeaf84fc54, type: 3}
   ProjectileBehaviorScript: {fileID: 11400000, guid: 223dbdb37bf6fc041bbc87c16da793c4, type: 2}

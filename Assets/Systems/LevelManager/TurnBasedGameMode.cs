@@ -25,10 +25,12 @@ public class TurnBasedGameMode : GameMode
         CurrentTurn = (CurrentTurn == PlayTurn.Player)? PlayTurn.CPU: PlayTurn.Player;
         if (CurrentTurn == PlayTurn.Player)
         {
+            GameManager.Instance.CardSystem.ShowDeck();
             DayNightCycleCounter.Instance.SetDay();
         }
         else
         {
+            GameManager.Instance.CardSystem.HideDeck();
             DayNightCycleCounter.Instance.SetNight();
         }
 
@@ -37,7 +39,6 @@ public class TurnBasedGameMode : GameMode
 
     private void BeginTurn()
     {
-        GameManager.Instance.CardSystem.ToggleAndMoveDeck();
         Debug.Log($"Turn Begun: {CurrentTurn}");
         OnTurnBegun?.Invoke(CurrentTurn);
         if (CurrentTurn == PlayTurn.CPU)
