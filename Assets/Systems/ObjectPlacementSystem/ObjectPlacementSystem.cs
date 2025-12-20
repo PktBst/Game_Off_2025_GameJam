@@ -20,6 +20,12 @@ public class ObjectPlacementSystem : MonoBehaviour
             return false; 
         }
 
+        if (!tile.IsBlocked && obj.GetComponent<CardData>().CardType == CardType.Misc)
+        {
+            Instantiate(obj, tile.Pos, Quaternion.identity);
+            return true;
+        }
+
         moveUnitsAwayFromSpawnPoint(tile);
         doTurnBasedGameModeThings();
 

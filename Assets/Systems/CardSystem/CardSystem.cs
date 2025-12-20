@@ -62,6 +62,31 @@ public class CardSystem : MonoBehaviour
 
         ReorganizeHand();
     }
+    [Button]
+    public void DeleteRandomCardInHand(int count)
+    {
+        while (count > 0)
+        {
+            if (cardHolder.childCount > 0)
+            {
+                var card = cardHolder.transform.GetChild(Random.Range(0, cardHolder.childCount))?.gameObject;
+                card.transform.SetParent(null);
+                Destroy(card);
+            }
+            count--;
+        }
+    }
+
+    [Button]
+    public void AddRandomCardInHand(int count)
+    {
+        while(count > 0)
+        {
+            GenerateCanPopulateRandomCard().transform.SetParent(cardHolder);
+            count--;    
+        }
+        ReorganizeHand();
+    }
 
     public GameObject AddCardByData(CardData objData)
     {
