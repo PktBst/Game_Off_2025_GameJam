@@ -55,7 +55,7 @@ public class AnimationPool : MonoBehaviour
                 prefabPool = new();
                 for (int i = 0; i < poolSize; i++)
                 {
-                    var spawnedPrefab = Instantiate(animationPrefabsDict[animationPoolPrefabKVP.Key], transform);
+                    var spawnedPrefab = Instantiate(animationPoolPrefabKVP.Value, transform);
                     prefabPool.Add(spawnedPrefab);
                     spawnedPrefab.SetActive(false);
                 }
@@ -693,19 +693,48 @@ public class AnimationPool : MonoBehaviour
 
     public Coroutine PlayAnimationAtFor(string name, Vector3 forwardDirection, Vector3 position, float timeDurationInSeconds)
     {
-        if(!TryAndGetPooledAnimationByName(name,out var animationInstance))
+        if (!TryAndGetPooledAnimationByName(name, out var animationInstance))
         {
-            return StartCoroutine(PlayAnimationFor(null,timeDurationInSeconds));
-        }
-        animationInstance.transform.position = position;
-        forwardDirection = forwardDirection.normalized;
-        if(forwardDirection.magnitude > 0.001f)
-        {
-            animationInstance.transform.forward = forwardDirection;
+            Debug.LogWarning($"[Animation Pool] Animation '{name}' not found in pool. Spawning a new one.");
+
+            // Try to get prefab from dictionary
+            if (animationPrefabsDict != null && animationPrefabsDict.TryGetValue(name, out var prefab))
+            {
+                // Instantiate new animation and add it to the pool
+                animationInstance = Instantiate(prefab, transform);
+
+                if (!animationPool.TryGetValue(name, out var prefabPool))
+                {
+                    prefabPool = new List<GameObject>();
+                    animationPool.Add(name, prefabPool);
+                }
+
+                prefabPool.Add(animationInstance);
+
+                // Deactivate initially so pooling logic is consistent
+                animationInstance.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError($"[Animation Pool] No prefab found for animation '{name}' in dictionary.");
+                return StartCoroutine(PlayAnimationFor(null, timeDurationInSeconds));
+            }
         }
 
+        // Set position
+        animationInstance.transform.position = position;
+
+        // Set forward direction safely
+        if (forwardDirection.sqrMagnitude > 0.000001f)
+        {
+            animationInstance.transform.forward = forwardDirection.normalized;
+        }
+
+        // Start playing the animation for the given duration
         return StartCoroutine(PlayAnimationFor(animationInstance, timeDurationInSeconds));
     }
+
+
 
     System.Collections.IEnumerator PlayAnimationFor(GameObject animationInstance, float timeDurationInSeconds)
     {
@@ -714,7 +743,20 @@ public class AnimationPool : MonoBehaviour
             yield break;
         }
         animationInstance.SetActive(true);
+
+        var ps = animationInstance.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            ps.Clear(true); // Clear old particles
+            ps.Play(true);  // Play system
+        }
+        Debug.Log($"{animationInstance.name} was played at {animationInstance.transform.position}");
         yield return new WaitForSeconds(timeDurationInSeconds);
+
+        if (ps != null)
+        {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
         animationInstance.SetActive(false);
     }
 
