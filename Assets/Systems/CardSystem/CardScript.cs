@@ -11,7 +11,8 @@ public class CardScript : MonoBehaviour,
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI NameText;
-    [SerializeField] private Image img;
+    [SerializeField] private TextMeshProUGUI DescText;
+    [SerializeField] private Image DisplayImage;
 
     [Header("Animation Settings")]
     [SerializeField] private float hoverOffset = 50f;
@@ -19,7 +20,7 @@ public class CardScript : MonoBehaviour,
     [SerializeField] private float smoothTime = 0.1f;
 
     [Header("Data")]
-    public PlaceableObject_SO PlaceableObjectData;
+    public CardData PlaceableObjectData;
     public bool isSelected = false;
     private bool isHovering = false;
 
@@ -39,6 +40,8 @@ public class CardScript : MonoBehaviour,
     private int defaultSortingOrder = 0;
     private bool needsUpdate = false;
 
+
+    
     private void Awake()
     {
         if (!TryGetComponent(out cardCanvas))
@@ -76,7 +79,11 @@ public class CardScript : MonoBehaviour,
     public void Init()
     {
         if (PlaceableObjectData != null)
-            NameText.text = PlaceableObjectData.Type.ToString();
+        {
+            NameText.SetText(PlaceableObjectData.DisplayName.ToString());
+            DescText.SetText(PlaceableObjectData.Desc.ToString());
+        }
+            
     }
 
     public void UpdateBaseTransform(Vector3 newPos, Quaternion newRot)
@@ -224,3 +231,4 @@ public class CardScript : MonoBehaviour,
         needsUpdate = true;
     }
 }
+

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PlaceableObjectDB_SO
   m_EditorClassIdentifier: 
   AllPlaceableObjectSOs:
-  - {fileID: 11400000, guid: 138c69b2078c2704c9eb8a1981c2fab8, type: 2}
-  - {fileID: 11400000, guid: 63182f4f0f862a242871b8126ec67cc7, type: 2}
-  - {fileID: 11400000, guid: aafb58ce63528394b82a2b786dcb98a9, type: 2}
-  - {fileID: 11400000, guid: c73d1ee7bceb2a941af7c1f66f389fff, type: 2}
-  - {fileID: 11400000, guid: 4bbf901a7b20cf34ea9165f31bfff161, type: 2}
+  - {fileID: 962096289525873262, guid: 2bf431de10e5e6245bab916fc054c6e7, type: 3}
+  - {fileID: 5955257527380488959, guid: 065f2bf282ef99a498c6ecf083fbfe12, type: 3}
+  - {fileID: -3147867944262187321, guid: b889852ab402dcf47833f115e4e2e423, type: 3}
+  - {fileID: 7156078732535471689, guid: d5c3a8dc354a70843b23964bbb0061e1, type: 3}
+  - {fileID: 1447798803908607786, guid: bbb21b765c89ebc4f99cb072bdc939eb, type: 3}
+  - {fileID: 6250229019017767273, guid: c34f2e45337d86e42bb709f1ef7a27bd, type: 3}

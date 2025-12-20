@@ -42,9 +42,9 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-    public void AddCard(int specificIndex = -1, PlaceableObject_SO optionalObjData = null)
+    public void AddCard(int specificIndex = -1, CardData optionalObjData = null)
     {
-        GameObject newObj = (optionalObjData)? AddCardByData(optionalObjData) : GenerateCanPopulateRandomCard();
+        GameObject newObj = (optionalObjData!=null)? AddCardByData(optionalObjData) : GenerateCanPopulateRandomCard();
         newObj.transform.SetParent(cardHolder);
 
         float startY = -PopDistance;
@@ -63,7 +63,7 @@ public class CardSystem : MonoBehaviour
         ReorganizeHand();
     }
 
-    public GameObject AddCardByData(PlaceableObject_SO objData)
+    public GameObject AddCardByData(CardData objData)
     {
         GameObject newObj = Instantiate(cardPrefab,cardHolder);
         CardScript card = newObj.GetComponent<CardScript>();
@@ -90,7 +90,7 @@ public class CardSystem : MonoBehaviour
     {
         GameObject newObj = Instantiate(cardPrefab);
         CardScript card = newObj.GetComponent<CardScript>();
-        card.PlaceableObjectData = GameManager.Instance.ObjectPlacementSystem.GetRandomPlaceableObject();
+        card.PlaceableObjectData = GameManager.Instance.ObjectPlacementSystem.GetRandomPlaceableObject().GetComponent<CardData>();
         card.Init();
 
         return newObj;
@@ -103,7 +103,7 @@ public class CardSystem : MonoBehaviour
 
        if( !GameManager.Instance.ObjectPlacementSystem.SpawnPlaceableObjectAtTile(
             GameManager.Instance.GridSystem.CurrentTile,
-            currentlySelectedCard.PlaceableObjectData.Type
+            currentlySelectedCard.PlaceableObjectData.DisplayName
             ))
         {
             return;

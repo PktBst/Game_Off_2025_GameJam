@@ -12,31 +12,33 @@ public class ObjectPlacementSystem : MonoBehaviour
     {
         enumValues = (EPlaceableObjectType[])Enum.GetValues(typeof(EPlaceableObjectType));
     }
-    public bool SpawnPlaceableObjectAtTile(Tile tile, EPlaceableObjectType type)
+    public bool SpawnPlaceableObjectAtTile(Tile tile, string name)
     {
         if (tile.IsBlocked) return false;
 
         moveUnitsAwayFromSpawnPoint(tile);
         doTurnBasedGameModeThings();
-        PlaceableObject_SO obj = placeableObjectDB.GetPlaceableObjectByType(type);
+        GameObject obj = placeableObjectDB.GetPlaceableObjectByType(name);
 
-        tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
-        tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
-        tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
-        tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
+        //tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
+        if(obj.GetComponent<CardData>().CardType == CardType.Building)tile.OccupyingEntity = Instantiate(obj, tile.Pos, Quaternion.identity);
+        else { return false; }
+            //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
+            //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
+            //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
 
-        tile.OccupyingEntity.GetComponent<AttackComponent>()
-            .Init(obj.Behaviour.ExecuteBehaviour);
+            //tile.OccupyingEntity.GetComponent<AttackComponent>()
+            //    .Init(obj.Behaviour.ExecuteBehaviour);
 
-        tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
+            //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
 
-        Debug.Log($"Spawned a <color=red>{obj.name}</color>");
-        return true;
+            //Debug.Log($"Spawned a <color=red>{obj}</color>");
+            return true;
     }
 
-    public PlaceableObject_SO GetRandomPlaceableObject()
+    public GameObject GetRandomPlaceableObject()
     {
-        return placeableObjectDB.GetPlaceableObjectByType(enumValues[UnityEngine.Random.Range(0, enumValues.Length)]);
+        return placeableObjectDB.GetRandomObject();
     }
 
     void doTurnBasedGameModeThings()
