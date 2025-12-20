@@ -14,26 +14,46 @@ public class ObjectPlacementSystem : MonoBehaviour
     }
     public bool SpawnPlaceableObjectAtTile(Tile tile, string name)
     {
-        if (tile.IsBlocked) return false;
+        GameObject obj = placeableObjectDB.GetPlaceableObjectByType(name);
+        if (tile.IsBlocked && obj.GetComponent<CardData>().CardType == CardType.Building) 
+        { 
+            return false; 
+        }
 
         moveUnitsAwayFromSpawnPoint(tile);
         doTurnBasedGameModeThings();
-        GameObject obj = placeableObjectDB.GetPlaceableObjectByType(name);
 
         //tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
         if(obj.GetComponent<CardData>().CardType == CardType.Building)tile.OccupyingEntity = Instantiate(obj, tile.Pos, Quaternion.identity);
-        else { return false; }
-            //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
-            //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
-            //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
+        else if (obj.TryGetComponent<CardData>(out var source)
+        && source is IBuffs)
+        {
+            if (tile.OccupyingEntity != null)
+            {
+                var addedComp = tile.OccupyingEntity
+                    .AddComponent(source.GetType()) as CardData;
 
-            //tile.OccupyingEntity.GetComponent<AttackComponent>()
-            //    .Init(obj.Behaviour.ExecuteBehaviour);
+                if (addedComp != null)
+                {
+                    addedComp.Init(source);
+                }
 
-            //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
+                return true;
+            }
 
-            //Debug.Log($"Spawned a <color=red>{obj}</color>");
-            return true;
+            return false;
+        }
+        //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
+        //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
+        //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
+
+        //tile.OccupyingEntity.GetComponent<AttackComponent>()
+        //    .Init(obj.Behaviour.ExecuteBehaviour);
+
+        //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
+
+        //Debug.Log($"Spawned a <color=red>{obj}</color>");
+        return true;
     }
 
     public GameObject GetRandomPlaceableObject()
