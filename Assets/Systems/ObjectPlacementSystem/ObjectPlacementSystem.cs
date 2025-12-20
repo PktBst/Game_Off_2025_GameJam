@@ -25,18 +25,13 @@ public class ObjectPlacementSystem : MonoBehaviour
 
         //tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
         if(obj.GetComponent<CardData>().CardType == CardType.Building)tile.OccupyingEntity = Instantiate(obj, tile.Pos, Quaternion.identity);
-        else if (obj.TryGetComponent<CardData>(out var source)
-        && source is IBuffs)
+        else if (obj.GetComponent<CardData>().CardType==CardType.Buff)
         {
+            var source = obj.GetComponent<BuffEffect>();
             if (tile.OccupyingEntity != null)
             {
-                var addedComp = tile.OccupyingEntity
-                    .AddComponent(source.GetType()) as CardData;
-
-                if (addedComp != null)
-                {
-                    addedComp.Init(source);
-                }
+                tile.OccupyingEntity
+                    .AddComponent(source.GetType());
 
                 return true;
             }

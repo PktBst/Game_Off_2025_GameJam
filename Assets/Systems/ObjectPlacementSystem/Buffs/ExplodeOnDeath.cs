@@ -1,16 +1,12 @@
 using UnityEngine;
 
-public class ExplodeOnDeath : CardData, IBuffs
+public class ExplodeOnDeath : BuffEffect
 {
     HealthComponent health;
 
-    public override void Init(CardData cardData)
+    protected override void Awake()
     {
-        base.Init(cardData);
-    }
-
-    private void Awake()
-    {
+        base.Awake();
         if (TryGetComponent(out health))
         {
             health.OnDeath += ExplodeDeath;
