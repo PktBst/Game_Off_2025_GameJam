@@ -15,5 +15,15 @@ public class ExplodeOnDeath : BuffEffect
     private void ExplodeDeath()
     {
         Debug.Log("Exploded On Death");
+
+        var colliders = Physics.OverlapSphere(transform.position, 2f);
+        AnimationPool.Instance.Play_WFXMR_Explosion_AnimationAtFor(transform.forward, transform.position, 0.7f);
+        foreach (var collider in colliders)
+        {
+            if(collider.TryGetComponent(out HealthComponent targetHealth) && TryGetComponent(out StatsComponent stats) && targetHealth.Stats.FactionType!=stats.FactionType)
+            {
+                targetHealth.DeductHealth(targetHealth.CurrentHealth);
+            } 
+        }
     }
 }

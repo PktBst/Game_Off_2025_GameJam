@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 8867948203078019760}
   - component: {fileID: 4691841636119615304}
   - component: {fileID: 5521111671586101841}
+  - component: {fileID: 430387320744424198}
   m_Layer: 0
   m_Name: PoisonTower
   m_TagString: Untagged
@@ -192,6 +193,27 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 100
   FillImage: {fileID: 6213931333021708090}
+--- !u!65 &430387320744424198
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2655211997919980244}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 1.5, z: 0.5}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1001 &4442145395415454074
 PrefabInstance:
   m_ObjectHideFlags: 0

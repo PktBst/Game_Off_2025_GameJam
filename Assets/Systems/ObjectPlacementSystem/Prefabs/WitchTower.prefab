@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 8283508047464798591}
   - component: {fileID: -3349445676702062467}
   - component: {fileID: -2307902494869562031}
+  - component: {fileID: -754964770509227329}
   m_Layer: 0
   m_Name: WitchTower
   m_TagString: Untagged
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726a3990736edc44fb090fb006bb7064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 8283508047464798591}
   ParticleEffect: {fileID: 0}
   animator: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
@@ -192,6 +193,27 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 100
   FillImage: {fileID: 6481302489486231637}
+--- !u!65 &-754964770509227329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2655211997919980244}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 1.5, z: 0.5}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1001 &3633222280758375957
 PrefabInstance:
   m_ObjectHideFlags: 0
