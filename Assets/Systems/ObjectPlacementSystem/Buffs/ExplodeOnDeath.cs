@@ -4,13 +4,13 @@ public class ExplodeOnDeath : BuffEffect
 {
     HealthComponent health;
 
-    protected override void Awake()
+    public override void Init()
     {
-        base.Awake();
+        base.Init();
         if (TryGetComponent(out health))
         {
             health.OnDeath += ExplodeDeath;
-        }        
+        }
     }
     private void ExplodeDeath()
     {

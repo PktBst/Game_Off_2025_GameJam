@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [RequireComponent(typeof(StatsComponent))]
@@ -23,7 +22,11 @@ public class AttackComponent : MonoBehaviour
     public bool hasTarget => targetHealth != null;
 
     private bool stopScanning = false;
+
+    [SerializeField] AttackBehaviour_SO attackBehaviourSO;
     private Action<Transform, Transform> AttackCallbackFromSO = null;
+
+    public GameObject projectileModel;
 
     public StatsComponent Stats
     {
@@ -101,7 +104,14 @@ public class AttackComponent : MonoBehaviour
             }
             else
             {
-                AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
+                if(AttackCallbackFromSO == null)
+                {
+                    attackBehaviourSO?.ExecuteBehaviour(this, projectileSpawnPoint, targetHealth.transform);
+                }
+                else
+                {
+                    AttackCallbackFromSO?.Invoke(projectileSpawnPoint, targetHealth.transform);
+                }
             }
         }
         else
@@ -124,7 +134,8 @@ public class AttackComponent : MonoBehaviour
                   targetPosition: targetHealth.transform.position,
                  damage: Stats.BaseAttackPoints,
                 lerpFunc: Vector3.Lerp,
-               onTriggerEnterCallBack: DummyOnTriggerEnterCall);
+               onTriggerEnterCallBack: DummyOnTriggerEnterCall,
+               model: projectileModel);
             }
             yield return new WaitForSeconds(1f);
         }

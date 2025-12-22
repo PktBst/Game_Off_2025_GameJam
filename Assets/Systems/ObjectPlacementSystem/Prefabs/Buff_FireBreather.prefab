@@ -61,4 +61,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce350f34cb8d5264e944d01e37861962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireEffect: {fileID: 0}
+  FireEffect: {fileID: 100002, guid: 426234f0f7cf62740b0526233cbe5819, type: 3}

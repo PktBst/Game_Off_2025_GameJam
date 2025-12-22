@@ -35,33 +35,47 @@ public class AnimationPool : MonoBehaviour
 
     private void InitPool()
     {
-        if(animationPrefabs ==  null)
+        Debug.Log("[AnimationPool] Initializing animation pool...");
+
+        if (animationPrefabs == null || animationPrefabs.Count == 0)
         {
-            Debug.Log("[Animation Pool] there are no prefabs attached in the inspector");
+            Debug.LogWarning("[AnimationPool] No animation prefabs assigned.");
             return;
         }
 
-        animationPrefabsDict = new();
+        animationPrefabsDict = new Dictionary<string, GameObject>();
+        animationPool = new Dictionary<string, List<GameObject>>();
+
         foreach (var animationPrefab in animationPrefabs)
         {
-            animationPrefabsDict.Add(RemoveWhitespace(animationPrefab.name), animationPrefab);
+            if (animationPrefab == null)
+            {
+                Debug.LogWarning("[AnimationPool] Null prefab found in list, skipping.");
+                continue;
+            }
+
+            string key = RemoveWhitespace(animationPrefab.name);
+            animationPrefabsDict[key] = animationPrefab;
+
+            Debug.Log($"[AnimationPool] Creating pool for '{key}'");
+
+            var prefabPool = new List<GameObject>();
+            for (int i = 0; i < poolSize; i++)
+            {
+                var instance = Instantiate(animationPrefab, transform);
+                instance.SetActive(false);
+                prefabPool.Add(instance);
+            }
+
+            animationPool.Add(key, prefabPool);
+
+            Debug.Log($"[AnimationPool] Pool '{key}' initialized with {poolSize} instances.");
         }
 
-        animationPool = new();
-        foreach (var animationPoolPrefabKVP in animationPrefabsDict)
-        {
-            if (!animationPool.TryGetValue(animationPoolPrefabKVP.Key, out var prefabPool))
-            {
-                prefabPool = new();
-                for (int i = 0; i < poolSize; i++)
-                {
-                    var spawnedPrefab = Instantiate(animationPoolPrefabKVP.Value, transform);
-                    prefabPool.Add(spawnedPrefab);
-                    spawnedPrefab.SetActive(false);
-                }
-            }
-        }
+        Debug.Log("[AnimationPool] Initialization complete.");
     }
+
+
     #region animationFunctions
     public Coroutine Play_CFXR2_Skull_Head_Alt_AnimationAtFor(Vector3 forwardDirection, Vector3 position, float timeDurationInSeconds = 0.5f)
     {
@@ -691,74 +705,66 @@ public class AnimationPool : MonoBehaviour
 
 
 
-    public Coroutine PlayAnimationAtFor(string name, Vector3 forwardDirection, Vector3 position, float timeDurationInSeconds)
+    public Coroutine PlayAnimationAtFor( string name, Vector3 forwardDirection, Vector3 position, float timeDurationInSeconds)
     {
+        Debug.Log($"[AnimationPool] Play request: '{name}' at {position}");
+
         if (!TryAndGetPooledAnimationByName(name, out var animationInstance))
         {
-            Debug.LogWarning($"[Animation Pool] Animation '{name}' not found in pool. Spawning a new one.");
-
-            // Try to get prefab from dictionary
-            if (animationPrefabsDict != null && animationPrefabsDict.TryGetValue(name, out var prefab))
-            {
-                // Instantiate new animation and add it to the pool
-                animationInstance = Instantiate(prefab, transform);
-
-                if (!animationPool.TryGetValue(name, out var prefabPool))
-                {
-                    prefabPool = new List<GameObject>();
-                    animationPool.Add(name, prefabPool);
-                }
-
-                prefabPool.Add(animationInstance);
-
-                // Deactivate initially so pooling logic is consistent
-                animationInstance.SetActive(false);
-            }
-            else
-            {
-                Debug.LogError($"[Animation Pool] No prefab found for animation '{name}' in dictionary.");
-                return StartCoroutine(PlayAnimationFor(null, timeDurationInSeconds));
-            }
+            Debug.LogError($"[AnimationPool] Failed to play animation '{name}'");
+            return null;
         }
 
-        // Set position
         animationInstance.transform.position = position;
 
-        // Set forward direction safely
         if (forwardDirection.sqrMagnitude > 0.000001f)
-        {
             animationInstance.transform.forward = forwardDirection.normalized;
-        }
 
-        // Start playing the animation for the given duration
         return StartCoroutine(PlayAnimationFor(animationInstance, timeDurationInSeconds));
     }
 
 
 
-    System.Collections.IEnumerator PlayAnimationFor(GameObject animationInstance, float timeDurationInSeconds)
+
+    System.Collections.IEnumerator PlayAnimationFor( GameObject animationInstance, float timeDurationInSeconds)
     {
-        if(animationInstance == null)
+        if (animationInstance == null)
         {
+            Debug.LogWarning("[AnimationPool] Tried to play a null animation instance.");
             yield break;
         }
+
+        Debug.Log($"[AnimationPool] Playing '{animationInstance.name}'");
+
         animationInstance.SetActive(true);
 
         var ps = animationInstance.GetComponent<ParticleSystem>();
         if (ps != null)
         {
-            ps.Clear(true); // Clear old particles
-            ps.Play(true);  // Play system
+            ps.Clear(true);
+            ps.Play(true);
+            Debug.Log($"[AnimationPool] ParticleSystem started on '{animationInstance.name}'");
         }
-        Debug.Log($"{animationInstance.name} was played at {animationInstance.transform.position}");
+        else
+        {
+            Debug.LogWarning($"[AnimationPool] No ParticleSystem found on '{animationInstance.name}'");
+        }
+
         yield return new WaitForSeconds(timeDurationInSeconds);
 
         if (ps != null)
         {
-            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            ps.Stop(true);
+            Debug.Log($"[AnimationPool] ParticleSystem stopped on '{animationInstance.name}'");
         }
-        animationInstance.SetActive(false);
+        if(animationInstance != null)
+        {
+            animationInstance.SetActive(false);
+            Debug.Log($"[AnimationPool] '{animationInstance.name}' returned to pool");
+        }
+
     }
+
 
 
 
@@ -766,24 +772,44 @@ public class AnimationPool : MonoBehaviour
     {
         animationInstance = null;
         name = RemoveWhitespace(name);
-        if(!animationPool.TryGetValue(name, out var prefabPool))
+
+        Debug.Log($"[AnimationPool] Requesting animation '{name}'");
+
+        if (!animationPrefabsDict.TryGetValue(name, out var prefab))
         {
+            Debug.LogError($"[AnimationPool] No prefab registered for '{name}'");
             return false;
         }
-        foreach(var alreadySpawnedPrefab in prefabPool)
+
+        if (!animationPool.TryGetValue(name, out var prefabPool))
         {
-            if (alreadySpawnedPrefab.activeInHierarchy)
+            Debug.LogWarning($"[AnimationPool] Pool missing for '{name}', creating new pool.");
+            prefabPool = new List<GameObject>();
+            animationPool.Add(name, prefabPool);
+        }
+
+        // Look for inactive instance
+        foreach (var instance in prefabPool)
+        {
+            if (instance != null && !instance.activeInHierarchy)
             {
-                animationInstance = alreadySpawnedPrefab;
+                animationInstance = instance;
+                Debug.Log($"[AnimationPool] Reusing pooled instance of '{name}'");
                 return true;
             }
         }
 
-        animationInstance = Instantiate(animationPrefabsDict[name], transform);
-        prefabPool.Add(animationInstance);
+        // Expand pool
+        animationInstance = Instantiate(prefab, transform);
         animationInstance.SetActive(false);
+        prefabPool.Add(animationInstance);
+
+        Debug.LogWarning($"[AnimationPool] Pool expanded for '{name}'. New size: {prefabPool.Count}");
+
         return true;
     }
+
+
 
     public static string RemoveWhitespace(string input)
     {

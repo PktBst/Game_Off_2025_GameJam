@@ -3,14 +3,12 @@ using UnityEngine;
 public class FireDamageBuff : BuffEffect
 {
     public GameObject FireEffect;
-    protected override void Awake()
+    public override void Init()
     {
-        base.Awake();
-        Init();
-    }
-
-    private void Init()
-    {
-        // yo!, replace particle here
+        base.Init();
+        if (TryGetComponent(out AttackComponent attackComponent))
+        {
+            attackComponent.projectileModel = FireEffect;
+        }
     }
 }

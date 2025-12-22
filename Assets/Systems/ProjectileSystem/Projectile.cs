@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float Damage=>damage;
     float speed = 3f;
     float elapsed = 0f;
+    GameObject projectileGameModel;
     //float height = 5f;
     
     Vector3 targetPosition;
@@ -30,7 +31,7 @@ public class Projectile : MonoBehaviour
 
     Func<Vector3, Vector3, float, Vector3> lerpFunction;
     public event System.Action<Collider,Projectile> OnTriggerEnterCallBack;
-    public void Init(Faction faction,Vector3 startPosition,Vector3 targetPosition, float damage, Func<Vector3, Vector3, float ,Vector3> lerpFunc, System.Action<Collider, Projectile> onTriggerEnterCallBack)
+    public void Init(Faction faction,Vector3 startPosition,Vector3 targetPosition, float damage, Func<Vector3, Vector3, float ,Vector3> lerpFunc, System.Action<Collider, Projectile> onTriggerEnterCallBack, GameObject model = null)
     {
         this.faction = faction;
         this.startPosition = startPosition;
@@ -48,8 +49,16 @@ public class Projectile : MonoBehaviour
         //     minHeight,
         //     maxHeight
         // );
-
-        this.damage = damage;
+        if(model !=null)
+        {
+            if(projectileGameModel !=null) Destroy(projectileGameModel);
+            projectileGameModel = Instantiate(model,transform);
+        }
+        else
+        {
+            if(projectileGameModel !=null) Destroy(projectileGameModel);
+        }
+            this.damage = damage;
         Activate();
         lerpFunction = lerpFunc;
         OnTriggerEnterCallBack = onTriggerEnterCallBack;

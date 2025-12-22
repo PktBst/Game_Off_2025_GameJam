@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5249602059689972178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 719.0021, y: 540.74066, z: -5.8912954}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,7 +48,7 @@ MonoBehaviour:
   DisplayName: HellBreaker
   Desc: Your Units And Buildings Explode on Death
   Cost: 0
-  CardType: 2
+  CardType: 1
 --- !u!114 &-2441072871412378487
 MonoBehaviour:
   m_ObjectHideFlags: 0

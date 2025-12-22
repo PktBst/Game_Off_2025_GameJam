@@ -36,8 +36,11 @@ public class ObjectPlacementSystem : MonoBehaviour
             var source = obj.GetComponent<BuffEffect>();
             if (tile.OccupyingEntity != null)
             {
-                tile.OccupyingEntity
-                    .AddComponent(source.GetType());
+                ComponentUtility.AddComponentWithValues(tile.OccupyingEntity, source).Init();
+                
+
+                //tile.OccupyingEntity.AddComponentWithValues()
+                //    .AddComponent(source.GetType());
 
                 return true;
             }

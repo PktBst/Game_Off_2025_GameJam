@@ -175,8 +175,9 @@ MonoBehaviour:
   stats: {fileID: 0}
   ParticleEffect: {fileID: 0}
   animator: {fileID: 0}
-  projectileSpawnPoint: {fileID: 0}
+  projectileSpawnPoint: {fileID: 4973328609435662623}
   IsRanged: 1
+  attackBehaviourSO: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
   targetHealth: {fileID: 0}
 --- !u!114 &-420271778457331743
 MonoBehaviour:

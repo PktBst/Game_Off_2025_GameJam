@@ -17,4 +17,4 @@ MonoBehaviour:
   HitParticleEffect: {fileID: 0}
   BaseDamage: 1
   AttackCooldown: 0
-  ProjectileBehaviorScript: {fileID: 11400000, guid: ab6b9bf9b7ec51c44b8a2f862b27090c, type: 2}
+  ProjectileBehaviorScript: {fileID: 11400000, guid: 223dbdb37bf6fc041bbc87c16da793c4, type: 2}
