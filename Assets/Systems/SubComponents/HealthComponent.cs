@@ -40,6 +40,7 @@ public class HealthComponent : MonoBehaviour
         {
             GameManager.Instance.TickSystem.Unsubscribe(updateUI);
             OnDeath?.Invoke();
+            //GlobalEffectManager.Instance.OnDeathEffect?.Invoke(transform.position);
             AnimationPool.Instance.Play_CFXR2_Skull_Head_Alt_AnimationAtFor(transform.forward,transform.position,3f);
             Destroy(gameObject);
         }

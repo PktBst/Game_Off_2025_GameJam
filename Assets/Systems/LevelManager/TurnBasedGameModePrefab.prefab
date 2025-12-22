@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyList: []
-  TownHallPrefab: {fileID: 157641320810771396, guid: 44501673a357d3745a4de73bef2b9612, type: 3}
+  TownHallPrefab: {fileID: 157641320810771396, guid: 9c4a9e414b5f6234bb25c3aeaf84fc54, type: 3}
   SpawnableEnemyPrefabList:
   - {fileID: 930667920732335833, guid: 2c183a701d83910498aca0cfdd823ab5, type: 3}
   - {fileID: 3677586273005493173, guid: 01e13f7a16777fb469c2862c80a543ae, type: 3}

@@ -65,7 +65,7 @@ public class CardSystem : MonoBehaviour
     [Button]
     public void DeleteRandomCardInHand(int count)
     {
-        while (count > 0)
+        while (count > 1)
         {
             if (cardHolder.childCount > 0)
             {
@@ -80,7 +80,7 @@ public class CardSystem : MonoBehaviour
     [Button]
     public void AddRandomCardInHand(int count)
     {
-        while(count > 0)
+        while(count > 1)
         {
             GenerateCanPopulateRandomCard().transform.SetParent(cardHolder);
             count--;    

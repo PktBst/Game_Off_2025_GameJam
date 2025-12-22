@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2166833524921301664}
   - component: {fileID: 3769529710405612302}
-  - component: {fileID: -2441072871412378487}
+  - component: {fileID: -8086233898516955113}
   m_Layer: 0
-  m_Name: Buff_ExplodeOnDeath
+  m_Name: Recruit_PassiveEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ef424692c3c54ca4ff98cb4fa2506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: HellBreaker
-  Desc: Your Units And Buildings Explode on Death
+  DisplayName: Recruit
+  Desc: 10% chance, enemies respawn as allies after death
   Cost: 0
   CardType: 2
---- !u!114 &-2441072871412378487
+--- !u!114 &-8086233898516955113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +58,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5249602059689972178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4863ed2f20052d4682a81c2f6dc4dcf, type: 3}
+  m_Script: {fileID: 11500000, guid: fe16016e1e8f49a4791d6b49c29888bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
