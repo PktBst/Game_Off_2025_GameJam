@@ -7,6 +7,7 @@ public class HealthComponent : MonoBehaviour
 {
     public event Action OnDeath;
     private StatsComponent stats;
+    public bool IsDead = false;
     public StatsComponent Stats
     {
         get
@@ -40,6 +41,7 @@ public class HealthComponent : MonoBehaviour
         {
             GameManager.Instance.TickSystem.Unsubscribe(updateUI);
             OnDeath?.Invoke();
+            IsDead = true;
             //GlobalEffectManager.Instance.OnDeathEffect?.Invoke(transform.position);
             AnimationPool.Instance.Play_CFXR2_Skull_Head_Alt_AnimationAtFor(transform.forward,transform.position,3f);
             Destroy(gameObject);

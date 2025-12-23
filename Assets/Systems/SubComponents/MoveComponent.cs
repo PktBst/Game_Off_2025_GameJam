@@ -49,21 +49,21 @@ public class MoveComponent : MonoBehaviour
     }
 
 
-    void UpdateTarget()
-    {
-        if (this == null || Agent == null || !Agent.isActiveAndEnabled) return;
-        if (TryGetComponent<AttackComponent>(out var attack))
-        {
-            if (attack.hasTarget)
-            {
-                LookAtFlat(attack.targetHealth.transform.position);
-                return;
-            }
-        }
-        Resume();
-        LookAtFlat(TargetPosition);
-    }
-    void LookAtFlat(Vector3 target)
+    //void UpdateTarget()
+    //{
+    //    if (this == null || Agent == null || !Agent.isActiveAndEnabled) return;
+    //    if (TryGetComponent<AttackComponent>(out var attack))
+    //    {
+    //        if (attack.hasTarget)
+    //        {
+    //            LookAtFlat(attack.targetHealth.transform.position);
+    //            return;
+    //        }
+    //    }
+    //    Resume();
+    //    LookAtFlat(TargetPosition);
+    //}
+    public void LookAtFlat(Vector3 target)
     {
         Vector3 direction = target - transform.position;
         direction.y = 0f; // prevent tilt
@@ -74,12 +74,12 @@ public class MoveComponent : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    private void Start()
-    {
-        GameManager.Instance.TickSystem.Subscribe(UpdateTarget);
-    }
-    private void OnDestroy()
-    {
-        GameManager.Instance.TickSystem.Unsubscribe(UpdateTarget);
-    }
+    //private void Start()
+    //{
+    //    GameManager.Instance.TickSystem.Subscribe(UpdateTarget);
+    //}
+    //private void OnDestroy()
+    //{
+    //    GameManager.Instance.TickSystem.Unsubscribe(UpdateTarget);
+    //}
 }
