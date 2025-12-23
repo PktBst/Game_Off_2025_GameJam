@@ -69,7 +69,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
 
     void MoveCloserToEnemy()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) < 0.15)
+        if (Vector3.Distance(target.transform.position, transform.position) > 0.05)
         {
             agent.SetDestination(target.transform.position);
             
