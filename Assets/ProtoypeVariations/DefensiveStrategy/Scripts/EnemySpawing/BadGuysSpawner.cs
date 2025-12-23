@@ -196,9 +196,30 @@ public class BadGuysSpawner : MonoBehaviour
             wavePredictionText?.SetText("");
             predictedSpawnPositions.Clear();
             predictionIssued = false;
+            StartCoroutine(OnLootMenuAndHandleDayPhases());
+            //GameManager.Instance?.CardSystem.openLootMenu();
 
-            GameManager.Instance?.CardSystem.openLootMenu();
-            DayNightCycleCounter.Instance?.ResumePhasing();
+            //DayNightCycleCounter.Instance?.ResumePhasing();
+            //if (!DayNightCycleCounter.Instance.IsAutomatic)
+            //{
+            //    DayNightCycleCounter.Instance.SetDay();
+            //}
+        }
+    }
+
+    System.Collections.IEnumerator OnLootMenuAndHandleDayPhases()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.Instance?.CardSystem.openLootMenu();
+        while (GameManager.Instance.CardSystem.IsLootMenuOpen)
+        {
+            yield return null;
+        }
+        yield return null;
+        DayNightCycleCounter.Instance?.ResumePhasing();
+        if (!DayNightCycleCounter.Instance.IsAutomatic)
+        {
+            DayNightCycleCounter.Instance.SetDay();
         }
     }
 

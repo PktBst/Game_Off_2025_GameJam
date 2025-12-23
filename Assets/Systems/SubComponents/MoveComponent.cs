@@ -40,12 +40,14 @@ public class MoveComponent : MonoBehaviour
     }
     public void Stop()
     {
-        Agent.isStopped = true;
+        if(Agent.isOnNavMesh)
+            Agent.isStopped = true;
     }
 
     public void Resume()
     {
-        Agent.isStopped = false;
+        if(Agent.isOnNavMesh)
+            Agent.isStopped = false;
     }
 
 

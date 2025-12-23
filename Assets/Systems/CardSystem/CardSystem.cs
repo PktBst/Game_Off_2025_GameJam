@@ -31,6 +31,8 @@ public class CardSystem : MonoBehaviour
 
     public bool IsShopOpen => ShopCardHolder == null ? false : ShopCardHolder.gameObject.activeInHierarchy;
 
+    public bool IsLootMenuOpen => LootCardHolder == null ? false : LootSelectorCanvas.gameObject.activeInHierarchy;
+
     public void Init()
     {
         if (GameManager.Instance.InputActionAsset.FindAction("Click") != null)

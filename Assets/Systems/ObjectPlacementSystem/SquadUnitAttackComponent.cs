@@ -88,6 +88,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
 
     void MoveCloserToEnemy()
     {
+        if(!agent.isOnNavMesh) return;
         if (Vector3.Distance(target.transform.position, transform.position) > AttackRange)
         {
             agent.SetDestination(target.transform.position);

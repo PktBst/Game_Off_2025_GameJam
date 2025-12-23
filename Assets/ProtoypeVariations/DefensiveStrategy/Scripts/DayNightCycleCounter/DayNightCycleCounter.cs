@@ -1,6 +1,7 @@
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DayNightCycleCounter : MonoBehaviour
 {
@@ -19,12 +20,12 @@ public class DayNightCycleCounter : MonoBehaviour
     int FullCycleLength => LengthOfDayInTicks == 0 ? 12000 : 2 * LengthOfDayInTicks;
 
     public static DayNightCycleCounter Instance;
-
+    public Button SetNightButton;
 
     private Coroutine phaseDayCoroutine;
     public bool PayTaxesOnDay;
     public bool HideCardsAtNight;
-
+    public bool IsAutomatic=> automaticCycle;
 
     private bool pause;
     private void Awake()
@@ -40,6 +41,14 @@ public class DayNightCycleCounter : MonoBehaviour
         if (DirectionalLight != null)
         {
             dayLightOrientation = DirectionalLight.transform.rotation;
+        }
+        if (SetNightButton != null)
+        {
+            if (IsAutomatic)
+            {
+                SetNightButton.gameObject.SetActive(false);
+            }
+            SetNightButton.onClick.AddListener(SetNight);
         }
     }
 
@@ -116,6 +125,18 @@ public class DayNightCycleCounter : MonoBehaviour
             cards.ShowDeck();
         else
             cards.HideDeck();
+
+        if (SetNightButton != null)
+        {
+            if (time == TimeOfDay.Day) 
+            {
+                SetNightButton.interactable = true;
+            }
+            else
+            {
+                SetNightButton.interactable = false;
+            }
+        }
     }
 
     [Button]
