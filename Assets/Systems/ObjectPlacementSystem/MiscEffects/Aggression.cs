@@ -4,18 +4,23 @@ public class Aggression : MiscEffect
 {
     public override bool TryUsingThisCard()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if(GridSystem.Instance?.CurrentTile==null)return false;
+
+        var hits = Physics.OverlapBox(GridSystem.Instance.CurrentTile.Pos, Vector3.one * 0.5f);
+        foreach(var hit in hits)
         {
-            var post = hit.transform.GetComponentInParent<SquadPost>();
-            if (post!=null)
+            if (hit.TryGetComponent(out SquadPost post))
             {
-                foreach(var unit in post.UnitList)
+                foreach (var unit in post.UnitList)
                 {
-                    if(unit.TryGetComponent(out StatsComponent stats))
+                    if (unit.gameObject.TryGetComponent(out StatsComponent stats))
                     {
                         stats.BaseAttackPoints += (stats.BaseAttackPoints * 0.2f);
                     }
+                }
+                if (AnimationPool.Instance != null)
+                {
+                    AnimationPool.Instance.Play_CFXR2_Shiny_Item_Loop__AnimationAtFor(post.transform.forward, post.transform.position, 0.7f);
                 }
                 return true;
             }

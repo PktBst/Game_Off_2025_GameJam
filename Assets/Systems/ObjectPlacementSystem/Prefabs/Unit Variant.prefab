@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 463569644563902689, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 463569644563902689, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 463569644563902689, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 463569644563902689, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -82,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7611622342117740622, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: BaseAttackPoints
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7611622342117740622, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: BaseAttackCooldown
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8057833162897327950, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
