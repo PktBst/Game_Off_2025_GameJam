@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6550362297588623450}
-  - component: {fileID: 8851908174972796426}
+  - component: {fileID: -8809062381504274367}
+  - component: {fileID: -8632289918243533224}
   m_Layer: 0
-  m_Name: Animal Stampede
+  m_Name: Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8851908174972796426
+--- !u!114 &-8809062381504274367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ef424692c3c54ca4ff98cb4fa2506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: Animal Stampede
-  Desc: 10 rhinos trample enemies
-  Cost: 18
+  DisplayName: Archers
+  Desc: Shoots Long Range
+  Cost: 5
   CardType: 3
+--- !u!114 &-8632289918243533224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231708828772551654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f02087df9c4f9478216ec7b5f8a357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPrefab: {fileID: 1778464370234849947, guid: 56c8d4f6d8f54184f958c459aecf1bb8, type: 3}
+  squadPostPrefab: {fileID: 6690531026029265590, guid: 0dbd1ad330c60ca4cb5eb6fc63f73ede, type: 3}
+  AdditionCount: 0

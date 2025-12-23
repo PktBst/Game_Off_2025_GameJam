@@ -1,14 +1,17 @@
-using System.Security.Cryptography;
+using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SquadUnitAttackComponent : MonoBehaviour
 {
+    public bool isRanged = false;
     private NavMeshAgent agent;
     private SquadPost SquadPost;
     private StatsComponent Stat;
     public HealthComponent target;
     public ParticleSystem Attacksfx;
+    private float AttackRange => isRanged?3f:0.4f;
 
     private void Start()
     {
@@ -85,14 +88,25 @@ public class SquadUnitAttackComponent : MonoBehaviour
 
     void MoveCloserToEnemy()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) > 0.4f)
+        if (Vector3.Distance(target.transform.position, transform.position) > AttackRange)
         {
             agent.SetDestination(target.transform.position);
             
         }
         else
         {
-            Attack();
+            agent.isStopped = true;
+            agent.SetDestination(agent.transform.position);
+            agent.isStopped = false;
+            if (isRanged) 
+            {
+                PlayRangedAttack();
+            }
+            else
+            {
+                Attack();
+            }
+                
         }
     }
 
@@ -103,7 +117,35 @@ public class SquadUnitAttackComponent : MonoBehaviour
         Debug.Log("Target within range: Attacking " + target.transform.name);
     }
 
+    void PlayRangedAttack()
+    {
+        if (ProjectilePool.Instance != null)
+        {
+            var projectile = ProjectilePool.Instance.GetProjectile();
+            projectile.Init(
+               faction: Stat.FactionType,
+              startPosition: transform.position,
+              targetPosition: target.transform.position,
+             damage: Stat.BaseAttackPoints,
+            lerpFunc: Vector3.Lerp,
+           onTriggerEnterCallBack: DummyOnTriggerEnterCall,
+           model: null);
+        }
+    }
 
+    public virtual void DummyOnTriggerEnterCall(Collider other, Projectile projectile)
+    {
+        if (!other.TryGetComponent<HealthComponent>(out var targetHealth))
+        {
+            return;
+        }
+
+        if (targetHealth.Stats.FactionType != projectile.FactionType)
+        {
+            targetHealth.DeductHealth(projectile.Damage);
+            projectile.Deactivate();
+        }
+    }
 
 
 }
