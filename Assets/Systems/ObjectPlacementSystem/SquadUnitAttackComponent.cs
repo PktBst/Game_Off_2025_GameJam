@@ -20,36 +20,52 @@ public class SquadUnitAttackComponent : MonoBehaviour
 
     }
 
+    // Declare a timer variable and a time interval
+    private float timer = 0f;
+    private float updateInterval = 0.25f; // 1 second / 4 times = 0.25 seconds per update
+
     private void Update()
     {
-        if (Vector3.Distance(transform.position,SquadPost.SquadPostPiller.position)<1.5f)
+        timer += Time.deltaTime; // Increase the timer by the time since the last frame
+
+        if (timer >= updateInterval)
         {
-            if (target != null) return;
-            Attacksfx.Stop();
-            SearchForEnemy();
-        }
-        else
-        {
-            target = null;
-            agent.SetDestination(SquadPost.SquadPostPiller.transform.position);
+            // Reset the timer after it reaches the interval
+            timer = 0f;
+
+            // Your logic to run every 0.25 seconds (4 times per second)
+            if (Vector3.Distance(transform.position, SquadPost.SquadPostPiller.position) < 1.5f)
+            {
+                //if (target != null) return;
+                Attacksfx.Stop();
+                SearchForEnemy();
+            }
+            else
+            {
+                target = null;
+                agent.SetDestination(SquadPost.SquadPostPiller.transform.position);
+            }
         }
     }
 
     void SearchForEnemy()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(SquadPost.SquadPostPiller.position, SquadPost.followTriggerRange, Vector3.up, 0f);
 
-        foreach (RaycastHit hit in hits)
-        {
-            HealthComponent targetHealth = hit.collider.GetComponent<HealthComponent>();
+            RaycastHit[] hits = Physics.SphereCastAll(SquadPost.SquadPostPiller.position, SquadPost.followTriggerRange, Vector3.up, 0f);
 
-            if (targetHealth != null && targetHealth.Stats.FactionType == Faction.BadGuys)
+            foreach (RaycastHit hit in hits)
             {
-                target = targetHealth;
-                MoveCloserToEnemy();
-                break;
+                HealthComponent targetHealth = hit.collider.GetComponent<HealthComponent>();
+
+                if (targetHealth != null && targetHealth.Stats.FactionType == Faction.BadGuys)
+                {
+                    target = targetHealth;
+                    MoveCloserToEnemy();
+                    break;
+                }
             }
-        }
+       
+
     }
 
     // Gizmo drawing method for the sphere
@@ -69,7 +85,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
 
     void MoveCloserToEnemy()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) > 0.05)
+        if (Vector3.Distance(target.transform.position, transform.position) > 0.4f)
         {
             agent.SetDestination(target.transform.position);
             

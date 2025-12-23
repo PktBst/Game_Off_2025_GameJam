@@ -937,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 930667920732335833, guid: 2c183a701d83910498aca0cfdd823ab5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2499682046763718643, guid: 2c183a701d83910498aca0cfdd823ab5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1432,9 +1432,73 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1181273014054239025, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: BaseAttackPoints
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834025945716179426, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_Speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834025945716179426, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834025945716179426, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3766820464764868951, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
       propertyPath: m_Name
       value: Squad
+      objectReference: {fileID: 0}
+    - target: {fileID: 4876755386079292872, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_Speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4876755386079292872, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4876755386079292872, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983115606387628703, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_Speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983115606387628703, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983115606387628703, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700882565911033286, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: BaseAttackPoints
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768308215815491349, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_Speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768308215815491349, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768308215815491349, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221135470518788172, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: BaseAttackPoints
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403001356015163163, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+      propertyPath: BaseAttackPoints
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9087401682197280615, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
       propertyPath: m_LocalPosition.x
