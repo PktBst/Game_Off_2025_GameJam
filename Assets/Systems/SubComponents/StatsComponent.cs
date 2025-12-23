@@ -12,7 +12,10 @@ public class StatsComponent : MonoBehaviour
 
     public float BaseDefensePoints;
     private bool hasSurvivedOneNight;
-
+    private void Start()
+    {
+        Init(BaseAttackPoints,BaseAttackRange,BaseAttackCooldown,FactionType);
+    }
     public void Init(float AttackDamage, float AttackRange, float Cooldown, Faction faction = Faction.GoodGuys)
     {
         BaseAttackPoints = AttackDamage;
