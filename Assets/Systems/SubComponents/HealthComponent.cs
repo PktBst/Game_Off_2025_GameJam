@@ -54,6 +54,11 @@ public class HealthComponent : MonoBehaviour
         if(amount>0)
             CurrentHealth -= amount;
     }
+    public void AddHealth(float amount)
+    {
+        if(amount>0)
+            CurrentHealth = Mathf.Clamp(CurrentHealth+amount,0,MaxHealth) ;
+    }
     private void OnDestroy()
     {
        

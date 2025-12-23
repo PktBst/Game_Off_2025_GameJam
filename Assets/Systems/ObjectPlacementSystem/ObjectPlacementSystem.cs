@@ -20,12 +20,6 @@ public class ObjectPlacementSystem : MonoBehaviour
             return false; 
         }
 
-        if (!tile.IsBlocked && obj.GetComponent<CardData>().CardType == CardType.Misc)
-        {
-            Instantiate(obj, tile.Pos, Quaternion.identity);
-            return true;
-        }
-
         moveUnitsAwayFromSpawnPoint(tile);
         doTurnBasedGameModeThings();
 
@@ -47,17 +41,30 @@ public class ObjectPlacementSystem : MonoBehaviour
 
             return false;
         }
-        //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
-        //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
-        //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
+        else if (obj.GetComponent<CardData>().CardType == CardType.Misc)
+        {
+            var source = obj.GetComponent<MiscEffect>();
+            if (source.TryUsingThisCard())
+            {
+                source.Init();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+            //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
+            //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
+            //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
 
-        //tile.OccupyingEntity.GetComponent<AttackComponent>()
-        //    .Init(obj.Behaviour.ExecuteBehaviour);
+            //tile.OccupyingEntity.GetComponent<AttackComponent>()
+            //    .Init(obj.Behaviour.ExecuteBehaviour);
 
-        //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
+            //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
 
-        //Debug.Log($"Spawned a <color=red>{obj}</color>");
-        return true;
+            //Debug.Log($"Spawned a <color=red>{obj}</color>");
+            return true;
     }
 
     public GameObject GetRandomPlaceableObject()
