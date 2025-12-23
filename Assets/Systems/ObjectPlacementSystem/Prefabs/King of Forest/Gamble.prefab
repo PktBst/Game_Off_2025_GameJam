@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6550362297588623450}
   - component: {fileID: -3224039655217930121}
+  - component: {fileID: -2080223117588527494}
   m_Layer: 0
   m_Name: Gamble
   m_TagString: Untagged
@@ -48,3 +49,15 @@ MonoBehaviour:
   Desc: Add 3 random cards, remove 2 from hand
   Cost: 2
   CardType: 3
+--- !u!114 &-2080223117588527494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231708828772551654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c9cd45ad5432e40bf9078f1c67591b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -31,11 +31,6 @@ public class ObjectPlacementSystem : MonoBehaviour
             if (tile.OccupyingEntity != null)
             {
                 ComponentUtility.AddComponentWithValues(tile.OccupyingEntity, source).Init();
-                
-
-                //tile.OccupyingEntity.AddComponentWithValues()
-                //    .AddComponent(source.GetType());
-
                 return true;
             }
 
@@ -49,10 +44,8 @@ public class ObjectPlacementSystem : MonoBehaviour
                 source.Init();
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
+            
         }
             //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
             //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
