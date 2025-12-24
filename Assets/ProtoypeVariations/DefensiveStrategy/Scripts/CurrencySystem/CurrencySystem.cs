@@ -8,6 +8,7 @@ public class CurrencySystem : MonoBehaviour
     private static CurrencySystem Instance;
 
     [SerializeField] private int balance;
+    [SerializeField] private int StarterCoins = 3;
     public static int Balance=>  Instance==null? 0 : Instance.balance;
 
     [SerializeField] TextMeshProUGUI balanceText;
@@ -39,7 +40,7 @@ public class CurrencySystem : MonoBehaviour
     }
     private void Start()
     {
-        TryAddAmount(500);
+        TryAddAmount(StarterCoins);
     }
 
     void populatePool()

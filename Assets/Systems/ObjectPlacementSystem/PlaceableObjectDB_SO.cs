@@ -5,12 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlaceableObjectDB_SO", menuName = "Scriptable Objects/PlaceableObjectDB_SO")]
 public class PlaceableObjectDB_SO : ScriptableObject
 {
-    [SerializeField] public List<CardData> AllPlaceableObjectSOs;
+    [SerializeField] public List<FactionCardCollection> AllPlaceableObjectSOs;
     public GameObject GetPlaceableObjectByType(string value)
     {
-        foreach(CardData data in AllPlaceableObjectSOs)
+        foreach(FactionCardCollection factionCardCollection in AllPlaceableObjectSOs)
         {
-            if (data.DisplayName == value) return data.gameObject;
+            foreach (CardData data in factionCardCollection.CardList)
+            {
+                if (data.DisplayName == value) return data.gameObject;
+            }
         }
         Debug.LogWarning($"Object with name '{value}' not found in Database.");
         return null;
@@ -19,6 +22,21 @@ public class PlaceableObjectDB_SO : ScriptableObject
     public GameObject GetRandomObject()
     {
         if (AllPlaceableObjectSOs.Count == 0) return null;
-        return AllPlaceableObjectSOs[Random.Range(0, AllPlaceableObjectSOs.Count)].gameObject;
+        List<CardData> factionCardCollection = AllPlaceableObjectSOs[Random.Range(0, AllPlaceableObjectSOs.Count)].CardList;
+        return factionCardCollection[Random.Range(0, factionCardCollection.Count)].gameObject;
     }
+}
+
+[System.Serializable]
+public class FactionCardCollection
+{
+    public CardCollection CollectionType;
+    public List<CardData> CardList;
+}
+
+public enum CardCollection
+{
+    None,
+    KingOfWild,
+    KingOfNight
 }
