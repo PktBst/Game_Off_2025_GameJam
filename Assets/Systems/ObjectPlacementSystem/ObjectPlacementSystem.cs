@@ -15,49 +15,61 @@ public class ObjectPlacementSystem : MonoBehaviour
     public bool SpawnPlaceableObjectAtTile(Tile tile, string name)
     {
         GameObject obj = placeableObjectDB.GetPlaceableObjectByType(name);
-        if (tile.IsBlocked && obj.GetComponent<CardData>().CardType == CardType.Building) 
+        CardData cardData = obj.GetComponent<CardData>();
+
+        if (tile.IsBlocked && cardData.CardType == CardType.Building) 
+        { 
+            return false; 
+        }
+        if (!CurrencySystem.TryDeductAmount(cardData.Cost))
         { 
             return false; 
         }
 
+        bool usedSuccessfully = false;
         moveUnitsAwayFromSpawnPoint(tile);
         doTurnBasedGameModeThings();
 
-        //tile.OccupyingEntity = Instantiate(placeableObjectSkeletonPrefab, tile.Pos, Quaternion.identity);
-        if(obj.GetComponent<CardData>().CardType == CardType.Building)tile.OccupyingEntity = Instantiate(obj, tile.Pos, Quaternion.identity);
-        else if (obj.GetComponent<CardData>().CardType==CardType.Buff)
+        if(cardData.CardType == CardType.Building)
+        { 
+            tile.OccupyingEntity = Instantiate(obj, tile.Pos, Quaternion.identity);
+            usedSuccessfully = true;
+        }
+        else if (cardData.CardType==CardType.Buff)
         {
             var source = obj.GetComponent<BuffEffect>();
             if (tile.OccupyingEntity != null)
             {
                 ComponentUtility.AddComponentWithValues(tile.OccupyingEntity, source).Init();
-                return true;
+                usedSuccessfully = true;
             }
-
-            return false;
         }
-        else if (obj.GetComponent<CardData>().CardType == CardType.Misc)
+        else if (cardData.CardType == CardType.Misc)
         {
             var source = obj.GetComponent<MiscEffect>();
             if (source.TryUsingThisCard())
             {
                 source.Init();
-                return true;
+                usedSuccessfully = true;
             }
-            return false;
-            
         }
-            //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
-            //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
-            //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
+        //tile.OccupyingEntity.GetComponent<StatsComponent>().TaxAmount = obj.BaseTaxAmount;
+        //tile.OccupyingEntity.GetComponent<StatsComponent>().Init(obj.AttackDamage, obj.AttackRange, obj.Cooldown);
+        //tile.OccupyingEntity.GetComponent<HealthComponent>().Init(obj.BaseHealth);
 
-            //tile.OccupyingEntity.GetComponent<AttackComponent>()
-            //    .Init(obj.Behaviour.ExecuteBehaviour);
+        //tile.OccupyingEntity.GetComponent<AttackComponent>()
+        //    .Init(obj.Behaviour.ExecuteBehaviour);
 
-            //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
+        //tile.OccupyingEntity.GetComponent<VisualComponent>().Init(obj.GameModel);
 
-            //Debug.Log($"Spawned a <color=red>{obj}</color>");
-            return true;
+        //Debug.Log($"Spawned a <color=red>{obj}</color>");
+        if (!usedSuccessfully)
+        {
+            CurrencySystem.TryAddAmount(cardData.Cost);
+            return false;
+        }
+
+        return true;
     }
 
     public GameObject GetRandomPlaceableObject()

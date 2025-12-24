@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8198989012469246986}
   - component: {fileID: 6651356305300576192}
+  - component: {fileID: 2796044690357866017}
   m_Layer: 0
   m_Name: Night Crawler
   m_TagString: Untagged
@@ -48,3 +49,15 @@ MonoBehaviour:
   Desc: Revives units for 5 seconds
   Cost: 12
   CardType: 3
+--- !u!114 &2796044690357866017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044855705003345373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823993b605f07584eab769ebf73beecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

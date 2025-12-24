@@ -4,11 +4,18 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MoveComponent : MonoBehaviour
 {
-    public float MoveSpeed;
     public Vector3 TargetPosition;
     public bool IsMoving => !Agent.isStopped;
     public bool DestinationReached => getDistance();
     private NavMeshAgent agent;
+
+    private void Awake()
+    {
+        if(Stats!=null && Agent!=null)
+        {
+            Agent.speed = Stats.BaseSpeed*Stats.SpeedMultiplier;
+        }
+    }
 
     bool getDistance() {
         if (this == null || Agent == null || !Agent.isActiveAndEnabled) return false;
@@ -36,7 +43,7 @@ public class MoveComponent : MonoBehaviour
         if(Agent == null) return;
         TargetPosition = targetPosition;
         Agent?.SetDestination(targetPosition);
-        Agent.speed = MoveSpeed;
+        Agent.speed = Stats.BaseSpeed * Stats.SpeedMultiplier;
     }
     public void Stop()
     {

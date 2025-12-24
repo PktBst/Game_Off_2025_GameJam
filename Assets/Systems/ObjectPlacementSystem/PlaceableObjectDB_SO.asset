@@ -25,11 +25,11 @@ MonoBehaviour:
     - {fileID: -6166417100857312208, guid: 86791dca99d5f164cab8cbc9716698bb, type: 3}
   - CollectionType: 2
     CardList:
-    - {fileID: -595094220231243312, guid: 7790dbad2109a104ead2a9ab64acf324, type: 3}
-    - {fileID: -8809062381504274367, guid: a9a24c00fcd61ba49a9cbd215634761d, type: 3}
-    - {fileID: -8809062381504274367, guid: dc52fef9356166c4cbbf1c60acfb9998, type: 3}
-    - {fileID: 6140169439546053569, guid: 947dec9c56781e4478984e798e2bacd9, type: 3}
-    - {fileID: -3224039655217930121, guid: b1a7481c55247b64e903119402baf2b2, type: 3}
-    - {fileID: -1868086126352512866, guid: 2ab643e90b85f0943bff55a9e4699b60, type: 3}
-    - {fileID: -1193372598540303987, guid: 59814e95337e78a47b6d7092e03c9876, type: 3}
-    - {fileID: -6166417100857312208, guid: 86791dca99d5f164cab8cbc9716698bb, type: 3}
+    - {fileID: 6651356305300576192, guid: 4d64a78d54f52ca48963dd96f3f9098a, type: 3}
+    - {fileID: 6651356305300576192, guid: 3955a6bb6042fc84492edf5e44635254, type: 3}
+    - {fileID: 6651356305300576192, guid: 13053d48352bead43bcfaa879d18a181, type: 3}
+    - {fileID: 6651356305300576192, guid: eb7c4c66e7966774e9b1674eee7be7e5, type: 3}
+    - {fileID: 6651356305300576192, guid: a03169205f4e2114e929d86a5f0d5302, type: 3}
+    - {fileID: 6651356305300576192, guid: 30f8f9f972a3c5c439e0a58fde74e483, type: 3}
+    - {fileID: 6651356305300576192, guid: 8bc2757b9a4b68b4c85fba085b9e542e, type: 3}
+    - {fileID: 6651356305300576192, guid: edd1a6f6ea304cb4c9cb32cf202e30d5, type: 3}

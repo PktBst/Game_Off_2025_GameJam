@@ -1,26 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
-using Unity.VisualScripting;
 /// <summary>
 /// This card Spawns 5 cavemen
 /// </summary>
 public class Cavemen : MiscEffect
 {
-    [SerializeField] NavMeshAgent unitPrefab;
-    [SerializeField] SquadPost squadPostPrefab;
+    [SerializeField] protected NavMeshAgent unitPrefab;
+    [SerializeField] protected SquadPost squadPostPrefab;
 
-    SquadPost squadPost;
+    protected SquadPost squadPost;
 
+    public event System.Action<NavMeshAgent> OnUnitDie;
     int BaseCount = 5;
     public int AdditionCount;
-    Vector3[] spawnOffsets =
-    {
-        Vector3.forward * 0.5f,
-        Vector3.back * 0.5f,
-        Vector3.left * 0.5f,
-        Vector3.right * 0.5f
-    };
 
     public override bool TryUsingThisCard()
     {
@@ -35,7 +28,7 @@ public class Cavemen : MiscEffect
     {
         
     }
-    Vector3 GetRandomSpawnOffset()
+    protected Vector3 GetRandomSpawnOffset()
     {
         // Random direction
         Vector2 dir = Random.insideUnitCircle.normalized;
@@ -46,7 +39,7 @@ public class Cavemen : MiscEffect
         return new Vector3(dir.x, 0f, dir.y) * distance;
     }
 
-    private void SpawnUnits(Tile currentTile)
+    protected virtual void SpawnUnits(Tile currentTile)
     {
         foreach (var unit in squadPost.UnitList)
         {
@@ -56,23 +49,7 @@ public class Cavemen : MiscEffect
         for (int i = 0; i < BaseCount + AdditionCount; i++)
         {
             Vector3 spawnPos = currentTile.Pos + GetRandomSpawnOffset();
-
-            var spawnedUnit = Instantiate(
-                unitPrefab,
-                spawnPos,
-                Quaternion.identity,
-                squadPost.transform
-            );
-
-            if (spawnedUnit.TryGetComponent(out HealthComponent health))
-            {
-                health.OnDeath += () =>
-                {
-                    squadPost.UnitList.Remove(spawnedUnit);
-                };
-            }
-
-            squadPost.UnitList.Add(spawnedUnit);
+            SpawnUnitAt(spawnPos);
         }
 
         if (DayNightCycleCounter.Instance != null)
@@ -80,7 +57,7 @@ public class Cavemen : MiscEffect
             DayNightCycleCounter.Instance.OnTimeOfDayChange += OnDayChange;
         }
     }
-    void OnDayChange(TimeOfDay time)
+    protected void OnDayChange(TimeOfDay time)
     {
         if (time == TimeOfDay.Night)
         {
@@ -98,18 +75,23 @@ public class Cavemen : MiscEffect
         for (int i = currentcnt; i < BaseCount + AdditionCount; i++)
         {
             Vector3 spawnPos = squadPost.transform.position + GetRandomSpawnOffset();
-
-            var spawnedUnit = Instantiate(unitPrefab, spawnPos, Quaternion.identity,transform);
-
-            if (spawnedUnit.TryGetComponent(out HealthComponent health))
-            {
-                health.OnDeath += () =>
-                {
-                    squadPost.UnitList.Remove(spawnedUnit);
-                };
-            }
-
-            squadPost.UnitList.Add(spawnedUnit);
+            SpawnUnitAt(spawnPos);
         }
+    }
+    public virtual NavMeshAgent SpawnUnitAt(Vector3 spawnPos)
+    {
+        var spawnedUnit = Instantiate(unitPrefab, spawnPos, Quaternion.identity, transform);
+
+        if (spawnedUnit.TryGetComponent(out HealthComponent health))
+        {
+            health.OnDeath += () =>
+            {
+                squadPost.UnitList.Remove(spawnedUnit);
+                OnUnitDie?.Invoke(spawnedUnit);
+            };
+        }
+
+        squadPost.UnitList.Add(spawnedUnit);
+        return spawnedUnit;
     }
 }

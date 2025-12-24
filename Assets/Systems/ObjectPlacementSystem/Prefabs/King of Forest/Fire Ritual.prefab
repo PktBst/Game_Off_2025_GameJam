@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6550362297588623450}
   - component: {fileID: 6140169439546053569}
+  - component: {fileID: -7534726753201454770}
   m_Layer: 0
   m_Name: Fire Ritual
   m_TagString: Untagged
@@ -47,4 +48,17 @@ MonoBehaviour:
   DisplayName: Fire Ritual
   Desc: Long range fire, 2X damage
   Cost: 35
-  CardType: 0
+  CardType: 1
+--- !u!114 &-7534726753201454770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231708828772551654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce350f34cb8d5264e944d01e37861962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireEffect: {fileID: 100002, guid: 426234f0f7cf62740b0526233cbe5819, type: 3}

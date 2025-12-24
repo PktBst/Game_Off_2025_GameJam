@@ -167,7 +167,6 @@ public class CardSystem : MonoBehaviour
 
         DeselectAll();
 
-        CurrencySystem.TryDeductAmount(cardToRemove.PlaceableObjectData.Cost);
         cardToRemove.transform.SetParent(null);
         Destroy(cardToRemove.gameObject);
         ReorganizeHand();

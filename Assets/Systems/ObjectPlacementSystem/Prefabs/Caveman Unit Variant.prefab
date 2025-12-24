@@ -60,9 +60,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1995744839641431531, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7488469549937972830, guid: 50ce5e541d9713846a66686d57bc1311, type: 3}
     - target: {fileID: 2896989089456540107, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_Name
-      value: Unit Variant
+      value: Caveman Unit Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6814271863612025501, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_Radius
@@ -119,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8175701f01945f145b8cf0aee5548885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   target: {fileID: 0}
   Attacksfx: {fileID: 0}
 --- !u!114 &2449558303401743872

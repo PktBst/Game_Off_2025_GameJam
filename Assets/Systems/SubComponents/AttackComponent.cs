@@ -26,8 +26,13 @@ public class AttackComponent : MonoBehaviour
     [SerializeField] AttackBehaviour_SO attackBehaviourSO;
     private Action<Transform, Transform> AttackCallbackFromSO = null;
 
+    public Action<Transform> AdditionEffectOnTarget = null;
+
     public GameObject projectileModel;
 
+    public bool Dazed;
+    float dazedDuration = 1;
+    float dazedElapsed =0;
     public StatsComponent Stats
     {
         get
@@ -96,6 +101,15 @@ public class AttackComponent : MonoBehaviour
             return;
         }
         elapsed = 0;
+        if (Dazed)
+        {
+            dazedElapsed++;
+            if (dazedElapsed >= dazedDuration)
+            {
+                Dazed = false;
+            }
+            return;
+        }
         if (IsRanged)
         {
             if (TryGetComponent(out MoveComponent _))
@@ -134,6 +148,7 @@ public class AttackComponent : MonoBehaviour
                   targetPosition: targetHealth.transform.position,
                  damage: Stats.BaseAttackPoints,
                 lerpFunc: Vector3.Lerp,
+                firedFrom: this,
                onTriggerEnterCallBack: DummyOnTriggerEnterCall,
                model: projectileModel);
             }
@@ -151,6 +166,7 @@ public class AttackComponent : MonoBehaviour
         if (targetHealth.Stats.FactionType != projectile.FactionType)
         {
             targetHealth.DeductHealth(projectile.Damage);
+            projectile.FiredFromAttackComponent?.AdditionEffectOnTarget(targetHealth.transform);
             projectile.Deactivate();
         }
     }
@@ -161,6 +177,10 @@ public class AttackComponent : MonoBehaviour
         if (ParticleEffect != null) ParticleEffect?.Play();
         while (elapsed < duration && targetHealth != null)
         {
+            if (Dazed)
+            {
+                break;
+            }
             targetHealth?.DeductHealth(Stats.BaseAttackPoints);
             yield return new WaitForSeconds(1f);
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8198989012469246986}
   - component: {fileID: 6651356305300576192}
+  - component: {fileID: -5670483457292099000}
   m_Layer: 0
   m_Name: Noxes
   m_TagString: Untagged
@@ -48,3 +49,18 @@ MonoBehaviour:
   Desc: Dazes enemies on contact
   Cost: 8
   CardType: 3
+--- !u!114 &-5670483457292099000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044855705003345373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f3360cf2dfddf41b50f771370abace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPrefab: {fileID: 161300271234306047, guid: 01eb2f653da4d5348a84b48c9409b520, type: 3}
+  squadPostPrefab: {fileID: 6690531026029265590, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+  AdditionCount: 0

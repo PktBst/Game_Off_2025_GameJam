@@ -9,6 +9,9 @@ public class StatsComponent : MonoBehaviour
     public float BaseAttackAccuracy;
     public float BaseAttackRange;
     public int TaxAmount;
+    public float SpeedMultiplier = 1;
+    public float BaseSpeed = 1;
+
 
     public float BaseDefensePoints;
     private bool hasSurvivedOneNight;

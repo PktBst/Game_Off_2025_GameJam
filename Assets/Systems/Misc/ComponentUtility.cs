@@ -1,21 +1,32 @@
-using UnityEngine;
+using System;
 using System.Reflection;
+using UnityEngine;
 
 public static class ComponentUtility
 {
-    public static T AddComponentWithValues<T>(GameObject destination, T source) where T : Component
+    public static T AddComponentWithValues<T>(GameObject destination, T source)
+        where T : Component
     {
-        // 1. Add the component type
-        T copy = destination.AddComponent(source.GetType()) as T;
-        var type = source.GetType();
-        var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        // Add the EXACT runtime type (Sirens, Cavemen, etc.)
+        Type type = source.GetType();
+        T copy = destination.AddComponent(type) as T;
+
+        // Copy only safe fields
+        var fields = type.GetFields(
+            BindingFlags.Instance |
+            BindingFlags.Public |
+            BindingFlags.NonPublic
+        );
 
         foreach (var field in fields)
         {
+            // Skip events / delegates
+            if (typeof(Delegate).IsAssignableFrom(field.FieldType))
+                continue;
+
+            // Copy value
             field.SetValue(copy, field.GetValue(source));
         }
-
-        // 2. Copy the fields (this happens BEFORE Start)
 
         return copy;
     }

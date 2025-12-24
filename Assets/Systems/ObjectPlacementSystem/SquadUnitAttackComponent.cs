@@ -13,6 +13,9 @@ public class SquadUnitAttackComponent : MonoBehaviour
     public ParticleSystem Attacksfx;
     private float AttackRange => isRanged?3f:0.4f;
 
+    public System.Action<HealthComponent> AttackAction;
+
+    public event System.Action<Transform,Transform> OnEnemyDetected;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -63,6 +66,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
                 if (targetHealth != null && targetHealth.Stats.FactionType == Faction.BadGuys)
                 {
                     target = targetHealth;
+                    OnEnemyDetected?.Invoke(transform,target.transform);
                     MoveCloserToEnemy();
                     break;
                 }
@@ -129,6 +133,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
               targetPosition: target.transform.position,
              damage: Stat.BaseAttackPoints,
             lerpFunc: Vector3.Lerp,
+            firedFrom: null,
            onTriggerEnterCallBack: DummyOnTriggerEnterCall,
            model: null);
         }
@@ -144,6 +149,8 @@ public class SquadUnitAttackComponent : MonoBehaviour
         if (targetHealth.Stats.FactionType != projectile.FactionType)
         {
             targetHealth.DeductHealth(projectile.Damage);
+            AttackAction?.Invoke(targetHealth);
+            
             projectile.Deactivate();
         }
     }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8198989012469246986}
   - component: {fileID: 6651356305300576192}
+  - component: {fileID: 4585414050056301929}
   m_Layer: 0
   m_Name: Sirens
   m_TagString: Untagged
@@ -48,3 +49,18 @@ MonoBehaviour:
   Desc: Lures ranged units, deals damage
   Cost: 10
   CardType: 3
+--- !u!114 &4585414050056301929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044855705003345373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8245b62b3d2848041b65786e4b7853b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPrefab: {fileID: 86680441837542496, guid: 8647c2fa90389d5428a0a8ca646f91c6, type: 3}
+  squadPostPrefab: {fileID: 6690531026029265590, guid: 43ff946a86ecbbc49b372e7dcd108c7e, type: 3}
+  AdditionCount: 0

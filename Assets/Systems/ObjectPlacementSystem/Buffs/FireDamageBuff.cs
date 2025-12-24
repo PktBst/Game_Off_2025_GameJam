@@ -10,5 +10,9 @@ public class FireDamageBuff : BuffEffect
         {
             attackComponent.projectileModel = FireEffect;
         }
+        if (TryGetComponent(out StatsComponent statComponent))
+        {
+            statComponent.BaseAttackPoints *= 2;
+        }
     }
 }

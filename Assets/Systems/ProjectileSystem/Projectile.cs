@@ -17,6 +17,9 @@ public class Projectile : MonoBehaviour
     Vector3 startPosition;
 
     Vector3 lastPosition;
+
+    AttackComponent firedFromAttackComponent;
+    public AttackComponent FiredFromAttackComponent => firedFromAttackComponent;
     float Duration
     {
         get
@@ -31,7 +34,7 @@ public class Projectile : MonoBehaviour
 
     Func<Vector3, Vector3, float, Vector3> lerpFunction;
     public event System.Action<Collider,Projectile> OnTriggerEnterCallBack;
-    public void Init(Faction faction,Vector3 startPosition,Vector3 targetPosition, float damage, Func<Vector3, Vector3, float ,Vector3> lerpFunc, System.Action<Collider, Projectile> onTriggerEnterCallBack, GameObject model = null)
+    public void Init(Faction faction,Vector3 startPosition,Vector3 targetPosition, float damage, Func<Vector3, Vector3, float ,Vector3> lerpFunc,System.Action<Collider, Projectile> onTriggerEnterCallBack, AttackComponent firedFrom = null, GameObject model = null)
     {
         this.faction = faction;
         this.startPosition = startPosition;
@@ -62,6 +65,7 @@ public class Projectile : MonoBehaviour
         Activate();
         lerpFunction = lerpFunc;
         OnTriggerEnterCallBack = onTriggerEnterCallBack;
+        firedFromAttackComponent = firedFrom;
     }
     private void Update()
     {
@@ -88,6 +92,7 @@ public class Projectile : MonoBehaviour
     public void Deactivate()
     {
         gameObject.SetActive(false);
+        firedFromAttackComponent = null;
     }
     private void OnTriggerEnter(Collider other)
     {

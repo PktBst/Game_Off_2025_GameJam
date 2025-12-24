@@ -10,7 +10,7 @@ public class AOEAttack_SO : AttackBehaviour_SO
         if (ProjectilePool.Instance != null)
         {
             var projectile = ProjectilePool.Instance.GetProjectile();
-            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: BaseDamage, lerpFunc: ProjectileBehaviorScript.LerpFunc, onTriggerEnterCallBack: OnTriggerEnterCall, model: attackComponent.projectileModel);
+            projectile.Init(Faction.GoodGuys, AttackPoint.position, Target.position, damage: BaseDamage, lerpFunc: ProjectileBehaviorScript.LerpFunc, onTriggerEnterCallBack: OnTriggerEnterCall, firedFrom: attackComponent, model: attackComponent.projectileModel);
             Debug.Log(name + "<color=purple> Executed Point Attack Behaviour !</color>");
         }
     }
@@ -34,6 +34,7 @@ public class AOEAttack_SO : AttackBehaviour_SO
                 if (targetHealth.Stats.FactionType != projectile.FactionType)
                 {
                     targetHealth.DeductHealth(projectile.Damage);
+                    projectile.FiredFromAttackComponent?.AdditionEffectOnTarget(targetHealth.transform);
                 }
             }
         }
