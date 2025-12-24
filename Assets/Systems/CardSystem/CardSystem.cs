@@ -179,13 +179,14 @@ public class CardSystem : MonoBehaviour
     {
         foreach(Transform gm in LootCardHolder) Destroy(gm.gameObject);
         List<CardData> opponentCards = GameManager.Instance.ObjectPlacementSystem.placeableObjectDB.GetCardDataByCollection(EnemyKing);
-        while (AmountOfCards-- >= 1)
+        while (AmountOfCards >= 1)
         {
             //GameObject newObj = GenerateCanPopulateRandomCard();
             CardData randomCardFromEnemyDeck = opponentCards[Random.Range(0, opponentCards.Count)];
             GameObject newObj = AddCardByData(randomCardFromEnemyDeck);
             newObj.transform.SetParent(LootCardHolder);
             newObj.GetComponent<CardScript>().IsLootSelectionCard = true;
+            AmountOfCards--;
         }
 
     }
