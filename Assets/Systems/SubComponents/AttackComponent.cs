@@ -166,7 +166,10 @@ public class AttackComponent : MonoBehaviour
         if (targetHealth.Stats.FactionType != projectile.FactionType)
         {
             targetHealth.DeductHealth(projectile.Damage);
-            projectile.FiredFromAttackComponent?.AdditionEffectOnTarget(targetHealth.transform);
+            if (projectile.FiredFromAttackComponent != null && projectile.FiredFromAttackComponent.AdditionEffectOnTarget!=null)
+            {
+                projectile.FiredFromAttackComponent?.AdditionEffectOnTarget(targetHealth.transform);
+            }
             projectile.Deactivate();
         }
     }
