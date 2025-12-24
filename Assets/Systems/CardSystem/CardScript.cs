@@ -163,6 +163,7 @@ public class CardScript : MonoBehaviour,
                 {
                     var cs = GameManager.Instance.CardSystem;
                     cs.AddCard(cs.cardHolder.transform.childCount, PlaceableObjectData);
+                    cs.CurrentDeck.Add(PlaceableObjectData);
                     cs.LootCardHolder.parent.gameObject.SetActive(false);
                     Destroy(gameObject);
                 }
@@ -174,6 +175,8 @@ public class CardScript : MonoBehaviour,
                 cs.LootCardHolder.parent.gameObject.SetActive(false);
             }
         }
+
+        if (IsLootSelectionCard) return;
         if (isSelected)
         {
             Deselect();

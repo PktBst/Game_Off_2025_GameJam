@@ -143,6 +143,7 @@ public class DayNightCycleCounter : MonoBehaviour
     public void SetDay()
     {
         if (currentTime == TimeOfDay.Day) return;
+        GameManager.Instance.CardSystem.redrawDeck();
         if (automaticCycle)
         {
             SetTimeOfDay(TimeOfDay.Day);

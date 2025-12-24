@@ -8,6 +8,8 @@ public class CardSystem : MonoBehaviour
 {
     [Header("References")]
     public bool DebugMode;
+    public CardCollection PlayerKing = CardCollection.KingOfWild;
+    public CardCollection EnemyKing = CardCollection.KingOfNight;
     public RectTransform LootCardHolder;
     public RectTransform ShopCardHolder;
     public TextMeshProUGUI CostPrefab;
@@ -28,6 +30,7 @@ public class CardSystem : MonoBehaviour
     public float ArchHeight = 40f;
 
     private CardScript currentlySelectedCard;
+    public List<CardData> CurrentDeck;
 
     public bool IsShopOpen => ShopCardHolder == null ? false : ShopCardHolder.gameObject.activeInHierarchy;
 
@@ -38,12 +41,35 @@ public class CardSystem : MonoBehaviour
         if (GameManager.Instance.InputActionAsset.FindAction("Click") != null)
             GameManager.Instance.InputActionAsset.FindAction("Click").performed += UseSelectedCard;
 
-        for (int i = 0; i < startingCardCount; i++)
-        {
-            AddCard();
-        }
+        CurrentDeck = GameManager.Instance.ObjectPlacementSystem.placeableObjectDB.GetCardDataByCollection(PlayerKing);
+        AddCardFromCurrentDeck(5);
+        //for (int i = 0; i < startingCardCount; i++)
+        //{
+        //    AddCard();
+        //}
     }
 
+    [Button]
+    public void redrawDeck()
+    {
+        if (!CurrencySystem.TryDeductAmount(6)) return;
+        while (cardHolder.childCount > 0)
+        {
+            Transform child = cardHolder.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+        AddCardFromCurrentDeck(5);
+        ReorganizeHand();
+    }
+    public void AddCardFromCurrentDeck(int numberOfCardToAdd)
+    {
+        while(numberOfCardToAdd-->0){
+            CardData randomCardFromCurrentDeck = CurrentDeck[Random.Range(0, CurrentDeck.Count)];
+            AddCard(optionalObjData: randomCardFromCurrentDeck);
+        }
+        
+    }
     public void AddCard(int specificIndex = -1, CardData optionalObjData = null)
     {
         GameObject newObj = (optionalObjData!=null)? AddCardByData(optionalObjData) : GenerateCanPopulateRandomCard();
@@ -152,9 +178,12 @@ public class CardSystem : MonoBehaviour
     public void GenerateLoot(int AmountOfCards = 3)
     {
         foreach(Transform gm in LootCardHolder) Destroy(gm.gameObject);
+        List<CardData> opponentCards = GameManager.Instance.ObjectPlacementSystem.placeableObjectDB.GetCardDataByCollection(EnemyKing);
         while (AmountOfCards-- >= 1)
         {
-            GameObject newObj = GenerateCanPopulateRandomCard();
+            //GameObject newObj = GenerateCanPopulateRandomCard();
+            CardData randomCardFromEnemyDeck = opponentCards[Random.Range(0, opponentCards.Count)];
+            GameObject newObj = AddCardByData(randomCardFromEnemyDeck);
             newObj.transform.SetParent(LootCardHolder);
             newObj.GetComponent<CardScript>().IsLootSelectionCard = true;
         }
@@ -279,6 +308,7 @@ public class CardSystem : MonoBehaviour
 
 
     //Arranges all cards in arch
+    [Button]
     private void ReorganizeHand()
     {
         int currentCount = cardHolder.childCount;

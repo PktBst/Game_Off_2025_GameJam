@@ -4,7 +4,7 @@ using UnityEngine;
 public class ObjectPlacementSystem : MonoBehaviour
 {
     [SerializeField] GameObject placeableObjectSkeletonPrefab;
-    [SerializeField] PlaceableObjectDB_SO placeableObjectDB;
+    public PlaceableObjectDB_SO placeableObjectDB;
 
     private static EPlaceableObjectType[] enumValues;
 

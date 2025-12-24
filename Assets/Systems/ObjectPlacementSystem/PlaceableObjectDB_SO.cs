@@ -25,6 +25,26 @@ public class PlaceableObjectDB_SO : ScriptableObject
         List<CardData> factionCardCollection = AllPlaceableObjectSOs[Random.Range(0, AllPlaceableObjectSOs.Count)].CardList;
         return factionCardCollection[Random.Range(0, factionCardCollection.Count)].gameObject;
     }
+
+    public List<CardData> GetCardDataByCollection(CardCollection collectionType)
+    {
+        List<CardData> result = new List<CardData>();
+
+        foreach (FactionCardCollection factionCardCollection in AllPlaceableObjectSOs)
+        {
+            if (factionCardCollection.CollectionType == collectionType)
+            {
+                result.AddRange(factionCardCollection.CardList);
+            }
+        }
+
+        if (result.Count == 0)
+        {
+            Debug.LogWarning($"No CardData found for collection '{collectionType}'.");
+        }
+
+        return result;
+    }
 }
 
 [System.Serializable]
