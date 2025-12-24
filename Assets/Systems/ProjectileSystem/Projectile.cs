@@ -52,14 +52,10 @@ public class Projectile : MonoBehaviour
         //     minHeight,
         //     maxHeight
         // );
+        if(projectileGameModel !=null) Destroy(projectileGameModel);
         if(model !=null)
         {
-            if(projectileGameModel !=null) Destroy(projectileGameModel);
             projectileGameModel = Instantiate(model,transform);
-        }
-        else
-        {
-            if(projectileGameModel !=null) Destroy(projectileGameModel);
         }
             this.damage = damage;
         Activate();
@@ -92,7 +88,6 @@ public class Projectile : MonoBehaviour
     public void Deactivate()
     {
         gameObject.SetActive(false);
-        firedFromAttackComponent = null;
     }
     private void OnTriggerEnter(Collider other)
     {

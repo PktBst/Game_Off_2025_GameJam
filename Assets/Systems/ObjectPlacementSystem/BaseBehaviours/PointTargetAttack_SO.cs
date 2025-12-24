@@ -25,7 +25,10 @@ public class PointTargetAttack_SO : AttackBehaviour_SO
         {
             targetHealth.DeductHealth(projectile.Damage);
             projectile.Deactivate();
-            projectile.FiredFromAttackComponent?.AdditionEffectOnTarget(targetHealth.transform);
+            if(projectile.FiredFromAttackComponent!=null && projectile.FiredFromAttackComponent.AdditionEffectOnTarget != null)
+            {
+                projectile.FiredFromAttackComponent.AdditionEffectOnTarget(targetHealth.transform);
+            }
         }
     }
 }
