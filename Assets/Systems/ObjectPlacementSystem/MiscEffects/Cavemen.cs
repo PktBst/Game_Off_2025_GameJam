@@ -11,6 +11,7 @@ public class Cavemen : MiscEffect
 
     protected SquadPost squadPost;
 
+    public SquadPost Post => squadPost;
     public event System.Action<NavMeshAgent> OnUnitDie;
     int BaseCount = 5;
     public int AdditionCount;

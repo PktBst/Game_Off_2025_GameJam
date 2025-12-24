@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5268285318987082752}
   - component: {fileID: 6690531026029265590}
   - component: {fileID: 83574532990261201}
-  - component: {fileID: 8761493284542186515}
   m_Layer: 0
   m_Name: Squad
   m_TagString: Untagged
@@ -185,27 +184,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!65 &8761493284542186515
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766820464764868951}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.01, z: 0.2}
-  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &6897950104885701025
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8175701f01945f145b8cf0aee5548885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   target: {fileID: 0}
   Attacksfx: {fileID: 0}
 --- !u!114 &6414101740948676194
@@ -597,6 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8175701f01945f145b8cf0aee5548885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   target: {fileID: 0}
   Attacksfx: {fileID: 0}
 --- !u!114 &8862376595372720467
@@ -727,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8175701f01945f145b8cf0aee5548885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   target: {fileID: 0}
   Attacksfx: {fileID: 0}
 --- !u!114 &1881217239477590597
@@ -867,6 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8175701f01945f145b8cf0aee5548885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   target: {fileID: 0}
   Attacksfx: {fileID: 0}
 --- !u!114 &4768423363812382147

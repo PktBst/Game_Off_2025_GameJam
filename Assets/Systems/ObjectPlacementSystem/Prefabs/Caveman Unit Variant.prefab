@@ -68,6 +68,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caveman Unit Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2920349620749863631, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
+      propertyPath: MaxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2920349620749863631, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
+      propertyPath: CurrentHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6814271863612025501, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: m_Radius
       value: 0.25
@@ -86,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7611622342117740622, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: BaseAttackPoints
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7611622342117740622, guid: 742e044baacd5924f8512a68d8e0528c, type: 3}
       propertyPath: BaseAttackCooldown

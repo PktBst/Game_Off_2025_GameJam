@@ -9,7 +9,8 @@ public class Aggression : MiscEffect
         var hits = Physics.OverlapBox(GridSystem.Instance.CurrentTile.Pos, Vector3.one * 0.5f);
         foreach(var hit in hits)
         {
-            if (hit.TryGetComponent(out SquadPost post))
+            SquadPost post = hit.GetComponentInParent<SquadPost>();
+            if (post!=null)
             {
                 foreach (var unit in post.UnitList)
                 {
@@ -20,7 +21,7 @@ public class Aggression : MiscEffect
                 }
                 if (AnimationPool.Instance != null)
                 {
-                    AnimationPool.Instance.Play_CFXR2_Shiny_Item_Loop__AnimationAtFor(post.transform.forward, post.transform.position, 0.7f);
+                    AnimationPool.Instance.Play_CFXR2_Shiny_Item_Loop__AnimationAtFor(post.SquadPostPiller.transform.forward, post.SquadPostPiller.transform.position, 0.7f);
                 }
                 return true;
             }

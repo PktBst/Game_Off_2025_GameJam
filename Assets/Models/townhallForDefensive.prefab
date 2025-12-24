@@ -146,7 +146,9 @@ MonoBehaviour:
   BaseAttackCooldown: 4
   BaseAttackAccuracy: 4
   BaseAttackRange: 4
-  TaxAmount: 0
+  TaxAmount: 2
+  SpeedMultiplier: 0
+  BaseSpeed: 1
   BaseDefensePoints: 4
 --- !u!114 &3389535014879642996
 MonoBehaviour:
@@ -160,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0161cf0062eba904d9880cd043f889ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDead: 0
   MaxHealth: 10000
   CurrentHealth: 0
   FillImage: {fileID: 1319476343081203410}

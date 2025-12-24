@@ -18,7 +18,8 @@ public class GumResin : BuffEffect
         if(target != null && target.TryGetComponent(out StatsComponent stats) && stats.FactionType!= GetComponent<StatsComponent>().FactionType)
         {
             stats.SpeedMultiplier = 0.5f;
-            AnimationPool.Instance.Play_CFXR_Water_Splash_Smaller__AnimationAtFor(target.forward,target.position,0.6f);
+            AnimationPool.Instance.Play_CFXR_Water_Splash_Smaller__AnimationAtFor(target.forward,target.position,2f);
+            Debug.Log("[Gum Resin]");
         }
     }
     
