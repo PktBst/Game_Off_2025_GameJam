@@ -15,7 +15,7 @@ public class AttackComponent : MonoBehaviour
     public bool IsRanged;
     const float duration = 3;
     float elapsed = duration;
-    float detectionRadius => IsRanged ? 3f : 0.5f;
+    float stoppingDistance => forcedTarget?0.3f: IsRanged ? 3f : 0.3f;
 
     float scanRadius => Stats?.FactionType == Faction.GoodGuys ? 5 : 15;
 
@@ -56,6 +56,7 @@ public class AttackComponent : MonoBehaviour
     public HealthComponent targetHealth;
     bool wasStopped = true;
 
+    bool forcedTarget;
     private void Start()
     {
         GameManager.Instance.TickSystem.Subscribe(UpdateTarget);
@@ -70,11 +71,17 @@ public class AttackComponent : MonoBehaviour
     {
         AttackCallbackFromSO = action;
     }
+
+    public void ForceLockTarget(HealthComponent target)
+    {
+        targetHealth = target;
+        forcedTarget = true;
+    }
     private void UpdateTarget()
     {
-        if (ScanForNearestTarget(out targetHealth))
+        if (targetHealth!=null)
         {
-            if ((targetHealth.transform.position - transform.position).sqrMagnitude <= detectionRadius * detectionRadius)
+            if ((targetHealth.transform.position - transform.position).sqrMagnitude <= stoppingDistance * stoppingDistance)
             {
                 if (!wasStopped)
                 {
@@ -92,6 +99,10 @@ public class AttackComponent : MonoBehaviour
             }
         }
 
+        if(ScanForNearestTarget(out targetHealth))
+        {
+            forcedTarget = false;
+        }
     }
     void AttackOnTarget()
     {

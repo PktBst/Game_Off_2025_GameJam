@@ -75,7 +75,7 @@ public class Cavemen : MiscEffect
         }
         for (int i = currentcnt; i < BaseCount + AdditionCount; i++)
         {
-            Vector3 spawnPos = squadPost.transform.position + GetRandomSpawnOffset();
+            Vector3 spawnPos = squadPost.SquadPostPiller.position + GetRandomSpawnOffset();
             SpawnUnitAt(spawnPos);
         }
     }

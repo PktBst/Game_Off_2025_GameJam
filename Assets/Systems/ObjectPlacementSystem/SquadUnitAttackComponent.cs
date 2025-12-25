@@ -11,7 +11,7 @@ public class SquadUnitAttackComponent : MonoBehaviour
     private StatsComponent Stat;
     public HealthComponent target;
     public ParticleSystem Attacksfx;
-    private float AttackRange => isRanged?3f:0.4f;
+    private float AttackRange => isRanged?3f:0.3f;
 
     public System.Action<HealthComponent> AttackAction;
 
@@ -57,20 +57,20 @@ public class SquadUnitAttackComponent : MonoBehaviour
     void SearchForEnemy()
     {
 
-            RaycastHit[] hits = Physics.SphereCastAll(SquadPost.SquadPostPiller.position, SquadPost.followTriggerRange, Vector3.up, 0f);
+        var hits = Physics.OverlapSphere(SquadPost.SquadPostPiller.position, SquadPost.followTriggerRange);
 
-            foreach (RaycastHit hit in hits)
+        foreach (var hit in hits)
+        {
+            HealthComponent targetHealth = hit.GetComponent<HealthComponent>();
+
+            if (targetHealth != null && targetHealth.Stats.FactionType == Faction.BadGuys)
             {
-                HealthComponent targetHealth = hit.collider.GetComponent<HealthComponent>();
-
-                if (targetHealth != null && targetHealth.Stats.FactionType == Faction.BadGuys)
-                {
-                    target = targetHealth;
-                    OnEnemyDetected?.Invoke(transform,target.transform);
-                    MoveCloserToEnemy();
-                    break;
-                }
+                target = targetHealth;
+                OnEnemyDetected?.Invoke(transform,target.transform);
+                MoveCloserToEnemy();
+                break;
             }
+        }
        
 
     }

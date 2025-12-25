@@ -85,13 +85,24 @@ public class BadGuysSpawner : MonoBehaviour
         // Start new wave
         if (remainingInCurrentWave <= 0 && completedWaves < wavesToSpawn)
         {
-            remainingInCurrentWave = Random.Range(1, (badguyCountInWave + 1)) * completedWaves;
+            int waveNumber = completedWaves + 1;
+
+            // Base scaling
+            int baseCount = badguyCountInWave * waveNumber;
+
+            // Controlled randomness (±20%)
+            int variance = Mathf.Max(1, baseCount / 5);
+            int randomizedCount = baseCount + Random.Range(-variance, variance + 1);
+
+            remainingInCurrentWave = Mathf.Max(1, randomizedCount);
+
             completedWaves++;
             spawnIndex = 0;
             waveTime = currentTime;
 
             DayNightCycleCounter.Instance.PausePhasing();
         }
+
 
         // Spawn individual enemies
         if (remainingInCurrentWave > 0 &&

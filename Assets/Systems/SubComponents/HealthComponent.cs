@@ -43,7 +43,7 @@ public class HealthComponent : MonoBehaviour
             OnDeath?.Invoke();
             IsDead = true;
             //GlobalEffectManager.Instance.OnDeathEffect?.Invoke(transform.position);
-            AnimationPool.Instance.Play_CFXR2_Skull_Head_Alt_AnimationAtFor(transform.forward,transform.position,3f);
+            AnimationPool.Instance.Play_CFXR2_Skull_Head_Alt_AnimationAtFor(transform.forward,transform.position+(Vector3.up*0.5f),3f);
             Destroy(gameObject);
         }
     }
