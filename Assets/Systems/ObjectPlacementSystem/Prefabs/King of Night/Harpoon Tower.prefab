@@ -310,8 +310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
-  MaxHealth: 100
-  CurrentHealth: 100
+  MaxHealth: 10
+  CurrentHealth: 10
   FillImage: {fileID: 8318198347524846524}
 --- !u!114 &-3644481469572559857
 MonoBehaviour:
@@ -332,6 +332,7 @@ MonoBehaviour:
   IsRanged: 1
   attackBehaviourSO: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
   projectileModel: {fileID: 4319819139856394737, guid: 94947d924b0654f4296c72b5a63211d0, type: 3}
+  Dazed: 0
   targetHealth: {fileID: 0}
 --- !u!1 &8892218079320620098
 GameObject:

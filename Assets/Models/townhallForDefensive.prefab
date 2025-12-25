@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
-  MaxHealth: 10000
+  MaxHealth: 20
   CurrentHealth: 0
   FillImage: {fileID: 1319476343081203410}
 --- !u!1001 &2883859836052942412

@@ -74,6 +74,8 @@ MonoBehaviour:
   BaseAttackAccuracy: 2
   BaseAttackRange: 5
   TaxAmount: 5
+  SpeedMultiplier: 1
+  BaseSpeed: 1
   BaseDefensePoints: 3
 --- !u!114 &659464354656906639
 MonoBehaviour:
@@ -88,8 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
-  MaxHealth: 100
-  CurrentHealth: 100
+  MaxHealth: 10
+  CurrentHealth: 10
   FillImage: {fileID: 3287207756776017299}
 --- !u!114 &3387662099321351883
 MonoBehaviour:
@@ -110,6 +112,7 @@ MonoBehaviour:
   IsRanged: 1
   attackBehaviourSO: {fileID: 11400000, guid: b1472d3707d20a447bbf39126ed75afc, type: 2}
   projectileModel: {fileID: 0}
+  Dazed: 0
   targetHealth: {fileID: 0}
 --- !u!208 &4657681541345286925
 NavMeshObstacle:

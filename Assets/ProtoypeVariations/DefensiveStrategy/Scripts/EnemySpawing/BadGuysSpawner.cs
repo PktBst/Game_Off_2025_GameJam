@@ -85,7 +85,7 @@ public class BadGuysSpawner : MonoBehaviour
         // Start new wave
         if (remainingInCurrentWave <= 0 && completedWaves < wavesToSpawn)
         {
-            remainingInCurrentWave = Random.Range(1, badguyCountInWave + 1);
+            remainingInCurrentWave = Random.Range(1, (badguyCountInWave + 1)) * completedWaves;
             completedWaves++;
             spawnIndex = 0;
             waveTime = currentTime;

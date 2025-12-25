@@ -25,17 +25,24 @@ public class Sirens : Cavemen
         var spawnedUnit = base.SpawnUnitAt(spawnPos);
         if(spawnedUnit.TryGetComponent(out SquadUnitAttackComponent squadUnitAttackComponent))
         {
-            squadUnitAttackComponent.OnEnemyDetected += OnEnemyDetected;
+            squadUnitAttackComponent.OnEnemyDetected += OnSearchForEnemy;
         }
         return spawnedUnit;
     }
-   
 
-    void OnEnemyDetected(Transform self, Transform target)
+    void OnSearchForEnemy(Transform self,Transform enemy)
     {
-        if(target.TryGetComponent(out MoveComponent targetMove))
+      
+        var hits = Physics.OverlapSphere(self.position,5f);
+
+        var selfHealth = self.GetComponent<HealthComponent>();
+        foreach (var target in hits)
         {
-            targetMove.MoveTo(self.position);
+            if (target.TryGetComponent(out AttackComponent targetAttack) && target.TryGetComponent(out StatsComponent targetStats) && targetStats.FactionType!= selfHealth.Stats.FactionType)
+            {
+                targetAttack.targetHealth = selfHealth; // lure duration
+            }
         }
     }
+
 }

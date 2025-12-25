@@ -97,6 +97,8 @@ MonoBehaviour:
   BaseAttackAccuracy: 0
   BaseAttackRange: 0
   TaxAmount: 2
+  SpeedMultiplier: 1
+  BaseSpeed: 1
   BaseDefensePoints: 0
 --- !u!114 &4513255291191402446
 MonoBehaviour:
@@ -111,8 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
-  MaxHealth: 100
-  CurrentHealth: 100
+  MaxHealth: 10
+  CurrentHealth: 10
   FillImage: {fileID: 1603462032555887638}
 --- !u!208 &7491712211901203032
 NavMeshObstacle:
