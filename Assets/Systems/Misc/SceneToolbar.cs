@@ -1,9 +1,9 @@
-using UnityEditor;
+#if UNITY_EDITOR
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.SceneManagement;
-using System.IO;
-
+using UnityEditor;
 [InitializeOnLoad]
 public class SceneToolbarRight
 {
@@ -78,3 +78,4 @@ public class SceneToolbarRight
         GUILayout.EndHorizontal();
     }
 }
+#endif
