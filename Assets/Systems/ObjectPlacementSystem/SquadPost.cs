@@ -74,6 +74,8 @@ public class SquadPost : MonoBehaviour
             targetPos.y = SquadPostPiller.position.y;
             SquadPostPiller.position = targetPos;
         }
+        _lineRenderer.enabled = _isDragging;
+        
     }
 
     Vector3 GetMouseWorldPos()
